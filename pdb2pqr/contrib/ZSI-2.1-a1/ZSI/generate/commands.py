@@ -533,5 +533,3 @@ def _writepydoc(doc, *args):
         except IndexError,ex:
             _writebrokedoc(doc, ex, name)
             continue
-
-

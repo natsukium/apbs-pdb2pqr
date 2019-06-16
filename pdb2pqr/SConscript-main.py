@@ -28,15 +28,15 @@ vars.Add(PathVariable('APBS',
                       PathVariable.PathAccept))
 
 vars.Add('MAX_ATOMS', 'Sets the maximum number of atoms in a protein for non-Opal job submission. '
-					  'Only affects web tools', 10000, None, int)
+                      'Only affects web tools', 10000, None, int)
 
 vars.Add(BoolVariable('BUILD_PDB2PKA',
-					  'Set to False to skip building ligand and pdb2pka support. Requires numpy.',
-					  True))
+                      'Set to False to skip building ligand and pdb2pka support. Requires numpy.',
+                      True))
 
 vars.Add(BoolVariable('REBUILD_SWIG',
-					  'Set to True to rebuild the swig bindings. Requires swig on the the user path.',
-					  False))
+                      'Set to True to rebuild the swig bindings. Requires swig on the the user path.',
+                      False))
 
 vars.Add(BoolVariable('DEBUG',
                       'Set to True to compiled components with debug headers.',

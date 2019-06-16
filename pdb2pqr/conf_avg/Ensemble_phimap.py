@@ -47,7 +47,7 @@ class conf_avg:
         """Initialize class and decide which kind of job to do"""
         self.options=options # Store options so we can access them anywhere
         potentials=[]
-		# If directoryPath is specified then use that, otherwise use pdbfilename
+        # If directoryPath is specified then use that, otherwise use pdbfilename
         if options.directoryPath!='':
             listOfFiles=os.listdir(options.directoryPath)
             for currentPDB in listOfFiles:
@@ -57,9 +57,9 @@ class conf_avg:
         else:
             # Single file
             potentials.append(self.process_one_pdb(os.path.join(os.getcwd(),options.pdbfilename)))
-		#
-		# Average potentials
-		#
+        #
+        # Average potentials
+        #
         avg_pots=self.average_potentials(potentials)
         return
         
@@ -129,10 +129,10 @@ class conf_avg:
         
         
     def get_potentials(self,currentPDB):
-		"""Get the potentials by first running pdb2pqr and then apbs"""
-		myProtein,apbs_inputfile=self.run_pdb2pqr(currentPDB)
-		potentials=self.run_apbs(myProtein,apbs_inputfile)
-		return potentials
+        """Get the potentials by first running pdb2pqr and then apbs"""
+        myProtein,apbs_inputfile=self.run_pdb2pqr(currentPDB)
+        potentials=self.run_apbs(myProtein,apbs_inputfile)
+        return potentials
         
         
     def run_pdb2pqr(self,currentPDB):
@@ -194,30 +194,30 @@ class conf_avg:
                     atom.set("ffcharge", charge)
         #
         #
-		method=""
-		async=0
-		split=0
-		import pdb2pka.inputgen_pKa as IP
-		igen = IP.inputGen(currentPDB)
-		igen.maps=None
-		igen.set_type('background')
-		igen.pdie=8.0
-		igen.sdie=80.0
-		all_center,extent=igen.getCenter()
-		igen.setfineCenter(all_center)
-		print 'Center: %5.1fA %5.1fA %5.1fA' %(all_center[0],all_center[1],all_center[2])
-		print 'Extent: %5.1fA %5.1fA %5.1fA'  %(extent[0],extent[1],extent[2])
+        method=""
+        async=0
+        split=0
+        import pdb2pka.inputgen_pKa as IP
+        igen = IP.inputGen(currentPDB)
+        igen.maps=None
+        igen.set_type('background')
+        igen.pdie=8.0
+        igen.sdie=80.0
+        all_center,extent=igen.getCenter()
+        igen.setfineCenter(all_center)
+        print 'Center: %5.1fA %5.1fA %5.1fA' %(all_center[0],all_center[1],all_center[2])
+        print 'Extent: %5.1fA %5.1fA %5.1fA'  %(extent[0],extent[1],extent[2])
 
-		apbs_inputfile=igen.printInput()
-		return myProtein, apbs_inputfile
+        apbs_inputfile=igen.printInput()
+        return myProtein, apbs_inputfile
         
     def run_apbs(self,myProtein,apbs_inputfile):
-		"""runs apbs"""
-		import pdb2pka.apbs 
-		APBS=pdb2pka.apbs.runAPBS()
-		potentials = APBS.runAPBS(myProtein, apbs_inputfile)
-		APBS.cleanup()
-		return potentials
+        """runs apbs"""
+        import pdb2pka.apbs 
+        APBS=pdb2pka.apbs.runAPBS()
+        potentials = APBS.runAPBS(myProtein, apbs_inputfile)
+        APBS.cleanup()
+        return potentials
         
     def average_potentials(self,potentials):
         """This function averages many potential maps"""
@@ -261,4 +261,3 @@ if __name__=='__main__':
     ff='parse'
 
     I=conf_avg(options)
-
