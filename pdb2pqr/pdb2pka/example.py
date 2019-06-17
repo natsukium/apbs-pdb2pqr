@@ -9,6 +9,7 @@
 """
 
 from __future__ import print_function
+from __future__ import absolute_import
 __date__  = "16 August 2005"
 __author__ = "Todd Dolinsky, Jens Erik Nielsen"
 

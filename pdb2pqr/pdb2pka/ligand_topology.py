@@ -4,13 +4,14 @@
 # Get ligand topologies
 #
 from __future__ import print_function
+from __future__ import absolute_import
 try:
     import Numeric
 except:
     import numpy as Numeric
     
 from sets import Set
-from ligandclean.trial_templates import *
+from .ligandclean.trial_templates import *
 from types import *
 
 def length(vector):

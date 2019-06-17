@@ -2,6 +2,7 @@
 # Various functions that cluttered pka.py
 #
 from __future__ import print_function
+from __future__ import absolute_import
 from src.pdb import HETATM, ATOM, ANISOU, SIGUIJ, SIGATM
 
 
@@ -29,7 +30,7 @@ def titrate_one_group(name,intpkas,is_charged,acidbase):
     #
     # Call our little C++ module
     #
-    import pMC_mult
+    from . import pMC_mult
     FAST=pMC_mult.MC(intpkas,linear,acidbase,state_counter,is_charged)
     FAST.set_MCsteps(int(mcsteps))
     print('Calculating intrinsic pKa value')

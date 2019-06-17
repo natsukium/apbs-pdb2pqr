@@ -5,13 +5,14 @@
 #
 
 from __future__ import print_function
+from __future__ import absolute_import
 import numpy
     
 #from sets import Set
-from ligandclean.trial_templates import *
-from ligandclean.lookuptable import *
+from .ligandclean.trial_templates import *
+from .ligandclean.lookuptable import *
 try:
-    from substruct import Algorithms
+    from .substruct import Algorithms
 except ImportError:
     txt = "Cannot import Algorithms, this may be the result of disabling pdb2pka at configure stage!"    
     raise ImportError, txt

@@ -9,11 +9,12 @@
 # All rights reserved
 #
 from __future__ import print_function
+from __future__ import absolute_import
 import sys
 #try:
 import os
 
-from pKa_utility_functions_compat import *
+from .pKa_utility_functions_compat import *
 
 class pKaIO:
 

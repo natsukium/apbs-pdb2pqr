@@ -12,6 +12,7 @@
 # Routines for getting WHAT IF residue identifiers
 #
 
+from __future__ import absolute_import
 def getWI_resid(line):
     #
     # Take a WHAT IF line of the form:

@@ -1,6 +1,7 @@
 from __future__ import print_function
-from graph import ProteinGraph
-from uncertainty import resolve_uncertainty
+from __future__ import absolute_import
+from .graph import ProteinGraph
+from .uncertainty import resolve_uncertainty
 from collections import defaultdict
 import math
 from pprint import pprint

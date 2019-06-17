@@ -1,6 +1,7 @@
 from __future__ import print_function
+from __future__ import absolute_import
 from src.forcefield import *
-from peoe_PDB2PQR import PEOE as calc_charges
+from .peoe_PDB2PQR import PEOE as calc_charges
 from src.pdb import *
 from src.definitions import *
 from pdb2pka import NEWligand_topology

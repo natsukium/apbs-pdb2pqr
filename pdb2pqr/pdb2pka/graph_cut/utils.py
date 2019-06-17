@@ -1,4 +1,5 @@
 from __future__ import print_function
+from __future__ import absolute_import
 from pdb2pka.graph_cut.protein_complex import ProteinComplex
 from pdb2pka.graph_cut.titration_curve import get_titration_curves
 

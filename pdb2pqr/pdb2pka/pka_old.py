@@ -10,10 +10,11 @@
 # Get paths
 #
 from __future__ import print_function
+from __future__ import absolute_import
 debug=False
 import optparse
 import sys, os
-from pKa_base import *
+from .pKa_base import *
 
 print(__file__)
 import os
@@ -253,7 +254,7 @@ def pre_init(pdbfilename=None,
     #
     # remove hydrogen atoms
     #
-    import pka_help
+    from . import pka_help
     pka_help.remove_hydrogens(pdbfilename)
     #
     # Get the PDBfile
@@ -307,7 +308,7 @@ def pre_init(pdbfilename=None,
                 #
                 # Read the ligand into Paul's code
                 #
-                from ligandclean import ligff
+                from .ligandclean import ligff
                 myProtein, myDefinition, Lig = ligff.initialize(myDefinition, ligfd, pdblist, verbose)
                 #
                 # Create the ligand definition from the mol2 data
@@ -505,7 +506,7 @@ def pre_init(pdbfilename=None,
     method=""
     async=0
     split=0
-    import inputgen_pKa
+    from . import inputgen_pKa
     igen = inputgen_pKa.inputGen(pdbfilename)
     #
     # For convenience
@@ -563,7 +564,7 @@ def pre_init(pdbfilename=None,
 if __name__ == "__main__":
     
     (protein, routines, forcefield,apbs_setup, ligand_titratable_groups, maps, sd), options = startpKa()
-    import pka_routines
+    from . import pka_routines
     mypkaRoutines = pka_routines.pKaRoutines(protein, routines, forcefield, apbs_setup, maps, sd,
                                              pdbfile_name,
                                              options=options)

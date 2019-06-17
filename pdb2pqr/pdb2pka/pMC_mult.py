@@ -2,6 +2,7 @@
 # Don't modify this file, modify the SWIG interface instead.
 # This file is compatible with both classic and new-style classes.
 
+from __future__ import absolute_import
 import _pMC_mult
 import new
 new_instancemethod = new.instancemethod

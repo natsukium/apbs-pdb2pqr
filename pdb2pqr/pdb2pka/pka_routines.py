@@ -5,27 +5,28 @@
 # All rights reserved
 #
 from __future__ import print_function
+from __future__ import absolute_import
 __date__="22 April, 2009"
 __author__="Jens Erik Nielsen, Todd Dolinsky, Yong Huang, Tommy Carstensen"
 
 debug=False
 import os
 import sys
-import pKaIO_compat
-from pKa_base import *
+from . import pKaIO_compat
+from .pKa_base import *
 import six.moves.cPickle
-import pMC_mult
+from . import pMC_mult
 import math
 import copy
 import string
 
-from graph_cut.utils import create_protein_complex_from_matrix, process_desolv_and_background, curve_for_one_group
-from graph_cut.titration_curve import get_titration_curves
-from graph_cut.create_titration_output import create_output
+from .graph_cut.utils import create_protein_complex_from_matrix, process_desolv_and_background, curve_for_one_group
+from .graph_cut.titration_curve import get_titration_curves
+from .graph_cut.create_titration_output import create_output
 
 if debug:
     from six.moves.tkinter import *
-    from charge_mon import *
+    from .charge_mon import *
 
     CM=charge_mon()
 else:
@@ -33,7 +34,7 @@ else:
 
 import shutil
 
-from pka_help import is_sameatom, titrate_one_group
+from .pka_help import is_sameatom, titrate_one_group
 from src.errors import PDB2PKAError
 
 #
@@ -57,7 +58,7 @@ from src.routines import Routines
 from src.hydrogens import hydrogenRoutines, hydrogenAmbiguity
 
 #import ligandclean.ligff
-from apbs import runAPBS
+from .apbs import runAPBS
 
 
 #
