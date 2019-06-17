@@ -3,6 +3,7 @@
 # See Copyright for copyright notice!
 ###########################################################################
 
+from __future__ import print_function
 import time, urlparse, socket
 from ZSI import _seqtypes, EvaluateException, WSActionException
 from TC import AnyElement, AnyType, TypeCode
@@ -246,4 +247,4 @@ class Address(object):
 
 
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

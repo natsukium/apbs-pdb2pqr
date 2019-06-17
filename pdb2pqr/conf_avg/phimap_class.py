@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 sys.path.append('/Users/nielsen/bin/APBS/tools/python/vgrid')
 from vgrid import *
@@ -11,7 +12,7 @@ class phimap_class:
         #print
         self.maps={}
         for name,emap in [['x',xmap],['y',ymap],['z',zmap]]:
-            print 'Reading',emap
+            print('Reading',emap)
             data=[]
             value=0.0
             

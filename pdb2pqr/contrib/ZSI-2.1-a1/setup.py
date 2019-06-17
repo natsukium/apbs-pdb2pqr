@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 # $Header$
+from __future__ import print_function
 import sys
 try:
     from setuptools import setup
@@ -33,7 +34,7 @@ elif beta:
 try:
     open('ZSI/version.py', 'r').close()
 except:
-    print 'ZSI/version.py not found; run "make"'
+    print('ZSI/version.py not found; run "make"')
     sys.exit(1)
 
 _packages = [ "ZSI", "ZSI.generate", "ZSI.wstools"]

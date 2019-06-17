@@ -21,6 +21,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Memoize.py  2014/08/24 12:12:31 garyo"
 
 __doc__ = """Memoizer
@@ -143,7 +144,7 @@ class Counter(object):
         CounterList.append(self)
     def display(self):
         fmt = "    %7d hits %7d misses    %s()"
-        print fmt % (self.hit, self.miss, self.name)
+        print(fmt % (self.hit, self.miss, self.name))
     def __cmp__(self, other):
         try:
             return cmp(self.name, other.name)
@@ -215,7 +216,7 @@ class Memoizer(object):
 
 def Dump(title=None):
     if title:
-        print title
+        print(title)
     CounterList.sort()
     for counter in CounterList:
         counter.display()

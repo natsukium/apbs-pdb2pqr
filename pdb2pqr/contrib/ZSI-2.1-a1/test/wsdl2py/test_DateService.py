@@ -4,6 +4,7 @@
 # See LBNLCopyright for copyright notice!
 # Tests for Holger's DateService
 ###########################################################################
+from __future__ import print_function
 import sys, unittest, time
 from ServiceTest import main, ServiceTestCase, ServiceTestSuite, TestException
 
@@ -61,7 +62,7 @@ class Test(ServiceTestCase):
         offset = 9
         loc = self.client_module.simple_Date_ServiceLocator()
         port = loc.getDateService_Port(**self.getPortKWArgs())
-        print "START"
+        print("START")
         msg = self.client_module.getCurrentDateRequest()
         msg.Input = "Test"
         rsp = port.getCurrentDate(msg)
@@ -82,9 +83,9 @@ class Test(ServiceTestCase):
         dateRequest.Offset = offset
         date = port.getDate(dateRequest)
 
-        print '\n\nRESULT'
-        print '%10s = %s' % ('today', _make_asctime(today))
-        print '%6s + %d = %s' % ('today', dateRequest.Offset, _make_asctime(date.Day))
+        print('\n\nRESULT')
+        print('%10s = %s' % ('today', _make_asctime(today)))
+        print('%6s + %d = %s' % ('today', dateRequest.Offset, _make_asctime(date.Day)))
 
 
 def _make_asctime(date_object):

@@ -1,3 +1,4 @@
+from __future__ import print_function
 import distutils.sysconfig
 
 import os
@@ -163,13 +164,13 @@ settingsValues = env.Value(replacementDict)
 #Set up regex to alternately clear tags or wipe sections
 if env['OPAL'] == '':
     #Not using opal for pdb2pqr.
-    print "not using opal", env['OPAL']
+    print("not using opal", env['OPAL'])
     withOpalRegex = r'@WITHOPAL@.*?@WITHOPAL@'
     withoutOpalRegex = '@WITHOUTOPAL@'
 
 else:
     #Using opal for pdb2pqr.
-    print "using opal", env['OPAL']
+    print("using opal", env['OPAL'])
     withOpalRegex = '@WITHOPAL@'
     withoutOpalRegex = r'@WITHOUTOPAL@.*?@WITHOUTOPAL@'
 
@@ -215,7 +216,7 @@ if env['BUILD_PDB2PKA']:
     try:
         import numpy
     except ImportError:
-        print 'WARNING: PDB2PKA build skipped, numpy not installed. Ligand support will not be available.'
+        print('WARNING: PDB2PKA build skipped, numpy not installed. Ligand support will not be available.')
         numpy_error = True
 
     if not numpy_error:
@@ -290,58 +291,58 @@ def print_default_message(target_list):
         return
     if not GetOption("help"):
 
-        print
-        print 'TARGETS:', target_list
-        print
-        print '========================'
-        print 'Configuration Parameters'
-        print '========================'
-        print
-        print 'Version:', productVersion
-        print 'Install directory:', env['PREFIX']
+        print()
+        print('TARGETS:', target_list)
+        print()
+        print('========================')
+        print('Configuration Parameters')
+        print('========================')
+        print()
+        print('Version:', productVersion)
+        print('Install directory:', env['PREFIX'])
         if numpy_error:
-            print
-            print 'WARNING: PDB2PKA build skipped, numpy not installed. Ligand support will not be available.'
-            print
+            print()
+            print('WARNING: PDB2PKA build skipped, numpy not installed. Ligand support will not be available.')
+            print()
         else:
-            print 'pdb2pka and ligand support:', env['BUILD_PDB2PKA']
-        print 'Path to the website directory:', url
+            print('pdb2pka and ligand support:', env['BUILD_PDB2PKA'])
+        print('Path to the website directory:', url)
         if env['OPAL'] == '':
-            print 'PDB2PQR jobs run via the web interface will be forked on the server.'
+            print('PDB2PQR jobs run via the web interface will be forked on the server.')
         else:
-            print 'PDB2PQR jobs run via the web interface will be run via opal at', env['OPAL']
+            print('PDB2PQR jobs run via the web interface will be run via opal at', env['OPAL'])
     else:
-        print
-        print 'Run "python scons/scons.py" to build pdb2pqr.'
+        print()
+        print('Run "python scons/scons.py" to build pdb2pqr.')
 
-    print
-    print 'The preferred way to configure the build is by editing the file', config_file
-    print
-    print 'Run scons with the python that you intend to use with pdb2pqr.'
-    print 'For example: "/opt/bin/python scons/scons.py" will setup pdb2pqr to be run with /opt/bin/python'
+    print()
+    print('The preferred way to configure the build is by editing the file', config_file)
+    print()
+    print('Run scons with the python that you intend to use with pdb2pqr.')
+    print('For example: "/opt/bin/python scons/scons.py" will setup pdb2pqr to be run with /opt/bin/python')
 
     if 'install' not in target_list:
-        print
-        print 'Run "python scons/scons.py install" to install pdb2pqr in', env['PREFIX']
+        print()
+        print('Run "python scons/scons.py install" to install pdb2pqr in', env['PREFIX'])
 
-    print
-    print 'Run "python scons/scons.py basic-test" for a basic functionality test'
-    print 'Run "python scons/scons.py advanced-test" for a single test of ligand and PROPKA support. Requires numpy and PDB2PKA support compiled.'
-    print 'Run "python scons/scons.py complete-test" for a complete test of all functionality EXCEPT PDB2PKA. Requires numpy and PDB2PKA support compiled.'
-    print 'Run "python scons/scons.py pdb2pka-test" for a test of PDB2PKA functionality.'
-    print '    Requires numpy, PDB2PKA support compiled AND the APBS python libraries compiled and installed in the pdb2pka directory.'
+    print()
+    print('Run "python scons/scons.py basic-test" for a basic functionality test')
+    print('Run "python scons/scons.py advanced-test" for a single test of ligand and PROPKA support. Requires numpy and PDB2PKA support compiled.')
+    print('Run "python scons/scons.py complete-test" for a complete test of all functionality EXCEPT PDB2PKA. Requires numpy and PDB2PKA support compiled.')
+    print('Run "python scons/scons.py pdb2pka-test" for a test of PDB2PKA functionality.')
+    print('    Requires numpy, PDB2PKA support compiled AND the APBS python libraries compiled and installed in the pdb2pka directory.')
 
-    print
-    print 'To setup a web service create a symbolic link to', env['PREFIX'], 'that enables you to view', env['URL'],'after running "scons/scons.py install"'
-    print
-    print 'Run "python scons/scons.py msvs" to build Visual Studio projects for the Algorithms and pMC_mult modules.'
-    print 'VS project generation is not well supported in scons. Resulting projects should build using NMAKE but cannot be used for debugging.'
-    print 'The resulting projects will need to modified to use VS natively to compile the code or debug.'
+    print()
+    print('To setup a web service create a symbolic link to', env['PREFIX'], 'that enables you to view', env['URL'],'after running "scons/scons.py install"')
+    print()
+    print('Run "python scons/scons.py msvs" to build Visual Studio projects for the Algorithms and pMC_mult modules.')
+    print('VS project generation is not well supported in scons. Resulting projects should build using NMAKE but cannot be used for debugging.')
+    print('The resulting projects will need to modified to use VS natively to compile the code or debug.')
 
 
     if 'install' in target_list:
-        print
-        print 'pdb2pqr installed in', env['PREFIX']
+        print()
+        print('pdb2pqr installed in', env['PREFIX'])
 
 
 atexit.register(print_default_message, BUILD_TARGETS)

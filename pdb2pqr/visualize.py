@@ -2,7 +2,8 @@
 """
     Displays the Jmol input page
 """
-print 'Content-type: text/html\n\n'
+from __future__ import print_function
+print('Content-type: text/html\n\n')
 
 __date__ = "18 June 2008"
 __author__ = "Samir Unni"
@@ -76,7 +77,7 @@ def main(apbsOptions):
         jobid = form['jobid'].value
         tool = form['tool'].value #run 3dmol or jmol
     except KeyError:
-        print redirectString
+        print(redirectString)
         return
 
     string_3dmol =  """
@@ -136,8 +137,8 @@ def main(apbsOptions):
                   trackingscript=getTrackingScriptString(jobid=jobid))
 
     if(tool == 'tool_3dmol'):
-        print string_3dmol
+        print(string_3dmol)
     if(tool == 'tool_jmol'):
-        print string_jmol 
+        print(string_jmol) 
 
 main(initVars())

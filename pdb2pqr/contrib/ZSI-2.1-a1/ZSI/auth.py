@@ -3,6 +3,7 @@
 '''Simple CGI dispatching.
 '''
 
+from __future__ import print_function
 from ZSI import *
 from ZSI import _copyright
 import base64, os
@@ -62,4 +63,4 @@ class ClientBinding:
         '''
         return self.ps
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

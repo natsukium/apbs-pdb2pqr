@@ -8,6 +8,7 @@
 
 """
 
+from __future__ import print_function
 __date__  = "16 August 2005"
 __author__ = "Todd Dolinsky, Jens Erik Nielsen"
 
@@ -283,7 +284,7 @@ if __name__ == "__main__":
 
     # Print out the number of elec statements
 
-    print "Number of elecs: ", len(input.elecs)
+    print("Number of elecs: ", len(input.elecs))
 
     # Let's set the dielectric in the second elec statement
 
@@ -295,4 +296,4 @@ if __name__ == "__main__":
 
     # And print the results!
 
-    print "Now we have: ", potentials
+    print("Now we have: ", potentials)

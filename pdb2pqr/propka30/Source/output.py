@@ -36,6 +36,7 @@
 #   Mats H.M. Olsson, Chresten R. Sondergard, Michal Rostkowski, and Jan H. Jensen
 #   Journal of Chemical Theory and Computation, 7, 525-537 (2011)
 #-------------------------------------------------------------------------------------------------------
+from __future__ import print_function
 import sys
 import lib
 revision = 182
@@ -63,7 +64,7 @@ def writePDB(protein, file=None, filename=None, hydrogens=False, options=None):
         filename = "%s.pdb" % (protein.name)
       file = open(filename, 'w')
       if options.verbose:
-          print("writing pdbfile %s" % (filename))
+          print(("writing pdbfile %s" % (filename)))
       close_file = True
     else:
       # don't close the file, it was opened in a different place
@@ -156,7 +157,7 @@ def writePKA(protein, filename=None, reference="neutral", direction="folding", o
       filename = "%s.pka" % (protein.name)
     file = open(filename, 'w')
     if verbose == True:
-      print("writing pkafile %s" % (filename))
+      print(("writing pkafile %s" % (filename)))
 
     # writing propka header
     str  = "%s\n" % ( getPropkaHeader() )
@@ -213,7 +214,7 @@ def printPKASection(protein, verbose=False):
     # geting the determinants section
     str = getDeterminantSection(protein)
     if verbose:
-        print(str[:-1])
+        print((str[:-1]))
 
     str = getSummarySection(protein)
     if verbose:

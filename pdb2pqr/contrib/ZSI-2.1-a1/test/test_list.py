@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import unittest, time, datetime
 import ZSI 
 from ZSI.writer import SoapWriter
@@ -44,7 +45,7 @@ class ListTestCase(unittest.TestCase):
                 sw = SoapWriter()
                 sw.serialize(data, typecode)
                 s = str(sw)
-                print s
+                print(s)
                 ps = ParsedSoap(s); pyobj = ps.Parse(typecode)
                 assert pyobj == data, 'Data corruption expected "%s", got "%s"' %(str(data),str(pyobj))
                 if data is None: 

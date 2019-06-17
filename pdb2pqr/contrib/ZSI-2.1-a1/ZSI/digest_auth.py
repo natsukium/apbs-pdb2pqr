@@ -2,6 +2,7 @@
 # $Header$
 '''Utilities for HTTP Digest Authentication
 '''
+from __future__ import print_function
 import re
 from md5 import md5
 import random
@@ -109,4 +110,4 @@ def build_authorization_arg(authdict):
     vallist += ['%s=%s' % (k,authdict[k])]
   return 'Digest '+', '.join(vallist)
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

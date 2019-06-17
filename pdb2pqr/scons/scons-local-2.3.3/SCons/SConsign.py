@@ -27,6 +27,7 @@ Writing and reading information to the .sconsign file or files.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/SConsign.py  2014/08/24 12:12:31 garyo"
 
 import SCons.compat
@@ -84,7 +85,7 @@ def Get_DataBase(dir):
         DB_sync_list.append(db)
         return db, "c"
     except TypeError:
-        print "DataBase =", DataBase
+        print("DataBase =", DataBase)
         raise
 
 def Reset():

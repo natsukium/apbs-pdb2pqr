@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from Registration_services import *
 
 import sys
@@ -16,7 +17,7 @@ def main():
     request = RegisterUserRequestWrapper()
     request._User = user
     response = registration.RegisterUser(request)
-    print response._Message
+    print(response._Message)
 
 if __name__ == '__main__':
     main()

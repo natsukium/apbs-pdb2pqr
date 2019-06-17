@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import unittest, sys, tests_good, tests_bad, time
 from ZSI import *
 try:
@@ -35,10 +36,10 @@ class t1TestCase(unittest.TestCase):
 
     def checkt1(self):
         for key,val in self.badTests:
-            print "\n", "." * 60, key
+            print("\n", "." * 60, key)
             self.failUnlessRaises(ParseException, ParsedSoap, val)
         for key,val in self.goodTests:
-            print "\n", "." * 60, key
+            print("\n", "." * 60, key)
             ps = ParsedSoap(val)
 
         ps = ParsedSoap(datatest)
@@ -141,13 +142,13 @@ class t1TestCase(unittest.TestCase):
             a = bar() 
         except Exception, e: 
             f = FaultFromException(e, 0, sys.exc_info()[2]) 
-            print f.AsSOAP() 
-        print
-        print
-        print FaultFromNotUnderstood('myuri', 'dalocalname', actor='cher').AsSOAP() 
-        print
-        print
-        print FaultFromActor('actor:i:dont:understand').AsSOAP()
+            print(f.AsSOAP()) 
+        print()
+        print()
+        print(FaultFromNotUnderstood('myuri', 'dalocalname', actor='cher').AsSOAP()) 
+        print()
+        print()
+        print(FaultFromActor('actor:i:dont:understand').AsSOAP())
 
 
 def makeTestSuite():

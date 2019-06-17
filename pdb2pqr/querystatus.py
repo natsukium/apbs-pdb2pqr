@@ -3,6 +3,7 @@
   CGI Module for checking on the status of an OPAL job
 """
 
+from __future__ import print_function
 __date__   = "4 January 2010"
 __author__ = "Wes Goodman, Samir Unni, Yong Huang"
 
@@ -170,16 +171,16 @@ def mainCGI():
         Main method for determining the query page output
     """
     logopts = {}
-    print "Content-type: text/html\n\n"
+    print("Content-type: text/html\n\n")
     calctype = form["calctype"].value
 
     # prints version error, if it exists
     if form["jobid"].value == 'False':
-        print printheader("%s Job Status Page" % calctype.upper())
+        print(printheader("%s Job Status Page" % calctype.upper()))
         progress = "version_mismatch"
         runtime = 0
     elif form["jobid"].value == 'notenoughmem':
-        print printheader("%s Job Status Page" % calctype.upper())
+        print(printheader("%s Job Status Page" % calctype.upper()))
         progress = "not_enough_memory"
         runtime = 0
     else:
@@ -194,7 +195,7 @@ def mainCGI():
         string+= "\t\t<meta http-equiv=\"Refresh\" content=\"0; url=%s%s%s.html\">\n" % (WEBSITE, TMPDIR, form["jobid"].value)
         string+= "\t</head>\n"
         string+= "</html>\n"
-        print string
+        print(string)
         return
 
     # prepares for Opal query, if necessary
@@ -283,18 +284,18 @@ def mainCGI():
             resultsurl = '%squerystatus.cgi?jobid=%s&calctype=apbs' % (WEBSITE, form["jobid"].value)
 
     if progress == "complete":
-        print printheader("%s Job Status Page" % calctype.upper(), jobid=form["jobid"].value)
+        print(printheader("%s Job Status Page" % calctype.upper(), jobid=form["jobid"].value))
 
     elif progress == "error":
-        print printheader("%s Job Status Page - Error" % calctype.upper(),0, jobid=form["jobid"].value)
+        print(printheader("%s Job Status Page - Error" % calctype.upper(),0, jobid=form["jobid"].value))
 
     elif progress == "running": # job is not complete, refresh in 30 seconds
-        print printheader("%s Job Status Page" % calctype.upper(), refresh, jobid=form["jobid"].value)
+        print(printheader("%s Job Status Page" % calctype.upper(), refresh, jobid=form["jobid"].value))
 
-    print "<BODY>\n<P>"
-    print "<p></p>"
-    print '<div id="content">'
-    print "<h3>Status:"
+    print("<BODY>\n<P>")
+    print("<p></p>")
+    print('<div id="content">')
+    print("<h3>Status:")
 
     color = "FA3434"
     image = WEBSITE+"images/red_x.png"
@@ -306,12 +307,12 @@ def mainCGI():
         color = "ffcc00"
         image = WEBSITE+"images/yellow_exclamation.png"
 
-    print "<strong style=\"color:#%s;\">%s</strong>" % (color, progress)
-    print "<img src=\"%s\"><br />" % image
-    print "</h3>"
-    print "Run time: " + str(timedelta(seconds=round(runtime))) + '<br />'
-    print "Current time: %s<br />" % time.asctime()
-    print "</P>\n<HR>\n<P>"
+    print("<strong style=\"color:#%s;\">%s</strong>" % (color, progress))
+    print("<img src=\"%s\"><br />" % image)
+    print("</h3>")
+    print("Run time: " + str(timedelta(seconds=round(runtime))) + '<br />')
+    print("Current time: %s<br />" % time.asctime())
+    print("</P>\n<HR>\n<P>")
 
     if progress == "complete":
         if calctype=="pdb2pqr":
@@ -325,8 +326,8 @@ def mainCGI():
             resp = appServicePort.getOutputs(getOutputsRequest(jobid))
             filelist = resp._outputFile
 
-        print "Here are the results:<ul>"
-        print "<li>Input files<ul>"
+        print("Here are the results:<ul>")
+        print("<li>Input files<ul>")
 
         if calctype=="pdb2pqr":
             # this code should be cleaned up once local PDB2PQR runs output the PDB file with the .pdb extension
@@ -335,26 +336,26 @@ def mainCGI():
                     file_name = filelist[i]._name
                     if ((len(file_name) == 4 and '.' not in file_name) or
                         (file_name.lower().endswith(".pdb") and "pdb2pka_output" not in file_name)):
-                        print "<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name)
+                        print("<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name))
 
                     if file_name.lower().endswith((".mol", ".mol2", ".names", ".dat")) and "pdb2pka_output" not in file_name:
-                        print "<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name)
+                        print("<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name))
 
 
             else:
-                print "<li><a href=%s%s%s/%s.pdb>%s.pdb</a></li>" % (WEBSITE, TMPDIR, jobid, jobid, jobid)
+                print("<li><a href=%s%s%s/%s.pdb>%s.pdb</a></li>" % (WEBSITE, TMPDIR, jobid, jobid, jobid))
 
         elif calctype=="apbs":
             if have_opal:
                 for i in range(0,len(filelist)):
                     if filelist[i]._name == "apbsinput.in" or filelist[i]._name[-4:] == ".pqr":
-                        print "<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name)
+                        print("<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name))
             else:
-                print "<li><a href=%s%s%s/apbsinput.in>apbsinput.in</a></li>" % (WEBSITE, TMPDIR, jobid)
-                print "<li><a href=%s%s%s/%s.pqr>%s.pqr</a></li>" % (WEBSITE, TMPDIR, jobid, jobid, jobid)
+                print("<li><a href=%s%s%s/apbsinput.in>apbsinput.in</a></li>" % (WEBSITE, TMPDIR, jobid))
+                print("<li><a href=%s%s%s/%s.pqr>%s.pqr</a></li>" % (WEBSITE, TMPDIR, jobid, jobid, jobid))
 
-        print "</ul></li>"
-        print "<li>Output files<ul>"
+        print("</ul></li>")
+        print("<li>Output files<ul>")
 
         queryString = [str(os.environ["REMOTE_ADDR"])]
         # Getting PDB2PQR run log info
@@ -369,13 +370,13 @@ def mainCGI():
             if have_opal:
                 for i in range(0,len(filelist)):
                     if filelist[i]._name.endswith((".propka", "-typemap.html")):
-                        print "<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name)
+                        print("<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name))
 
                     if filelist[i]._name.endswith(".in") and "pdb2pka_output" not in filelist[i]._name:
-                        print "<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name)
+                        print("<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name))
 
                     if filelist[i]._name.endswith(".pqr") and not filelist[i]._name.endswith("background_input.pqr"):
-                        print "<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name)
+                        print("<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name))
 
                     #Get the first line of the summary file.
                     if filelist[i]._name.endswith(".summary"):
@@ -403,7 +404,7 @@ def mainCGI():
                             continue
                         outputfilelist.append('%s%s' % (jobid, extension))
                 for outputfile in outputfilelist:
-                    print "<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, jobid, outputfile, outputfile)
+                    print("<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, jobid, outputfile, outputfile))
 
             logopts['queryPDB2PQR'] = '|'.join(queryString)
 
@@ -444,8 +445,8 @@ def mainCGI():
                         os.chdir(currentpath)
                         outputcubefilezip = cubefilebasename+".gz"
 
-                        print "<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, zipjobid, outputfilezip, outputfilezip)
-                        print "<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, zipjobid, outputcubefilezip, outputcubefilezip)
+                        print("<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, zipjobid, outputfilezip, outputfilezip))
+                        print("<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, zipjobid, outputcubefilezip, outputcubefilezip))
 
             else:
                 outputfilelist = glob.glob('%s%s%s/%s-*.dx' % (INSTALLDIR, TMPDIR, jobid, jobid))
@@ -472,7 +473,7 @@ def mainCGI():
 
                     createcube(dxfile, pqrfilename, cubefilename)
 
-                    print "<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, jobid, os.path.basename(outputfilezip), os.path.basename(outputfilezip))
+                    print("<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, jobid, os.path.basename(outputfilezip), os.path.basename(outputfilezip)))
 
                 outputcubefilelist = glob.glob('%s%s%s/%s.cube' % (INSTALLDIR, TMPDIR, jobid, jobid))
                 for cubefile in outputcubefilelist:
@@ -489,7 +490,7 @@ def mainCGI():
                     os.chdir(currentpath)
                     outputcubefilezip = cubefile+".gz"
 
-                    print "<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, jobid, os.path.basename(outputcubefilezip), os.path.basename(outputcubefilezip))
+                    print("<li><a href=%s%s%s/%s>%s</a></li>" % (WEBSITE, TMPDIR, jobid, os.path.basename(outputcubefilezip), os.path.basename(outputcubefilezip)))
 
             logopts['queryAPBS'] = '|'.join(queryString)
 
@@ -501,22 +502,22 @@ def mainCGI():
                         outputfilelist.append((filelist[i]._url, os.path.basename(filelist[i]._name)))
                         #print "<li><a href=%s>%s</a></li>" % (filelist[i]._url, filelist[i]._name)
                 if outputfilelist:
-                    print "</ul></li>"
-                    print "<li>PDB2PKA files<ul>"
+                    print("</ul></li>")
+                    print("<li>PDB2PKA files<ul>")
                     for outputfile in outputfilelist:
-                        print "<li><a href=%s>%s</a></li>" % (outputfile[0], outputfile[1])
+                        print("<li><a href=%s>%s</a></li>" % (outputfile[0], outputfile[1]))
             else:
                 outputfilelist = glob.glob('%s%s%s/pdb2pka_output/*.DAT' % (INSTALLDIR, TMPDIR, jobid))
                 outputfilelist.extend(glob.glob('%s%s%s/pdb2pka_output/*.txt' % (INSTALLDIR, TMPDIR, jobid)))
                 outputfilelist = [os.path.basename(outputfile) for outputfile in outputfilelist]
                 if outputfilelist:
-                    print "</ul></li>"
-                    print "<li>PDB2PKA files<ul>"
+                    print("</ul></li>")
+                    print("<li>PDB2PKA files<ul>")
                     for outputfile in outputfilelist:
-                        print "<li><a href=%s%s%s/pdb2pka_output/%s>%s</a></li>" % (WEBSITE, TMPDIR, jobid, outputfile, outputfile)
+                        print("<li><a href=%s%s%s/pdb2pka_output/%s>%s</a></li>" % (WEBSITE, TMPDIR, jobid, outputfile, outputfile))
 
-        print "</ul></li>"
-        print "<li>Runtime and debugging information<ul>"
+        print("</ul></li>")
+        print("<li>Runtime and debugging information<ul>")
 
         if have_opal:
             stdouturl = resp._stdOut
@@ -525,11 +526,11 @@ def mainCGI():
             stdouturl = "%s%s%s/%s_stdout.txt" % (WEBSITE, TMPDIR, jobid, calctype)
             stderrurl = "%s%s%s/%s_stderr.txt" % (WEBSITE, TMPDIR, jobid, calctype)
 
-        print "<li><a href=%s>Program output (stdout)</a></li>" % stdouturl
-        print "<li><a href=%s>Program errors and warnings (stderr)</a></li>" % stderrurl
+        print("<li><a href=%s>Program output (stdout)</a></li>" % stdouturl)
+        print("<li><a href=%s>Program errors and warnings (stderr)</a></li>" % stderrurl)
 
 
-        print "</ul></li></ul>"
+        print("</ul></li></ul>")
 
 
         #if have_opal:
@@ -552,17 +553,17 @@ def mainCGI():
         #            print "<li><a href=%s>%s</a></li>" % (WEBSITE+TMPDIR+jobid+"/"+line,printname)
 
         if calctype=="pdb2pqr" and apbs_input and HAVE_APBS:
-            print "</ul></p><hr><p><b><a href=%s>Click here</a> to run APBS with your results.</b></p>" % nexturl
+            print("</ul></p><hr><p><b><a href=%s>Click here</a> to run APBS with your results.</b></p>" % nexturl)
         elif calctype=="apbs":
             #print "</ul></p><hr><p><b><a href=%s>Click here</a> to visualize your results in Jmol.</b></p>" % nexturl
-            print "</ul></p><hr><p><b>Visualize your results online:"
-            print "<ul> <li><a href=%s>3Dmol</a></li><li><a href=%s>Jmol</a></li></ul>" % (url_3dmol, url_jmol)
+            print("</ul></p><hr><p><b>Visualize your results online:")
+            print("<ul> <li><a href=%s>3Dmol</a></li><li><a href=%s>Jmol</a></li></ul>" % (url_3dmol, url_jmol))
 
     elif progress == "error":
-        print "There was an error with your query request. This page will not refresh."
+        print("There was an error with your query request. This page will not refresh.")
 
-        print "</ul></li>"
-        print "<li>Runtime and debugging information<ul>"
+        print("</ul></li>")
+        print("<li>Runtime and debugging information<ul>")
 
         if have_opal:
             resp = appServicePort.getOutputs(getOutputsRequest(jobid))
@@ -573,52 +574,52 @@ def mainCGI():
             stdouturl = "%s%s%s/%s_stdout.txt" % (WEBSITE, TMPDIR, jobid, calctype)
             stderrurl = "%s%s%s/%s_stderr.txt" % (WEBSITE, TMPDIR, jobid, calctype)
 
-        print "<li><a href=%s>Program output (stdout)</a></li>" % stdouturl
-        print "<li><a href=%s>Program errors and warnings (stderr)</a></li>" % stderrurl
+        print("<li><a href=%s>Program output (stdout)</a></li>" % stdouturl)
+        print("<li><a href=%s>Program errors and warnings (stderr)</a></li>" % stderrurl)
 
-        print "</ul></li></ul>"
+        print("</ul></li></ul>")
 
         if have_opal:
-            print " <br />If your job has been running for a prolonged period of time and failed with no reason listed in the standard out or standard error, then the job probably timed out and was terminated by the system.<br />"
+            print(" <br />If your job has been running for a prolonged period of time and failed with no reason listed in the standard out or standard error, then the job probably timed out and was terminated by the system.<br />")
 
-        print '<br />If you are having trouble running PDB2PQR on the webserver, please download the <a href="http://www.poissonboltzmann.org/docs/downloads/">command line version of PDB2PQR</a> and run the job from there.'
+        print('<br />If you are having trouble running PDB2PQR on the webserver, please download the <a href="http://www.poissonboltzmann.org/docs/downloads/">command line version of PDB2PQR</a> and run the job from there.')
 
 
 
     elif progress == "running":
-        print "Page will refresh in %d seconds<br />" % refresh
-        print "<HR>"
+        print("Page will refresh in %d seconds<br />" % refresh)
+        print("<HR>")
 
         if not have_opal:
-            print "</ul></li>"
-            print "<li>Runtime and debugging information<ul>"
+            print("</ul></li>")
+            print("<li>Runtime and debugging information<ul>")
             stdouturl = "%s%s%s/%s_stdout.txt" % (WEBSITE, TMPDIR, jobid, calctype)
             stderrurl = "%s%s%s/%s_stderr.txt" % (WEBSITE, TMPDIR, jobid, calctype)
-            print "<li><a href=%s>Program output (stdout)</a></li>" % stdouturl
-            print "<li><a href=%s>Program errors and warnings (stderr)</a></li>" % stderrurl
-            print "</ul></li></ul>"
+            print("<li><a href=%s>Program output (stdout)</a></li>" % stdouturl)
+            print("<li><a href=%s>Program errors and warnings (stderr)</a></li>" % stderrurl)
+            print("</ul></li></ul>")
 
-        print "<small>Your results will appear at <a href=%s>this page</a>. If you want, you can bookmark it and come back later (note: results are only stored for approximately 12-24 hours).</small>" % resultsurl
+        print("<small>Your results will appear at <a href=%s>this page</a>. If you want, you can bookmark it and come back later (note: results are only stored for approximately 12-24 hours).</small>" % resultsurl)
     elif progress == "version_mismatch":
-        print "The versions of APBS on the local server and on the Opal server do not match, so the calculation could not be completed"
+        print("The versions of APBS on the local server and on the Opal server do not match, so the calculation could not be completed")
 
-    print "</P>"
-    print "<script type=\"text/javascript\">"
+    print("</P>")
+    print("<script type=\"text/javascript\">")
     for key in logopts:
-        print getEventTrackingString('queryData', key, logopts[key]),
+        print(getEventTrackingString('queryData', key, logopts[key]), end=' ')
         #print "_gaq.push(['_trackPageview', '/main_cgi/has_%s_%s.html']);" % (key, logopts[key])
-    print "</script>"
-    print "</div> <!--end content div-->"
-    print "</BODY>"
-    print "</HTML>"
+    print("</script>")
+    print("</div> <!--end content div-->")
+    print("</BODY>")
+    print("</HTML>")
 
 if __name__ == "__main__" and os.environ.has_key("REQUEST_METHOD"):
     """ Determine if called from command line or CGI """
     refresh=30
 
     if not form.has_key("jobid") and form["calctype"].value=="pdb2pqr":
-        print "Content-type: text/html\n\n"
-        print printheader("PDB2PQR Job Status - Error")
+        print("Content-type: text/html\n\n")
+        print(printheader("PDB2PQR Job Status - Error"))
         text="<BODY>\n"
         text+="\t<H2>Missing jobid field</H2>\n"
         text+="\t<P>Your request url is missing the jobid field</P>\n"
@@ -632,7 +633,7 @@ if __name__ == "__main__" and os.environ.has_key("REQUEST_METHOD"):
         text += "pageTracker._trackPageview();"
         text += "} catch(err) {}</script>"
         text+="</BODY>\n</HTML>"
-        print text
+        print(text)
         sys.exit(2)
 
 

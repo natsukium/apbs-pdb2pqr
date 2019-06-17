@@ -3,6 +3,7 @@
 # Joshua R. Boverhof, LBNL
 # See LBNLCopyright for copyright notice!
 ###########################################################################
+from __future__ import print_function
 from compiler.ast import Module
 import StringIO, copy, getopt
 import os, sys, unittest, urlparse, signal, time, warnings, subprocess
@@ -81,7 +82,7 @@ def _LaunchContainer(cmd):
     try:
         process = subprocess.Popen(['python', cmd, port], env=ENVIRON)
     except:
-        print >>sys.stderr, 'error executing: %s' %cmd
+        print('error executing: %s' %cmd, file=sys.stderr)
         raise
     time.sleep(3)
     return process
@@ -211,13 +212,13 @@ class ServiceTestCase(unittest.TestCase):
                 ok = False
             if ok: 
                 result.addSuccess(self)
-                print>>self
-                print>>self, "|"+"-"*60
-                print>>self, "|  TestCase: %s" %self.methodName
-                print>>self, "|"+"-"*20
-                print>>self, "|  run time:   %s ms" %((t2-t1)*1000)
-                print>>self, "|  return  :   %s" %pyobj
-                print>>self, "|"+"-"*60
+                print(file=self)
+                print("|"+"-"*60, file=self)
+                print("|  TestCase: %s" %self.methodName, file=self)
+                print("|"+"-"*20, file=self)
+                print("|  run time:   %s ms" %((t2-t1)*1000), file=self)
+                print("|  return  :   %s" %pyobj, file=self)
+                print("|"+"-"*60, file=self)
 
         finally:
             result.stopTest(self)

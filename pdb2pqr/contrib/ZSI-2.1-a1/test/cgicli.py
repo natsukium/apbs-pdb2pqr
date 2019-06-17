@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+from __future__ import print_function
 import getopt, socket, sys
 
 try:
@@ -7,21 +8,21 @@ try:
                     ( 'host=', 'port=',
                         'statusonly', 'help'))
 except getopt.GetoptError, e:
-    print >>sys.stderr, sys.argv[0] + ': ' + str(e)
+    print(sys.argv[0] + ': ' + str(e), file=sys.stderr)
     sys.exit(1)
 if args:
-    print sys.argv[0] + ': Usage error; try --help.'
+    print(sys.argv[0] + ': Usage error; try --help.')
     sys.exit(1)
 
 hostname, portnum, verbose = 'localhost', 80, 1
 for opt, val in opts:
     if opt in [ '--help' ]:
-        print '''Options include:
+        print('''Options include:
     --host HOST (-h HOST)       Name of server host
     --port PORT (-p PORT)       Port server is listening on
     --statusonly (-s)           Do not output reply packets; just status code
 Default is -h%s -p%d -t%s''' % \
-    (hostname, portnum, ','.join([str(x) for x in tests]))
+    (hostname, portnum, ','.join([str(x) for x in tests])))
         sys.exit(0)
     if opt in [ '-h', '--host' ]:
         hostname = val
@@ -66,10 +67,10 @@ f.write(IN)
 f.flush()
 
 status = f.readline()
-print status,
+print(status, end=' ')
 while 1:
     l = f.readline()
     if l == '': break
-    if verbose: print l,
+    if verbose: print(l, end=' ')
 
 f.close()

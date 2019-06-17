@@ -27,6 +27,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
 
+from __future__ import print_function
 import atexit
     
 def bf_to_str(bf):
@@ -67,11 +68,11 @@ def display_build_status():
     
     status, failures_message = build_status()
     if status == 'failed':
-        print
-        print "FAILED!!!!"  # could display alert, ring bell, etc.
+        print()
+        print("FAILED!!!!")  # could display alert, ring bell, etc.
     elif status == 'ok':
-        print
-        print "Build succeeded."
-    print failures_message
+        print()
+        print("Build succeeded.")
+    print(failures_message)
 
 atexit.register(display_build_status)

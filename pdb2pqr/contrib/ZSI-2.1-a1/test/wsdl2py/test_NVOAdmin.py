@@ -3,6 +3,7 @@
 # Joshua R. Boverhof, LBNL
 # See LBNLCopyright for copyright notice!
 ###########################################################################
+from __future__ import print_function
 import os, sys, unittest
 from ServiceTest import main, ServiceTestCase, ServiceTestSuite
 from ZSI import SoapWriter, ParsedSoap, TC,  FaultException
@@ -90,13 +91,13 @@ class NVOAdmin(ServiceTestCase):
         sw = SoapWriter()
         sw.serialize(msg)
         soap = str(sw)
-        print soap        
+        print(soap)        
 
         ps = ParsedSoap(soap)
         pyobj = ps.Parse(msg.typecode)
         self.failUnlessEqual(pyobj.DSQueryRegistryResult.Any, msg.DSQueryRegistryResult.Any)
         self.failUnless(_is_element(pyobj.DSQueryRegistryResult.Schema))
-        print _get_element_nsuri_name(pyobj.DSQueryRegistryResult.Schema)
+        print(_get_element_nsuri_name(pyobj.DSQueryRegistryResult.Schema))
         self.failUnlessEqual(_get_element_nsuri_name(pyobj.DSQueryRegistryResult.Schema), (u'http://www.w3.org/2001/XMLSchema', u'schema'))
         
 

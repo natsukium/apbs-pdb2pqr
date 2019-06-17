@@ -42,6 +42,7 @@
     ----------------------------
 """
 
+from __future__ import print_function
 __date__   = "14 May 2009"
 __author__ = "Yong Huang"
 
@@ -81,12 +82,12 @@ def runtest(argv):
         
         count += 1
         
-        print "Finished testing for PDB: %s, number of PDBs tested: %s." % (inname, count)
+        print("Finished testing for PDB: %s, number of PDBs tested: %s." % (inname, count))
 
         if 0 < options["testnum"] < defaultnum and count == options["testnum"]:
             break
 
-    print "\nLong test finished, please check tests/test-long/out/ directory for output files.\n"
+    print("\nLong test finished, please check tests/test-long/out/ directory for output files.\n")
 
 if __name__ == "__main__":
     import os

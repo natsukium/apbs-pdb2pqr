@@ -1,3 +1,4 @@
+from __future__ import print_function
 from fabric.api import *
 import tarfile
 import os
@@ -51,7 +52,7 @@ class TarWrapper():
                 arcname = os.path.join(self.prefix, name)
 
         self.tar.add(name, arcname)
-        print('Packing file: ' + name if arcname is None else arcname)
+        print(('Packing file: ' + name if arcname is None else arcname))
 
     def close(self):
         self.tar.close()
@@ -219,12 +220,12 @@ def build_windows_binary():
     zip_file = zipfile.ZipFile(name + '.zip', 'w', zipfile.ZIP_DEFLATED)
     for root, _, files in os.walk(r'dist\\'+name):
         new_root = root.split('/', 1)[-1]
-        print root
+        print(root)
         for f in files:
             zip_file_path = os.path.join(new_root,f)
             real_file_path = os.path.join(root,f)
             zip_file.write(real_file_path, zip_file_path)
-            print 'Zipping ' + zip_file_path
+            print('Zipping ' + zip_file_path)
     zip_file.close()
     create_dist_folder()
     local('move /Y ' + name + '.zip' + r' dist_files\\' + name + '.zip')

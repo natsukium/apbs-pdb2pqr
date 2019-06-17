@@ -3,6 +3,7 @@
 #
 # Copyright (c) 2001 Zolera Systems.  All rights reserved.
 
+from __future__ import print_function
 from ZSI import _copyright, _seqtypes, ParsedSoap, SoapWriter, TC, ZSI_SCHEMA_URI,\
     EvaluateException, FaultFromFaultMessage, _child_elements, _attrs, _find_arraytype,\
     _find_type, _get_idstr, _get_postvalue_from_absoluteURI, FaultException, WSActionException,\
@@ -294,8 +295,8 @@ class _Binding:
     def SendSOAPData(self, soapdata, url, soapaction, headers={}, **kw):
         # Tracing?
         if self.trace:
-            print >>self.trace, "_" * 33, time.ctime(time.time()), "REQUEST:"
-            print >>self.trace, soapdata
+            print("_" * 33, time.ctime(time.time()), "REQUEST:", file=self.trace)
+            print(soapdata, file=self.trace)
 
         url = url or self.url
         request_uri = _get_postvalue_from_absoluteURI(url)
@@ -334,7 +335,7 @@ class _Binding:
         generate the authdict for building a response.
         '''
         if self.trace:
-            print >>self.trace, "------ Digest Auth Header"
+            print("------ Digest Auth Header", file=self.trace)
         url = url or self.url
         if response.status != 401:
             raise RuntimeError, 'Expecting HTTP 401 response.'
@@ -374,12 +375,12 @@ class _Binding:
             self.reply_code, self.reply_msg, self.reply_headers, self.data = \
                 response.status, response.reason, response.msg, response.read()
             if trace:
-                print >>trace, "_" * 33, time.ctime(time.time()), "RESPONSE:"
+                print("_" * 33, time.ctime(time.time()), "RESPONSE:", file=trace)
                 for i in (self.reply_code, self.reply_msg,):
-                    print >>trace, str(i)
-                print >>trace, "-------"
-                print >>trace, str(self.reply_headers)
-                print >>trace, self.data
+                    print(str(i), file=trace)
+                print("-------", file=trace)
+                print(str(self.reply_headers), file=trace)
+                print(self.data, file=trace)
             saved = None
             for d in response.msg.getallmatchingheaders('set-cookie'):
                 if d[0] in [ ' ', '\t' ]:
@@ -571,4 +572,4 @@ class NamedParamBinding(Binding):
         return _NamedParamCaller(self, name, self.namespace)
 
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

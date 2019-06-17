@@ -1,3 +1,4 @@
+from __future__ import print_function
 from pdb2pka.graph_cut.protein_complex import ProteinComplex
 from pdb2pka.graph_cut.titration_curve import get_titration_curves
 
@@ -18,8 +19,8 @@ def _add_state_pair(pc, inter_avg,
         if flipped_inter_avg is not None:
             diff = abs(inter_avg - flipped_inter_avg)
             if diff > 0.0:
-                print group1_type, group1_chain, group1_loc, group1_state
-                print group2_type, group2_chain, group2_loc, group2_state
+                print(group1_type, group1_chain, group1_loc, group1_state)
+                print(group2_type, group2_chain, group2_loc, group2_state)
 
 
 

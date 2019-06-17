@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import unittest, multifile, mimetools
 from ZSI import *
 from ZSI import resolvers
@@ -21,11 +22,11 @@ class t5TestCase(unittest.TestCase):
         if  m.gettype()[0:10] == "multipart/":
             cid = resolvers.MIMEResolver(m['content-type'], istr)
             xml = cid.GetSOAPPart()
-            print 'xml=', xml.getvalue()
+            print('xml=', xml.getvalue())
             for h,b in cid.parts:
-                print h, b.read()
+                print(h, b.read())
             dom = Reader.fromStream(xml)
-            print dom
+            print(dom)
 
 def makeTestSuite():
     suite = unittest.TestSuite()

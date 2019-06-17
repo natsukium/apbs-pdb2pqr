@@ -45,6 +45,7 @@
 
 """
 
+from __future__ import print_function
 __date__ = "1 August 2008"
 __author__ = "Jens Erik Nielsen, Todd Dolinsky, Yong Huang"
 
@@ -1517,7 +1518,7 @@ class Routines:
                                                  restart=pdb2pka_params.get('clean_output'),
                                                  pairene=pdb2pka_params.get('pairene'))
 
-        print 'Doing full pKa calculation'
+        print('Doing full pKa calculation')
         mypkaRoutines.runpKa()
 
         pdb2pka_warnings = mypkaRoutines.warnings[:]

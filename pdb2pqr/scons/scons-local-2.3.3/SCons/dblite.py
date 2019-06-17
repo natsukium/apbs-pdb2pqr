@@ -1,6 +1,7 @@
 # dblite.py module contributed by Ralf W. Grosse-Kunstleve.
 # Extended for Unicode by Steven Knight.
 
+from __future__ import print_function
 import SCons.compat
 
 import builtins
@@ -14,7 +15,7 @@ keep_all_files = 00000
 ignore_corrupt_dbfiles = 0
 
 def corruption_warning(filename):
-    print "Warning: Discarding corrupt database:", filename
+    print("Warning: Discarding corrupt database:", filename)
 
 try: unicode
 except NameError:
@@ -242,7 +243,7 @@ def _exercise():
     assert str(e) == "[Errno 2] No such file or directory: 'tmp.dblite'", str(e)
   else:
     raise RuntimeError("IOError expected.")
-  print "OK"
+  print("OK")
 
 if (__name__ == "__main__"):
   _exercise()

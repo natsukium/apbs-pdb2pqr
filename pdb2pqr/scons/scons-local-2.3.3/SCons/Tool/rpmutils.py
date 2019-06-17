@@ -35,6 +35,7 @@ exact syntax.
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Tool/rpmutils.py  2014/08/24 12:12:31 garyo"
 
 
@@ -529,7 +530,7 @@ def updateRpmDicts(rpmrc, pyfile):
         pass
 
 def usage():
-    print "rpmutils.py rpmrc.in rpmutils.py"
+    print("rpmutils.py rpmrc.in rpmutils.py")
 
 def main():
     import sys

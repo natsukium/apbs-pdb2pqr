@@ -4,6 +4,7 @@ RFC2617
 
 HTTP Authentication: Basic and Digest Access Authentication
 """
+from __future__ import print_function
 import unittest
 from ZSI import digest_auth
 from ZSI.wstools.logging import setBasicLoggerDEBUG
@@ -14,9 +15,9 @@ class DATestCase(unittest.TestCase):
 
     def check_challenge_single_www_authenticate_header(self):
         challenge='Basic realm="WallyWorld"'
-        print "=="*30
-        print challenge
-        print "=="*30
+        print("=="*30)
+        print(challenge)
+        print("=="*30)
         cd = digest_auth.fetch_challenge(challenge)
         expect = {'challenge': 'Basic', 'realm': 'WallyWorld'}
         self.failUnless(cd == expect, 'Expected equivalent')

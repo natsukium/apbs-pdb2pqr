@@ -3,6 +3,7 @@
 # Joshua R. Boverhof, LBNL
 # See LBNLCopyright for copyright notice!
 ###########################################################################
+from __future__ import print_function
 import os, sys, unittest, time
 from ServiceTest import main, ServiceTestCase, ServiceTestSuite
 from ZSI import FaultException
@@ -165,7 +166,7 @@ class AttributeTestCase(ServiceTestCase):
         sw.serialize(pyobj)
         soap = str(sw)
  
-        print soap
+        print(soap)
         ps = ParsedSoap(soap)
         pyobj2 = ps.Parse(pyobj.typecode)
 

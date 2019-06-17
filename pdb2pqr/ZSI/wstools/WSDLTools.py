@@ -7,6 +7,7 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 
+from __future__ import print_function
 ident = "$Id: WSDLTools.py 1122 2006-02-04 01:24:50Z boverhof $"
 
 import weakref
@@ -1622,10 +1623,10 @@ def callInfoFromWSDL(port, name):
                     operation.output.message)
             else:
                 message = wsdl.addMessage(operation.output.message)
-                print "Warning:", \
+                print("Warning:", \
                       "Recieved message not defined in the WSDL schema.", \
-                      "Adding it."
-                print "Message:", operation.output.message
+                      "Adding it.")
+                print("Message:", operation.output.message)
          
         msgrole = opbinding.output
 

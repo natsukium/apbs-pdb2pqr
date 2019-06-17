@@ -21,6 +21,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Tool/MSCommon/common.py  2014/08/24 12:12:31 garyo"
 
 __doc__ = """
@@ -38,7 +39,7 @@ import SCons.Util
 logfile = os.environ.get('SCONS_MSCOMMON_DEBUG')
 if logfile == '-':
     def debug(x):
-        print x
+        print(x)
 elif logfile:
     try:
         import logging

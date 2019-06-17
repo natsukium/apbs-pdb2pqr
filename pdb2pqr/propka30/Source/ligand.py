@@ -39,6 +39,7 @@
 #-------------------------------------------------------------------------------------------------------
 
 
+from __future__ import print_function
 import sys, pdb, protonate, lib, bonds
 from vector_algebra import *
 pka_print = lib.pka_print
@@ -265,7 +266,7 @@ class ligand:
         for atom in self.atoms:
             # check if we already have assigned a name to this atom
             if hasattr(atom, 'sybyl_assigned'):
-                print(atom.resName, atom.numb, atom.name, 'alreadyassigned')
+                print((atom.resName, atom.numb, atom.name, 'alreadyassigned'))
                 continue
 
             # find some properties of the atom

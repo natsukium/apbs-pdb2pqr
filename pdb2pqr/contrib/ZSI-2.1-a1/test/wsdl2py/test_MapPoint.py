@@ -3,6 +3,7 @@
 # Joshua R. Boverhof, LBNL
 # See LBNLCopyright for copyright notice!
 ###########################################################################
+from __future__ import print_function
 import sys, unittest
 from ServiceTest import main, ServiceTestCase, ServiceTestSuite
 from ZSI.auth import AUTH
@@ -67,7 +68,7 @@ class MapPointTest(ServiceTestCase):
             pass
 
         port.binding.SetAuth(AUTH.httpdigest, user="USERNAME", password="PASSWORD")
-        print ">> DIGEST AUTH"
+        print(">> DIGEST AUTH")
         try:
             rsp = port.GetVersionInfo(msg)
         except RuntimeError:

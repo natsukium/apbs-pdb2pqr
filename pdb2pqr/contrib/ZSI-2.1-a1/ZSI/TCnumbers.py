@@ -2,6 +2,7 @@
 # $Header$
 '''Typecodes for numbers.
 '''
+from __future__ import print_function
 import types
 from ZSI import _copyright, _inttypes, _floattypes, _seqtypes, \
         EvaluateException
@@ -181,4 +182,4 @@ class FPEnumeration(FPfloat):
         Decimal.serialize(self, elt, sw, pyobj, name=name, orig=orig, **kw)
     
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

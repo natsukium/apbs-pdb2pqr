@@ -13,6 +13,7 @@
     Author:  Mike Bradley (heavily copied from Todd Dolinsky's hbond extension)
 """
 
+from __future__ import print_function
 __date__ = "25 August 2006"
 __author__ = "Mike Bradley"
 
@@ -57,7 +58,7 @@ def run_extension(routines, outroot, options):
     for cation in protein.getAtoms():
         # check that we've found a cation
         if cation.residue.name == "NMET":
-            print "YES NMET"
+            print("YES NMET")
         if cation.residue.name not in posresList: 
             continue
         elif cation.name not in posatomList: 

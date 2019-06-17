@@ -8,6 +8,7 @@
 # University College Dublin 2003 -
 # All rights reserved
 #
+from __future__ import print_function
 import sys
 #try:
 import os
@@ -95,7 +96,7 @@ class pKaIO:
             filename=self.pkafile
         import string
         if not filename:
-            print filename,'is not a filename'
+            print(filename,'is not a filename')
             os._exit(0)
         if not os.path.isfile(filename):
             raise 'File does not exist:',filename
@@ -368,8 +369,8 @@ class pKaIO:
             newpHvals=data[residue].keys()
             newpHvals.sort()
             if newpHvals!=phvals:
-                print phvals
-                print newpHvals
+                print(phvals)
+                print(newpHvals)
                 raise 'Dictionary does not contain identical pH values'
         #
         # Check that a pKa value is in the pH values

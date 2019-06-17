@@ -3,6 +3,7 @@
 '''Faults.
 '''
 
+from __future__ import print_function
 from ZSI import _copyright, _children, _child_elements, \
         _get_idstr, _stringtypes, _seqtypes, _Node, SoapWriter, ZSIException
 
@@ -259,4 +260,4 @@ def FaultFromFaultMessage(ps):
                 pyobj.faultactor, detailany)
 
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

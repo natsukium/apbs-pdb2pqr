@@ -4,6 +4,7 @@
 # See Copyright for copyright notice!
 ############################################################################
 
+from __future__ import print_function
 import exceptions, sys, optparse, os, warnings, traceback
 from os.path import isfile, join, split
 
@@ -118,7 +119,7 @@ def wsdl2py(args=None):
         (options, args) = op.parse_args(args)
 
     if len(args) != 1:
-        print>>sys.stderr, 'Expecting a file/url as argument (WSDL).'
+        print('Expecting a file/url as argument (WSDL).', file=sys.stderr)
         sys.exit(os.EX_USAGE)
         
     location = args[0]
@@ -134,7 +135,7 @@ def wsdl2py(args=None):
     try:
         wsdl = load(location)
     except Exception, e:
-        print >> sys.stderr, "Error loading %s: \n\t%s" % (location, e)
+        print("Error loading %s: \n\t%s" % (location, e), file=sys.stderr)
         traceback.print_exc(sys.stderr)
         # exit code UNIX specific, Windows?
         if hasattr(os, 'EX_NOINPUT'): sys.exit(os.EX_NOINPUT)

@@ -27,6 +27,7 @@ Stuff for processing Fortran, common to all fortran dialects.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Tool/FortranCommon.py  2014/08/24 12:12:31 garyo"
 
 import re
@@ -61,7 +62,7 @@ def isfortran(env, source):
 def _fortranEmitter(target, source, env):
     node = source[0].rfile()
     if not node.exists() and not node.is_derived():
-       print "Could not locate " + str(node.name)
+       print("Could not locate " + str(node.name))
        return ([], [])
     mod_regex = """(?i)^\s*MODULE\s+(?!PROCEDURE)(\w+)"""
     cre = re.compile(mod_regex,re.M)

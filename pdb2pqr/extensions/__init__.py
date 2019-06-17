@@ -44,6 +44,7 @@
     ----------------------------
 """
 
+from __future__ import print_function
 import pkgutil
 
 from optparse import OptionGroup, OptionConflictError, Option
@@ -96,7 +97,7 @@ def setupExtensionsOptions(parser):
                 firstGroup.add_option(extOption)
                 
         except OptionConflictError, value:
-            print 'Error adding command line options for extension ' + extName + ' ' + '(' + str(value) + ')'
+            print('Error adding command line options for extension ' + extName + ' ' + '(' + str(value) + ')')
             
     
     for group in groups:

@@ -45,6 +45,7 @@
     ----------------------------
 """
 
+from __future__ import print_function
 __date__ = "4 August 2008"
 __author__ = "Todd Dolinsky, Yong Huang"
 
@@ -632,7 +633,7 @@ class MOL2MOLECULE:
                 try:
                     thisAtom.mol2charge=float(charge)
                 except:
-                    print 'Warning. Non-float charge in mol2 file.',charge
+                    print('Warning. Non-float charge in mol2 file.',charge)
                     thisAtom.mol2charge=None
             self.lPDBAtoms.append(mol2pdb)
             self.lAtoms.append(thisAtom)

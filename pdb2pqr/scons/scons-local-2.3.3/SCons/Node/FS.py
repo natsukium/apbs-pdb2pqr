@@ -32,6 +32,7 @@ that can be used by scripts or modules looking for the canonical default.
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Node/FS.py  2014/08/24 12:12:31 garyo"
 
 import fnmatch
@@ -2848,7 +2849,7 @@ class File(Base):
     def _rmv_existing(self):
         self.clear_memoized_values()
         if print_duplicate:
-            print "dup: removing existing target %s"%self
+            print("dup: removing existing target %s"%self)
         e = Unlink(self, [], None)
         if isinstance(e, SCons.Errors.BuildError):
             raise e
@@ -2890,7 +2891,7 @@ class File(Base):
     def do_duplicate(self, src):
         self._createDir()
         if print_duplicate:
-            print "dup: relinking variant '%s' from '%s'"%(self, src)
+            print("dup: relinking variant '%s' from '%s'"%(self, src))
         Unlink(self, None, None)
         e = Link(self, src, None)
         if isinstance(e, SCons.Errors.BuildError):
@@ -2925,7 +2926,7 @@ class File(Base):
                         # The source file does not exist.  Make sure no old
                         # copy remains in the variant directory.
                         if print_duplicate:
-                            print "dup: no src for %s, unlinking old variant copy"%self
+                            print("dup: no src for %s, unlinking old variant copy"%self)
                         if Base.exists(self) or self.islink():
                             self.fs.unlink(self.path)
                         # Return None explicitly because the Base.exists() call

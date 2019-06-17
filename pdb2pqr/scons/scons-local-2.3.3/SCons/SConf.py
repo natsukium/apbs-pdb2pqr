@@ -34,6 +34,7 @@ libraries are installed, if some command line options are supported etc.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/SConf.py  2014/08/24 12:12:31 garyo"
 
 import SCons.compat
@@ -259,7 +260,7 @@ class SConfBuildTask(SCons.Taskmaster.AlwaysTask):
                 # Earlier versions of Python don't have sys.excepthook...
                 def excepthook(type, value, tb):
                     traceback.print_tb(tb)
-                    print type, value
+                    print(type, value)
             excepthook(*self.exc_info())
         return SCons.Taskmaster.Task.failed(self)
 

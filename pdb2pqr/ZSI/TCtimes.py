@@ -3,6 +3,7 @@
 '''Typecodes for dates and times.
 '''
 
+from __future__ import print_function
 from ZSI import _copyright, _floattypes, _inttypes, _get_idstr, EvaluateException
 from ZSI.TC import TypeCode, SimpleType
 from ZSI.wstools.Namespaces import SCHEMA
@@ -318,4 +319,4 @@ class gTime(Gregorian):
     format_ms = format[:-1] + '.%(ms)03dZ'
     type = (SCHEMA.XSD3, 'time')
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

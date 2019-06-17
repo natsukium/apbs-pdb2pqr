@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import unittest, sys
 from ZSI import *
 
@@ -10,30 +11,30 @@ class t2TestCase(unittest.TestCase):
         try: 
             ps = ParsedSoap(IN)
         except ParseException, e:
-             print >>OUT, FaultFromZSIException(e).AsSOAP()
+             print(FaultFromZSIException(e).AsSOAP(), file=OUT)
              self.fail()
         except Exception, e:
             # Faulted while processing; assume it's in the
             # header.
-            print >>OUT, FaultFromException(e, 1).AsSOAP()
+            print(FaultFromException(e, 1).AsSOAP(), file=OUT)
             self.fail()
         # We are not prepared to handle any actors or mustUnderstand elements.  
         # Arbitrary fault back with the first one found.  
         a = ps.WhatActorsArePresent() 
         if len(a): 
-            print >>OUT, FaultFromActor(a[0]).AsSOAP() 
+            print(FaultFromActor(a[0]).AsSOAP(), file=OUT) 
             self.fail()
         mu = ps.WhatMustIUnderstand() 
         if len(mu): 
             uri, localname = mu[0] 
-            print >>OUT, FaultFromNotUnderstood(uri, localname).AsSOAP() 
+            print(FaultFromNotUnderstood(uri, localname).AsSOAP(), file=OUT) 
             self.fail() 
            
                                             
         try: 
             player = ps.Parse(Player) 
         except EvaluateException, e: 
-            print >>OUT, FaultFromZSIException(e).AsSOAP() 
+            print(FaultFromZSIException(e).AsSOAP(), file=OUT) 
             self.fail() 
             
         try: 
@@ -41,9 +42,9 @@ class t2TestCase(unittest.TestCase):
             total = reduce(operator.add, player.Scores, 0)
             result = Average(foo(total, len(player.Scores)))
             sw = SoapWriter().serialize(result) 
-            print >>OUT, str(sw)
+            print(str(sw), file=OUT)
         except Exception, e: 
-            print >>OUT, FaultFromException(e, 0, sys.exc_info()[2]).AsSOAP() 
+            print(FaultFromException(e, 0, sys.exc_info()[2]).AsSOAP(), file=OUT) 
             self.fail()
 
 

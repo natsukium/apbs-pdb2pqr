@@ -3,6 +3,7 @@
 '''Compound typecodes.
 '''
 
+from __future__ import print_function
 from ZSI import _copyright, _children, _child_elements, \
     _inttypes, _stringtypes, _seqtypes, _find_arraytype, _find_href, \
     _find_type, _find_xmlns_prefix, _get_idstr, EvaluateException, \
@@ -676,4 +677,4 @@ class Array(TypeCode):
                 position += 1
 
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

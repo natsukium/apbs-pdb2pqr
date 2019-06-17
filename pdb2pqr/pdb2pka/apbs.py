@@ -8,6 +8,7 @@
 
 """
 
+from __future__ import print_function
 __date__  = "16 August 2005"
 __author__ = "Todd Dolinsky, Jens Erik Nielsen"
 
@@ -20,11 +21,11 @@ except:
     #
     # We need _apbslib.so and apbslib.py
     #
-    print
-    print 'Missing libraries for interfacing with APBS'
-    print
-    print 'You need to build APBS with Python support using the CMake variable -DENABLE_PYTHON=ON.'
-    print
+    print()
+    print('Missing libraries for interfacing with APBS')
+    print()
+    print('You need to build APBS with Python support using the CMake variable -DENABLE_PYTHON=ON.')
+    print()
     sys.exit(0)
 
 Python_kb = 1.3806581e-23

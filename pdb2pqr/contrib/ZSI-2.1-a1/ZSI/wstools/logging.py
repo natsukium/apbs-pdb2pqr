@@ -4,6 +4,7 @@
 # reserved. 
 #
 """Logging"""
+from __future__ import print_function
 ident = "$Id: logging.py 1395 2007-06-14 06:49:35Z boverhof $"
 import os, sys
 
@@ -42,24 +43,24 @@ class BasicLogger(ILogger):
         if self.warnOn() is False: return
         if BasicLogger.last != self.msg:
             BasicLogger.last = self.msg
-            print >>self, "---- ", self.msg, " ----"
-        print >>self, "    %s  " %self.WARN,
-        print >>self, msg %args
+            print("---- ", self.msg, " ----", file=self)
+        print("    %s  " %self.WARN, end=' ', file=self)
+        print(msg %args, file=self)
     WARN = '[WARN]'
     def debug(self, msg, *args, **kw):
         if self.debugOn() is False: return
         if BasicLogger.last != self.msg:
             BasicLogger.last = self.msg
-            print >>self, "---- ", self.msg, " ----"
-        print >>self, "    %s  " %self.DEBUG,
-        print >>self, msg %args
+            print("---- ", self.msg, " ----", file=self)
+        print("    %s  " %self.DEBUG, end=' ', file=self)
+        print(msg %args, file=self)
     DEBUG = '[DEBUG]'
     def error(self, msg, *args, **kw):
         if BasicLogger.last != self.msg:
             BasicLogger.last = self.msg
-            print >>self, "---- ", self.msg, " ----"
-        print >>self, "    %s  " %self.ERROR,
-        print >>self, msg %args
+            print("---- ", self.msg, " ----", file=self)
+        print("    %s  " %self.ERROR, end=' ', file=self)
+        print(msg %args, file=self)
     ERROR = '[ERROR]'
 
     def write(self, *args):
@@ -206,7 +207,7 @@ def gridLog(**kw):
         send = GLRegistry[scheme]
         send( url, str(GLRecord(**kw)), )
     except Exception, ex:
-        print >>sys.stderr, "*** gridLog failed -- %s" %(str(kw))
+        print("*** gridLog failed -- %s" %(str(kw)), file=sys.stderr)
 
 
 def sendUDP(url, outputStr):
@@ -218,7 +219,7 @@ def sendUDP(url, outputStr):
     socket(AF_INET, SOCK_DGRAM).sendto( outputStr, (host,int(port)), )
 
 def writeToFile(url, outputStr):
-    print >> open(url.split('://')[1], 'a+'), outputStr
+    print(outputStr, file=open(url.split('://')[1], 'a+'))
 
 GLRegistry["gridlog-udp"] = sendUDP
 GLRegistry["file"] = writeToFile

@@ -23,6 +23,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 __revision__ = "src/script/sconsign.py  2014/08/24 12:12:31 garyo"
 
 __version__ = "2.3.3"
@@ -310,14 +311,14 @@ def printfield(name, entry, prefix=""):
     outlist = field("implicit", entry, 0)
     if outlist:
         if Verbose:
-            print "    implicit:"
-        print "        " + outlist
+            print("    implicit:")
+        print("        " + outlist)
     outact = field("action", entry, 0)
     if outact:
         if Verbose:
-            print "    action: " + outact
+            print("    action: " + outact)
         else:
-            print "        " + outact
+            print("        " + outact)
 
 def printentries(entries, location):
     if Print_Entries:
@@ -330,9 +331,9 @@ def printentries(entries, location):
                 try:
                     ninfo = entry.ninfo
                 except AttributeError:
-                    print name + ":"
+                    print(name + ":")
                 else:
-                    print nodeinfo_string(name, entry.ninfo)
+                    print(nodeinfo_string(name, entry.ninfo))
                 printfield(name, entry.binfo)
     else:
         for name in sorted(entries.keys()):
@@ -340,9 +341,9 @@ def printentries(entries, location):
             try:
                 ninfo = entry.ninfo
             except AttributeError:
-                print name + ":"
+                print(name + ":")
             else:
-                print nodeinfo_string(name, entry.ninfo)
+                print(nodeinfo_string(name, entry.ninfo))
             printfield(name, entry.binfo)
 
 class Do_SConsignDB(object):
@@ -403,7 +404,7 @@ class Do_SConsignDB(object):
                 self.printentries(dir, db[dir])
 
     def printentries(self, dir, val):
-        print '=== ' + dir + ':'
+        print('=== ' + dir + ':')
         printentries(pickle.loads(val), dir)
 
 def Do_SConsignDir(name):
@@ -471,13 +472,13 @@ for o, a in opts:
                 dbm = my_import(dbm_name)
             except:
                 sys.stderr.write("sconsign: illegal file format `%s'\n" % a)
-                print helpstr
+                print(helpstr)
                 sys.exit(2)
             Do_Call = Do_SConsignDB(a, dbm)
         else:
             Do_Call = Do_SConsignDir
     elif o in ('-h', '--help'):
-        print helpstr
+        print(helpstr)
         sys.exit(0)
     elif o in ('-i', '--implicit'):
         Print_Flags['implicit'] = 1

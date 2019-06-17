@@ -20,6 +20,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 __doc__ = """
 Generic Taskmaster module for the SCons build engine.
 
@@ -107,7 +108,7 @@ fmt = "%(considered)3d "\
 
 def dump_stats():
     for n in sorted(StatsNodes, key=lambda a: str(a)):
-        print (fmt % n.stats.__dict__) + str(n)
+        print((fmt % n.stats.__dict__) + str(n))
 
 
 
@@ -191,13 +192,13 @@ class Task(object):
         executor.prepare()
         for t in executor.get_action_targets():
             if print_prepare:
-                print "Preparing target %s..."%t
+                print("Preparing target %s..."%t)
                 for s in t.side_effects:
-                    print "...with side-effect %s..."%s
+                    print("...with side-effect %s..."%s)
             t.prepare()
             for s in t.side_effects:
                 if print_prepare:
-                    print "...Preparing side-effect %s..."%s
+                    print("...Preparing side-effect %s..."%s)
                 s.prepare()
 
     def get_target(self):

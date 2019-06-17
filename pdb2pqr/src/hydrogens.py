@@ -43,6 +43,7 @@
     ----------------------------
 """
 
+from __future__ import print_function
 import os
 import string
 import math
@@ -219,7 +220,7 @@ class Optimize:
         """
             Easy way to turn on/off debugging
         """
-        if HDEBUG: print txt
+        if HDEBUG: print(txt)
 
     @staticmethod
     def getHbondangle(atom1, atom2, atom3):
@@ -2034,7 +2035,7 @@ class hydrogenRoutines:
             Parameters
                 text:  The text to output (string)
         """
-        if HDEBUG: print text  
+        if HDEBUG: print(text)  
 
     def switchstate(self, states, amb, stateID):
         """
@@ -2069,7 +2070,7 @@ class hydrogenRoutines:
             hname = conf.hname
             boundname = conf.boundatom
             if residue.getAtom(hname) != None:
-                print 'Removing',residue.name,residue.resSeq,hname
+                print('Removing',residue.name,residue.resSeq,hname)
                 residue.removeAtom(hname)
             residue.getAtom(boundname).hacceptor = 1
             residue.getAtom(boundname).hdonor = 0
@@ -2088,7 +2089,7 @@ class hydrogenRoutines:
         # Now build appropriate atoms
         state = states[stateID]
         for conf in state:
-            print conf
+            print(conf)
             refcoords = []
             defcoords = []
             defatomcoords = []

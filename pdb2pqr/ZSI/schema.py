@@ -3,6 +3,7 @@
 '''XML Schema support
 '''
 
+from __future__ import print_function
 from ZSI import _copyright, _seqtypes, _find_type, _get_element_nsuri_name, EvaluateException
 from ZSI.wstools.Namespaces import SCHEMA, SOAP
 from ZSI.wstools.Utility import SplitQName
@@ -49,7 +50,7 @@ def _is_substitute_element(head, sub):
 
     # TODO: better way of representing element references.  Wrap them with
     # facets, and dereference when needed and delegate to..
-    print (head.nspname == ged.nspname and head.pname == ged.pname)
+    print((head.nspname == ged.nspname and head.pname == ged.pname))
     if head is ged or not (head.nspname == ged.nspname and head.pname == ged.pname):
         return False
 
@@ -421,5 +422,5 @@ class _GetPyobjWrapper:
 
 from TC import Any, RegisterType
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)
 

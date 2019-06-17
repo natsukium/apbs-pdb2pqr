@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import unittest
 from ZSI import *
 from ZSI.wstools.logging import setBasicLoggerDEBUG
@@ -17,14 +18,14 @@ class t3TestCase(unittest.TestCase):
         text = f.AsSOAP()
         i = 0
         for l in text.split('\n'):
-            print i, l
+            print(i, l)
             i += 1
         ps = ParsedSoap(text)
         if ps.IsAFault():
             f = FaultFromFaultMessage(ps)
-            print f.AsSOAP()
+            print(f.AsSOAP())
             self.failUnless(f.AsSOAP().find(str(a)) > 0)
-        print '--'*20
+        print('--'*20)
 
 
 def makeTestSuite():

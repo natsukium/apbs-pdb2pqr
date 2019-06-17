@@ -3,6 +3,7 @@
 #
 # Python class for running Gromacs
 #
+from __future__ import print_function
 import os
 
 class GROMACS:
@@ -35,7 +36,7 @@ class GROMACS:
             tempfile.tempdir=self.topdir
             self.tmpdir=tempfile.mktemp()
             os.mkdir(self.tmpdir)
-            print 'Running in :',self.tmpdir
+            print('Running in :',self.tmpdir)
             os.chdir(self.tmpdir)
             #
             # Copy all the input files to the tmpdir
@@ -68,7 +69,7 @@ class GROMACS:
         #
         # forcefield: 0 for Gromacs FF, 1 for Gromacs FF with all hyds.
         #
-        print auto_select_his
+        print(auto_select_his)
         self.files['laststructure']='protein.gro'
         fd=open('pdb2gmx.scr','w')
         if auto_select_his:
@@ -119,17 +120,17 @@ class GROMACS:
             raise "No valid input file for editconf"
         status=os.system('editconf -f '+self.files['laststructure']+' -o out.gro -bt cubic -d '+str(dist))
         self.files['laststructure']='out.gro'
-        print 'Editconf returned',status
+        print('Editconf returned',status)
         return
 
     def solvate(self):
         #
         # Solvate the system
         #
-        print 'Solvating system'
+        print('Solvating system')
         status=os.system('genbox -cp '+self.files['laststructure']+' -cs -p topol.top -o solvated.gro')
         self.files['laststructure']='solvated.gro'
-        print 'genbox returned:',status
+        print('genbox returned:',status)
         return
 
     def EM(self,emtol=2000,nsteps=1000,emstep=0.01,nstenergy=1):
@@ -145,14 +146,14 @@ class GROMACS:
         # Preprocessing
         #
         status=os.system('grompp_d -v -f em.mdp -c '+self.files['laststructure']+' -o em.tpr -p topol.top')
-        print 'grompp returned:',status
+        print('grompp returned:',status)
         #
         # Do minimisation
         #
         self.files['energytraj']='energy.ene'
         self.files['laststructure']='after_em.pdb'
         status=os.system('mdrun_d -v -s em.tpr -o em.trr -c '+self.files['laststructure']+' -g emlog -e '+self.files['energytraj'])
-        print 'mdrun returned:',status
+        print('mdrun returned:',status)
         return
 
     def PR_MD(self,nsteps=5000,genseed='173529',uparams={}):
@@ -179,7 +180,7 @@ class GROMACS:
         #
         for p in uparams.keys():
             params[p]=uparams[p]
-            print p,params[p]
+            print(p,params[p])
         #
         # Write the file
         fd=open('pr.mdp','w')
@@ -190,7 +191,7 @@ class GROMACS:
         # Preprocessing
         #
         status=os.system('grompp -v -f pr.mdp -c '+self.files['laststructure']+' -o pr.tpr -p topol.top')
-        print 'grompp returned:',status
+        print('grompp returned:',status)
 
         #
         # Do minimisation
@@ -198,7 +199,7 @@ class GROMACS:
         self.files['energytraj']='pr.ene'
         self.files['laststructure']='after_pr.pdb'
         status=os.system('mdrun -v -s pr.tpr -o pr.trr -c '+self.files['laststructure']+' -g prlog -e '+self.files['energytraj'])
-        print 'mdrun returned:',status
+        print('mdrun returned:',status)
         return
 
     #
@@ -242,10 +243,10 @@ class GROMACS:
         self.files['mdpfile']='full.mdp'
         self.files['runinput']='full.tpr'
         command='grompp -v -f '+self.files['mdpfile']+' -c '+self.files['laststructure']+' -o '+self.files['runinput']+' -p topol.top'
-        print 'Using command'
-        print command
+        print('Using command')
+        print(command)
         status=os.system(command)
-        print 'grompp returned:',status
+        print('grompp returned:',status)
         if status!=0:
             raise Exception('Exiting with error after grompp')
         #
@@ -258,7 +259,7 @@ class GROMACS:
         self.MDtime=steps/500.0
         command='mdrun -v -s '+self.files['runinput']+' -o '+self.files['trajectory']+' -c '+self.files['laststructure']+' -g mdlog -e '+self.files['energytraj']
         status=os.system(command)
-        print 'mdrun returned:',status
+        print('mdrun returned:',status)
         if status!=0:
             self.files=backup.copy()
         return
@@ -293,5 +294,5 @@ class GROMACS:
             if self.files['snapshots'] in fn:
                 snapshots.append(os.path.join(os.getcwd(),fn))
         if len(snapshots)<numsnapshots:
-            print 'Got only %d snapshots...' %(len(snapshots))
+            print('Got only %d snapshots...' %(len(snapshots)))
         return snapshots

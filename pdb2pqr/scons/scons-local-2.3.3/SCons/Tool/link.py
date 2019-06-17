@@ -31,6 +31,7 @@ selection method.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Tool/link.py  2014/08/24 12:12:31 garyo"
 
 import re
@@ -88,7 +89,7 @@ def shlib_emitter(target, source, env):
                 env.SideEffect(name, target[0])
                 env.Clean(target[0], name)
                 if Verbose:
-                    print "shlib_emitter: add side effect - ",name
+                    print("shlib_emitter: add side effect - ",name)
     except KeyError:
         version = None
     return (target, source)
@@ -111,16 +112,16 @@ def shlib_emitter_names(target, source, env):
                 # generate library name with the version number
                 version_name = target[0].name + '.' + version
                 if Verbose:
-                    print "shlib_emitter_names: target is ", version_name
-                    print "shlib_emitter_names: side effect: ", name
+                    print("shlib_emitter_names: target is ", version_name)
+                    print("shlib_emitter_names: side effect: ", name)
                 # add version_name to list of names to be a Side effect
                 version_names.append(version_name)
                 if Verbose:
-                    print "shlib_emitter_names: versionparts ",versionparts
+                    print("shlib_emitter_names: versionparts ",versionparts)
                 for ver in versionparts[0:-1]:
                     name = name + '.' + ver
                     if Verbose:
-                        print "shlib_emitter_names: side effect: ", name
+                        print("shlib_emitter_names: side effect: ", name)
                     # add name to list of names to be a Side effect
                     version_names.append(name)
             elif platform == 'darwin':
@@ -130,8 +131,8 @@ def shlib_emitter_names(target, source, env):
                 suffix_re = re.escape(shlib_suffix)
                 version_name = re.sub(suffix_re, '.' + version + shlib_suffix, name)
                 if Verbose:
-                    print "shlib_emitter_names: target is ", version_name
-                    print "shlib_emitter_names: side effect: ", name
+                    print("shlib_emitter_names: target is ", version_name)
+                    print("shlib_emitter_names: side effect: ", name)
                 # add version_name to list of names to be a Side effect
                 version_names.append(version_name)
             elif platform == 'cygwin':
@@ -141,8 +142,8 @@ def shlib_emitter_names(target, source, env):
                 suffix_re = re.escape(shlib_suffix)
                 version_name = re.sub(suffix_re, '-' + re.sub('\.', '-', version) + shlib_suffix, name)
                 if Verbose:
-                    print "shlib_emitter_names: target is ", version_name
-                    print "shlib_emitter_names: side effect: ", name
+                    print("shlib_emitter_names: target is ", version_name)
+                    print("shlib_emitter_names: side effect: ", name)
                 # add version_name to list of names to be a Side effect
                 version_names.append(version_name)
 

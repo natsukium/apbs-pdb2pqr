@@ -2,7 +2,8 @@
 """
     Displays the Jmol input page
 """
-print 'Content-type: text/html\n\n'
+from __future__ import print_function
+print('Content-type: text/html\n\n')
 
 __date__ = "18 June 2008"
 __author__ = "Samir Unni"
@@ -90,7 +91,7 @@ def main(apbsOptions):
                                                         label=str(os.environ["REMOTE_ADDR"])),
                   trackingscript=getTrackingScriptString(jobid=jobid))
 
-    print string
+    print(string)
 
 
 main(initVars())

@@ -3,6 +3,7 @@
 '''SOAP message serialization.
 '''
 
+from __future__ import print_function
 from ZSI import _copyright, _get_idstr, ZSI_SCHEMA_URI
 from ZSI import _backtrace, _stringtypes, _seqtypes
 from ZSI.wstools.Utility import MessageInterface, ElementProxy
@@ -187,4 +188,4 @@ class SoapWriter:
         if not self.closed: self.close()
         
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

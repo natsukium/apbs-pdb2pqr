@@ -3,6 +3,7 @@
 '''Apache typecodes.
 '''
 
+from __future__ import print_function
 from ZSI import _copyright, _child_elements, _get_idstr
 from ZSI.TC import TypeCode, Struct as _Struct, Any as _Any
 
@@ -72,4 +73,4 @@ class _Map(TypeCode):
 
 Apache.Map = _Map
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

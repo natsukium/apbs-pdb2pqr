@@ -3,6 +3,7 @@
 # Joshua R. Boverhof, LBNL
 # See LBNLCopyright for copyright notice!
 ###########################################################################
+from __future__ import print_function
 import os, sys, unittest
 from ServiceTest import main, ServiceTestCase, ServiceTestSuite
 from ZSI import FaultException, ParsedSoap, SoapWriter
@@ -64,11 +65,11 @@ class TestCase(ServiceTestCase):
         pyobj.EventApproximatesResult.Any = dict(pyobj.EventApproximatesResult.Any)
         sw = SoapWriter()
         sw.serialize(pyobj)
-        print str(sw)
+        print(str(sw))
         ps2 = ParsedSoap(str(sw))
         pyobj2 = ps.Parse(self.client_module.EventApproximatesSoapOut.typecode)
-        print "EAR: ", pyobj2.EventApproximatesResult
-        print "Any: ", pyobj2.EventApproximatesResult.Any
+        print("EAR: ", pyobj2.EventApproximatesResult)
+        print("Any: ", pyobj2.EventApproximatesResult.Any)
         
         
         self.failUnless(pyobj.EventApproximatesResult.Any == pyobj2.EventApproximatesResult.Any,

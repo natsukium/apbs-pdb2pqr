@@ -3,6 +3,7 @@
 '''SOAP messaging parsing.
 '''
 
+from __future__ import print_function
 from ZSI import _copyright, _child_elements, EvaluateException, TC
 import multifile, mimetools, urllib
 from base64 import decodestring as b64decode
@@ -144,4 +145,4 @@ class MIMEResolver:
         newio = StringIO.StringIO(body.getvalue())
         return newio
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

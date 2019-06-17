@@ -5,6 +5,7 @@
 Copyright 2001, Zolera Systems, Inc.  All Rights Reserved.
 '''
 
+from __future__ import print_function
 _copyright = """ZSI:  Zolera Soap Infrastructure.
 
 Copyright 2001, Zolera Systems, Inc.  All Rights Reserved.
@@ -430,4 +431,4 @@ schema.RegisterAnyElement()
 #except:
 #    pass
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

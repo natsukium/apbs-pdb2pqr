@@ -3,6 +3,7 @@
 '''General typecodes.
 '''
 
+from __future__ import print_function
 from ZSI import _copyright, _children, _child_elements, \
     _floattypes, _stringtypes, _seqtypes, _find_attr, _find_attrNS, _find_attrNodeNS, \
     _find_arraytype, _find_default_namespace, _find_href, _find_encstyle, \
@@ -1797,5 +1798,5 @@ f = lambda x: type(x) == types.ClassType and issubclass(x, TypeCode) and getattr
 TYPES = filter(f, map(lambda y:eval(y),dir()))
 
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)
 

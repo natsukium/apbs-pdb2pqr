@@ -3,6 +3,7 @@
 '''SOAP messaging parsing.
 '''
 
+from __future__ import print_function
 from xml.dom import expatbuilder
 from ZSI import _copyright, _children, _attrs, _child_elements, _stringtypes, \
         _backtrace, EvaluateException, ParseException, _valid_encoding, \
@@ -375,4 +376,4 @@ class ParsedSoap:
         return d
 
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

@@ -39,6 +39,7 @@
 #-------------------------------------------------------------------------------------------------------
 
 
+from __future__ import print_function
 import string, sys, copy, math
 import output
 

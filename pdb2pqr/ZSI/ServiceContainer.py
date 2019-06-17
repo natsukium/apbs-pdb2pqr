@@ -3,6 +3,7 @@
    -- use with wsdl2py generated modules.
 '''
 
+from __future__ import print_function
 import urlparse, types, os, sys, cStringIO as StringIO, thread,re
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from ZSI import ParseException, FaultFromException, FaultFromZSIException, Fault
@@ -396,7 +397,7 @@ class ServiceContainer(HTTPServer):
             return str(self.__dict)
 
 	def listNodes(self):
-	    print self.__dict.keys()
+	    print(self.__dict.keys())
 
         def getNode(self, url):
             path = urlparse.urlsplit(url)[2]
@@ -494,4 +495,4 @@ class SimpleWSResource(ServiceSOAPBinding):
             raise NotAuthorized, "Authorization failed for method %s" % action
 
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

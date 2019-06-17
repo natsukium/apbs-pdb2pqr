@@ -31,6 +31,7 @@ selection method.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Tool/mslink.py  2014/08/24 12:12:31 garyo"
 
 import os.path
@@ -195,7 +196,7 @@ def RegServerFunc(target, source, env):
         if ret:
             raise SCons.Errors.UserError("Unable to register %s" % target[0])
         else:
-            print "Registered %s sucessfully" % target[0]
+            print("Registered %s sucessfully" % target[0])
         return ret
     return 0
 
@@ -215,7 +216,7 @@ def embedManifestDllCheck(target, source, env):
                 raise SCons.Errors.UserError, "Unable to embed manifest into %s" % (target[0])
             return ret
         else:
-            print '(embed: no %s.manifest found; not embedding.)'%str(target[0])
+            print('(embed: no %s.manifest found; not embedding.)'%str(target[0]))
     return 0
 
 def embedManifestExeCheck(target, source, env):
@@ -229,7 +230,7 @@ def embedManifestExeCheck(target, source, env):
                 raise SCons.Errors.UserError, "Unable to embed manifest into %s" % (target[0])
             return ret
         else:
-            print '(embed: no %s.manifest found; not embedding.)'%str(target[0])
+            print('(embed: no %s.manifest found; not embedding.)'%str(target[0]))
     return 0
 
 embedManifestDllCheckAction = SCons.Action.Action(embedManifestDllCheck, None)

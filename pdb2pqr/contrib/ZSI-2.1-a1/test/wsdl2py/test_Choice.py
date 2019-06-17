@@ -3,6 +3,7 @@
 # Joshua R. Boverhof, LBNL
 # See LBNLCopyright for copyright notice!
 ###########################################################################
+from __future__ import print_function
 import os, sys, unittest
 from ServiceTest import main, ServiceTestCase, ServiceTestSuite
 from ZSI import FaultException
@@ -58,7 +59,7 @@ class ChoiceTestCase(ServiceTestCase):
         pyobj.Rank = 1
         sw = SoapWriter()
         sw.serialize(pyobj)
-        print str(sw)
+        print(str(sw))
 
     def test_local_choice_maxOccurs_unbounded(self):
         """<choice minOccurs=1 maxOccurs=unbounded>
@@ -69,7 +70,7 @@ class ChoiceTestCase(ServiceTestCase):
         pyobj.Rank = [2,3,4]
         sw = SoapWriter()
         sw.serialize(pyobj)
-        print str(sw)
+        print(str(sw))
 
 
 if __name__ == "__main__" :

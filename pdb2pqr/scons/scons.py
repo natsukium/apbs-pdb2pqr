@@ -23,6 +23,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
 __revision__ = "src/script/scons.py  2014/08/24 12:12:31 garyo"
 
 __version__ = "2.3.3"
@@ -191,7 +192,7 @@ if __name__ == "__main__":
     except:
         print("Import failed. Unable to find SCons files in:")
         for path in libs:
-          print "  %s" % path
+          print("  %s" % path)
         raise
 
     # this does all the work, and calls sys.exit

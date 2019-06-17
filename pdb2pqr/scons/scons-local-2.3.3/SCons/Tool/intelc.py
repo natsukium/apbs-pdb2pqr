@@ -32,6 +32,7 @@ selection method.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from __future__ import division
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Tool/intelc.py  2014/08/24 12:12:31 garyo"
 
 import math, sys, os.path, glob, string, re
@@ -259,12 +260,11 @@ def get_all_compiler_versions():
                         # Registry key is left dangling (potentially
                         # after uninstalling).
 
-                        print \
-                            "scons: *** Ignoring the registry key for the Intel compiler version %s.\n" \
+                        print("scons: *** Ignoring the registry key for the Intel compiler version %s.\n" \
                             "scons: *** It seems that the compiler was uninstalled and that the registry\n" \
-                            "scons: *** was not cleaned up properly.\n" % subkey
+                            "scons: *** was not cleaned up properly.\n" % subkey)
                     else:
-                        print "scons: *** Ignoring "+str(value)
+                        print("scons: *** Ignoring "+str(value))
 
                 i = i + 1
         except EnvironmentError:
@@ -480,8 +480,8 @@ def generate(env, version=None, abi=None, topdir=None, verbose=0):
             bindir="bin"
             libdir="lib"
         if verbose:
-            print "Intel C compiler: using version %s (%g), abi %s, in '%s/%s'"%\
-                  (repr(version), linux_ver_normalize(version),abi,topdir,bindir)
+            print("Intel C compiler: using version %s (%g), abi %s, in '%s/%s'"%\
+                  (repr(version), linux_ver_normalize(version),abi,topdir,bindir))
             if is_linux:
                 # Show the actual compiler version by running the compiler.
                 os.system('%s/%s/icc --version'%(topdir,bindir))

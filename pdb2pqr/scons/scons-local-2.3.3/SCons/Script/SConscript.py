@@ -28,6 +28,7 @@ files.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from __future__ import division
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Script/SConscript.py  2014/08/24 12:12:31 garyo"
 
 import SCons
@@ -471,15 +472,15 @@ class SConsEnvironment(SCons.Environment.Base):
                 scons_ver_string = '%d.%d.%d' % (major, minor, revision)
             else:
                 scons_ver_string = '%d.%d' % (major, minor)
-            print "SCons %s or greater required, but you have SCons %s" % \
-                  (scons_ver_string, SCons.__version__)
+            print("SCons %s or greater required, but you have SCons %s" % \
+                  (scons_ver_string, SCons.__version__))
             sys.exit(2)
 
     def EnsurePythonVersion(self, major, minor):
         """Exit abnormally if the Python version is not late enough."""
         if sys.version_info < (major, minor):
             v = sys.version.split()[0]
-            print "Python %d.%d or greater required, but you have Python %s" %(major,minor,v)
+            print("Python %d.%d or greater required, but you have Python %s" %(major,minor,v))
             sys.exit(2)
 
     def Exit(self, value=0):

@@ -3,6 +3,7 @@
     APBS input form [fill in later]
 """
 
+from __future__ import print_function
 __date__ = "22 June 2007"
 __author__ = "Samir Unni"
 __version__ = "0.0.1"
@@ -142,7 +143,7 @@ def apbsExec(logTime, form, apbsOptions):
         
     pid = os.fork()
     if pid:
-        print redirector(logTime)
+        print(redirector(logTime))
         sys.exit()
     else:
         currentdir = os.getcwd()
@@ -315,9 +316,9 @@ def generateForm(file, initVars, pdb2pqrID, type):
     """ % (cginame, cginame, cginame, initVars['calculationType'])) # hardcoded css link
     file.write("<h3>Calculation on <a href=\"tmp/%s/%s\" target=\"_blank\">%s</a> with default values provided by PDB2PQR:</h3><br />\n" % (pdb2pqrID, initVars['pqrname'],initVars['pdbID']))
     # Write out the form element
-    print "<form action=\"%s\" method=\"post\" enctype=\"multipart/form-data\" name=\"%s\" id=\"%s\">" % (cgifile, cginame, cginame)
-    print "<input type=\"submit\" value=\"Launch\"/><br /><br />"
-    print """
+    print("<form action=\"%s\" method=\"post\" enctype=\"multipart/form-data\" name=\"%s\" id=\"%s\">" % (cgifile, cginame, cginame))
+    print("<input type=\"submit\" value=\"Launch\"/><br /><br />")
+    print("""
             If you prefer to run APBS with custom values, click here:
             <input type=\"checkbox\" name=\"customvalues\" onClick=\"toggle(\'params\');"/>
             <br /><br />
@@ -326,60 +327,60 @@ def generateForm(file, initVars, pdb2pqrID, type):
             Please specify the type of calculation (all parameters for the specified calculation must be fullfilled, unless indicated otherwise):
             <br />
 
-    """
+    """)
 
-    print "<input type=\"radio\" name=\"type\" value=\"mg-auto\" onClick=\"showCalcType(\'mg-auto\');\"",
+    print("<input type=\"radio\" name=\"type\" value=\"mg-auto\" onClick=\"showCalcType(\'mg-auto\');\"", end=' ')
     if initVars['calculationType'] == "mg-auto":
-        print " checked=\"checked\"",
+        print(" checked=\"checked\"", end=' ')
     
-    print "/> Automatically-configured sequential focusing multigrid calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#mg-auto\" target=\"_blank\"><font title=\"mg-auto\" >(<span class=\"tooltip\">?</span>)</font></a>"
+    print("/> Automatically-configured sequential focusing multigrid calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#mg-auto\" target=\"_blank\"><font title=\"mg-auto\" >(<span class=\"tooltip\">?</span>)</font></a>")
 
-    print "<br />"
-    print "<input type=\"radio\" name=\"type\" value=\"mg-para\" onClick=\"showCalcType(\'mg-para\');\"",
+    print("<br />")
+    print("<input type=\"radio\" name=\"type\" value=\"mg-para\" onClick=\"showCalcType(\'mg-para\');\"", end=' ')
 
     if initVars['calculationType'] == "mg-para":
-        print " checked=\"checked\"",
+        print(" checked=\"checked\"", end=' ')
     #print "disabled=\"disabled\""
 
-    print """/> Automatically-configured parallel focusing multigrid calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#mg-para\" target=\"_blank\"><font title=\"mg-para\">(<span class=\"tooltip\">?</span>)</font></a>"""
+    print("""/> Automatically-configured parallel focusing multigrid calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#mg-para\" target=\"_blank\"><font title=\"mg-para\">(<span class=\"tooltip\">?</span>)</font></a>""")
 
-    print "<br />"      
-    print "<input type=\"radio\" name=\"type\" value=\"mg-manual\" onClick=\"showCalcType(\'mg-manual\');\"",
+    print("<br />")      
+    print("<input type=\"radio\" name=\"type\" value=\"mg-manual\" onClick=\"showCalcType(\'mg-manual\');\"", end=' ')
     if initVars['calculationType'] == "mg-manual":
-        print " checked=\"checked\"",
+        print(" checked=\"checked\"", end=' ')
     
     #print "disabled=\"disabled\""
 
-    print """/> Manually-configured multigrid calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#mg-manual\" target=\"_blank\"><font title=\"mg-manual\">(<span class=\"tooltip\">?</span>)</font></a>"""
+    print("""/> Manually-configured multigrid calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#mg-manual\" target=\"_blank\"><font title=\"mg-manual\">(<span class=\"tooltip\">?</span>)</font></a>""")
 
 
-    print "<br />"
-    print "<input type=\"radio\" name=\"type\" value=\"fe-manual\" onClick=\"showCalcType(\'fe-manual\');\"",
+    print("<br />")
+    print("<input type=\"radio\" name=\"type\" value=\"fe-manual\" onClick=\"showCalcType(\'fe-manual\');\"", end=' ')
     if initVars['calculationType'] == "fe-manual":
-        print " checked=\"checked\"",
+        print(" checked=\"checked\"", end=' ')
     
     #print "disabled=\"disabled\""
 
-    print """/> Manually-configured adaptive finite element calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#fe-manual\" target=\"_blank\"><font title=\"fe-manual\">(<span class=\"tooltip\">?</span>)</font></a>"""
+    print("""/> Manually-configured adaptive finite element calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#fe-manual\" target=\"_blank\"><font title=\"fe-manual\">(<span class=\"tooltip\">?</span>)</font></a>""")
 
     
-    print "<br />"
+    print("<br />")
 
-    print "<input type=\"radio\" name=\"type\" value=\"mg-dummy\" onClick=\"showCalcType(\'mg-dummy\');\"",
+    print("<input type=\"radio\" name=\"type\" value=\"mg-dummy\" onClick=\"showCalcType(\'mg-dummy\');\"", end=' ')
     if initVars['calculationType'] == "mg-dummy":
-        print " checked=\"checked\"",
+        print(" checked=\"checked\"", end=' ')
     
     #print "disabled=\"disabled\""
 
-    print """/> Surface and charge distribution property calculations (does not require solution of the PBE) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#mg-dummy\" target=\"_blank\"><font title=\"mg-dummy\">(<span class=\"tooltip\">?</span>)</font></a>"""
+    print("""/> Surface and charge distribution property calculations (does not require solution of the PBE) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#mg-dummy\" target=\"_blank\"><font title=\"mg-dummy\">(<span class=\"tooltip\">?</span>)</font></a>""")
 
-    print "<ul><li><input type=\"checkbox\" name=\"removewater\" value=\"on\" checked=\"checked\"/> Remove water from calculations and visualizations</li></ul>"
+    print("<ul><li><input type=\"checkbox\" name=\"removewater\" value=\"on\" checked=\"checked\"/> Remove water from calculations and visualizations</li></ul>")
 
-    print """
+    print("""
                 <div class=\"mg-auto mg-para mg-manual mg-dummy\">
-                <ul>"""
+                <ul>""")
 
-    print """
+    print("""
                 <table class=\"apbs\" border=\"1\">
                     <tr>
                         <th></th>
@@ -390,336 +391,336 @@ def generateForm(file, initVars, pdb2pqrID, type):
                     <tbody class=\"mg-auto mg-para mg-manual mg-dummy\">
                     <tr>
                         <td>Number of grid points<br />per processor for grid-<br />based discretization <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-dime\" target=\"_blank\"><font title=\"dime\">(<span class=\"tooltip\">?</span>)</font></a></td>
-                        <td><input type=\"text\" name=\"dimenx\" size=\"10\" maxlength=\"20\""""
+                        <td><input type=\"text\" name=\"dimenx\" size=\"10\" maxlength=\"20\"""")
     if initVars.has_key('dime'):
-        print "value=\"%d\"" % initVars['dime'][0]
-    print "/></td>"
-    print "<td><input type=\"text\" name=\"dimeny\" size=\"10\" maxlength=\"20\""
+        print("value=\"%d\"" % initVars['dime'][0])
+    print("/></td>")
+    print("<td><input type=\"text\" name=\"dimeny\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('dime'):
-        print "value=\"%d\"" % initVars['dime'][1]
-    print "/></td>"
-    print "<td><input type=\"text\" name=\"dimenz\" size=\"10\" maxlength=\"20\""
+        print("value=\"%d\"" % initVars['dime'][1])
+    print("/></td>")
+    print("<td><input type=\"text\" name=\"dimenz\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('dime'):
-        print "value=\"%d\"" % initVars['dime'][2]
-    print "/></td></tr></tbody>"
+        print("value=\"%d\"" % initVars['dime'][2])
+    print("/></td></tr></tbody>")
     # next row
-    print "<tbody class=\"mg-auto mg-para mg-dummy\">"
-    print "<tr>"
-    print "<td>Coarse mesh domain<br />lengths in a focusing<br />calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-cglen\" target=\"_blank\"><font title=\"cglen\">(<span class=\"tooltip\">?</span>)</font></a></td>"
-    print "<td><input type=\"text\" name=\"cglenx\" size=\"10\" maxlength=\"20\""
+    print("<tbody class=\"mg-auto mg-para mg-dummy\">")
+    print("<tr>")
+    print("<td>Coarse mesh domain<br />lengths in a focusing<br />calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-cglen\" target=\"_blank\"><font title=\"cglen\">(<span class=\"tooltip\">?</span>)</font></a></td>")
+    print("<td><input type=\"text\" name=\"cglenx\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('coarseGridLength'):
-        print "value=\"%g\"" % initVars['coarseGridLength'][0]
-    print "/>"
-    print "<td><input type=\"text\" name=\"cgleny\" size=\"10\" maxlength=\"20\""
+        print("value=\"%g\"" % initVars['coarseGridLength'][0])
+    print("/>")
+    print("<td><input type=\"text\" name=\"cgleny\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('coarseGridLength'):
-        print "value=\"%g\"" % initVars['coarseGridLength'][1]
-    print "/>"
-    print "<td><input type=\"text\" name=\"cglenz\" size=\"10\" maxlength=\"20\""
+        print("value=\"%g\"" % initVars['coarseGridLength'][1])
+    print("/>")
+    print("<td><input type=\"text\" name=\"cglenz\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('coarseGridLength'):
-        print "value=\"%g\"" % initVars['coarseGridLength'][2]
-    print "/></td></tr></tbody>"
+        print("value=\"%g\"" % initVars['coarseGridLength'][2])
+    print("/></td></tr></tbody>")
     # next row
-    print "<tbody class=\"mg-auto mg-para\">"
-    print "<tr>"
-    print "<td>Fine mesh domain<br />lengths in a focusing<br />calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-fglen\" target=\"_blank\"><font title=\"fglen\">(<span class=\"tooltip\">?</span>)</font></a></td>"
-    print "<td><input type=\"text\" name=\"fglenx\" size=\"10\" maxlength=\"20\""
+    print("<tbody class=\"mg-auto mg-para\">")
+    print("<tr>")
+    print("<td>Fine mesh domain<br />lengths in a focusing<br />calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-fglen\" target=\"_blank\"><font title=\"fglen\">(<span class=\"tooltip\">?</span>)</font></a></td>")
+    print("<td><input type=\"text\" name=\"fglenx\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('fineGridLength'):
-        print "value=\"%g\"" % initVars['fineGridLength'][0]
-    print "/>"
-    print "<td><input type=\"text\" name=\"fgleny\" size=\"10\" maxlength=\"20\""
+        print("value=\"%g\"" % initVars['fineGridLength'][0])
+    print("/>")
+    print("<td><input type=\"text\" name=\"fgleny\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('fineGridLength'):
-        print "value=\"%g\"" % initVars['fineGridLength'][1]
-    print "/>"
-    print "<td><input type=\"text\" name=\"fglenz\" size=\"10\" maxlength=\"20\""
+        print("value=\"%g\"" % initVars['fineGridLength'][1])
+    print("/>")
+    print("<td><input type=\"text\" name=\"fglenz\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('fineGridLength'):
-        print "value=\"%g\"" % initVars['fineGridLength'][2]
-    print "/></td></tr></tbody>"
-
-    # next row
-    print "<tbody class=\"mg-para\">"
-    print "<tr>"
-    print "<td>Number of proces-<br />sors in a parallel<br />focusing calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-pdime\" target=\"_blank\"><font title=\"pdime\">(<span class=\"tooltip\">?</span>)</font></a></td>"
-    print "<td><input type=\"text\" name=\"pdimex\" size=\"10\" maxlength=\"20\""
-    if initVars.has_key('pdime'):
-        print "value=\"%g\"" % initVars['pdime'][0]
-    print "/>"
-    print "<td><input type=\"text\" name=\"pdimey\" size=\"10\" maxlength=\"20\""
-    if initVars.has_key('pdime'):
-        print "value=\"%g\"" % initVars['pdime'][1]
-    print "/>"
-    print "<td><input type=\"text\" name=\"pdimez\" size=\"10\" maxlength=\"20\""
-    if initVars.has_key('pdime'):
-        print "value=\"%g\"" % initVars['pdime'][2]
-    print "/></td></tr></tbody>"
+        print("value=\"%g\"" % initVars['fineGridLength'][2])
+    print("/></td></tr></tbody>")
 
     # next row
-    print "<tbody class=\"mg-manual\">"
-    print "<tr>"
-    print "<td>Mesh domain<br />lengths <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-glen\" target=\"_blank\"><font title=\"glen\">(<span class=\"tooltip\">?</span>)</font></a></td>"
-    print "<td><input type=\"text\" name=\"glenx\" size=\"10\" maxlength=\"20\""
+    print("<tbody class=\"mg-para\">")
+    print("<tr>")
+    print("<td>Number of proces-<br />sors in a parallel<br />focusing calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-pdime\" target=\"_blank\"><font title=\"pdime\">(<span class=\"tooltip\">?</span>)</font></a></td>")
+    print("<td><input type=\"text\" name=\"pdimex\" size=\"10\" maxlength=\"20\"")
+    if initVars.has_key('pdime'):
+        print("value=\"%g\"" % initVars['pdime'][0])
+    print("/>")
+    print("<td><input type=\"text\" name=\"pdimey\" size=\"10\" maxlength=\"20\"")
+    if initVars.has_key('pdime'):
+        print("value=\"%g\"" % initVars['pdime'][1])
+    print("/>")
+    print("<td><input type=\"text\" name=\"pdimez\" size=\"10\" maxlength=\"20\"")
+    if initVars.has_key('pdime'):
+        print("value=\"%g\"" % initVars['pdime'][2])
+    print("/></td></tr></tbody>")
+
+    # next row
+    print("<tbody class=\"mg-manual\">")
+    print("<tr>")
+    print("<td>Mesh domain<br />lengths <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-glen\" target=\"_blank\"><font title=\"glen\">(<span class=\"tooltip\">?</span>)</font></a></td>")
+    print("<td><input type=\"text\" name=\"glenx\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('glen'):
-        print "value=\"%g\"" % initVars['glen'][0]
-    print "/>"
-    print "<td><input type=\"text\" name=\"gleny\" size=\"10\" maxlength=\"20\""
+        print("value=\"%g\"" % initVars['glen'][0])
+    print("/>")
+    print("<td><input type=\"text\" name=\"gleny\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('glen'):
-        print "value=\"%g\"" % initVars['glen'][1]
-    print "/>"
-    print "<td><input type=\"text\" name=\"glenz\" size=\"10\" maxlength=\"20\""
+        print("value=\"%g\"" % initVars['glen'][1])
+    print("/>")
+    print("<td><input type=\"text\" name=\"glenz\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('glen'):
-        print "value=\"%g\"" % initVars['glen'][2]
-    print "/></td></tr></tbody>"
+        print("value=\"%g\"" % initVars['glen'][2])
+    print("/></td></tr></tbody>")
 
 
 
-    print "</table></div></ul>"
+    print("</table></div></ul>")
 
-    print """           <div class=\"mg-para\"><ul>
-                <li>Amount of overlap to include between the individual processors' meshes <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-ofrac\" target=\"_blank\"><font title=\"ofrac\">(<span class=\"tooltip\">?</span>)</font></a>:"""
-    print "<input type=\"text\" name=\"ofrac\" size=\"10\" maxlength=\"20\""
+    print("""           <div class=\"mg-para\"><ul>
+                <li>Amount of overlap to include between the individual processors' meshes <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-ofrac\" target=\"_blank\"><font title=\"ofrac\">(<span class=\"tooltip\">?</span>)</font></a>:""")
+    print("<input type=\"text\" name=\"ofrac\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('processorMeshOverlap'):
-        print "value=\"%f\"" % initVars['processorMeshOverlap']
-    print "/></li><br />"
+        print("value=\"%f\"" % initVars['processorMeshOverlap'])
+    print("/></li><br />")
 
-    print "<li><input type=\"checkbox\" name=\"asyncflag\" onClick=toggle(\"async\") "
+    print("<li><input type=\"checkbox\" name=\"asyncflag\" onClick=toggle(\"async\") ")
     if initVars['asyncflag']:
-        print " checked=\"checked\""
-    print """/> Perform the tasks in a parallel run asynchronously <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-async\" target=\"_blank\"><font title=\"asyncflag\">(<span class=\"tooltip\">?</span>)</font></a></li>"""
-    print "<blockquote>"
-    print "<div id=\"async\" style=\"display:none\">"
-    print "<li>Rank for a processor to masquerade as <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-async\" target=\"_blank\"><font title=\"async\">(<span class=\"tooltip\">?</span>)</font></a>:"
-    print "<input type=\"text\" name=\"async\" size=\"10\" maxlength=\"20\""
+        print(" checked=\"checked\"")
+    print("""/> Perform the tasks in a parallel run asynchronously <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-async\" target=\"_blank\"><font title=\"asyncflag\">(<span class=\"tooltip\">?</span>)</font></a></li>""")
+    print("<blockquote>")
+    print("<div id=\"async\" style=\"display:none\">")
+    print("<li>Rank for a processor to masquerade as <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-async\" target=\"_blank\"><font title=\"async\">(<span class=\"tooltip\">?</span>)</font></a>:")
+    print("<input type=\"text\" name=\"async\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('async'):
-        print " value=\"%i\"" % initVars['async']
-    print "/></li>"
-    print "</blockquote>"
+        print(" value=\"%i\"" % initVars['async'])
+    print("/></li>")
+    print("</blockquote>")
 
 
-    print "</li></ul></div>"
+    print("</li></ul></div>")
 
-    print "<div class=\"mg-manual mg-dummy\">"
-    print "<ul><li>Depth of the multilevel hierarchy used in the multigrid solver <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-nlev\" target=\"_blank\"><font title=\"nlev\">(<span class=\"tooltip\">?</span>)</font></a>:"
-    print "<input type=\"text\" name=\"nlev\" size=\"10\" maxlength=\"20\""
+    print("<div class=\"mg-manual mg-dummy\">")
+    print("<ul><li>Depth of the multilevel hierarchy used in the multigrid solver <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-nlev\" target=\"_blank\"><font title=\"nlev\">(<span class=\"tooltip\">?</span>)</font></a>:")
+    print("<input type=\"text\" name=\"nlev\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('nlev'):
-        print " value=\"%i\"" % initVars['nlev']
-    print "/></li></ul></div>"
+        print(" value=\"%i\"" % initVars['nlev'])
+    print("/></li></ul></div>")
 
-    print """           <div class=\"mg-manual mg-dummy\"><ul>
+    print("""           <div class=\"mg-manual mg-dummy\"><ul>
                 
                 <li>Center of the grid <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-cgcent\" target=\"_blank\"><font title=\"gcent\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>
-                <blockquote><ul><li>"""
-    print "<input type=\"radio\" name=\"gcent\" value=\"mol\" onClick=\"showHide(\'gcentmol\',\'gcentcoord\');\""
+                <blockquote><ul><li>""")
+    print("<input type=\"radio\" name=\"gcent\" value=\"mol\" onClick=\"showHide(\'gcentmol\',\'gcentcoord\');\"")
 
     if initVars['gridCenterMethod'] == "molecule":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
 
-    print "/> Center the grid on a molecule.</li></ul>"
+    print("/> Center the grid on a molecule.</li></ul>")
     
-    print "<div id=\"gcentmol\""
+    print("<div id=\"gcentmol\"")
     if initVars['gridCenterMethod'] != "molecule":
-        print " style=\"display: none;\""
-    print"""><blockquote>
+        print(" style=\"display: none;\"")
+    print("""><blockquote>
                     <ul>
-                        <li>Enter molecule ID:"""
+                        <li>Enter molecule ID:""")
     
-    print "<input type=\"text\" name=\"gcentid\" size=\"10\" maxlength=\"20\""
+    print("<input type=\"text\" name=\"gcentid\" size=\"10\" maxlength=\"20\"")
     if initVars['gridCenterMethod'] == "molecule" and initVars.has_key('gridCenterMoleculeID'):
-        print "value=\"%d\"" % initVars['gridCenterMoleculeID']
-    print "/>"
+        print("value=\"%d\"" % initVars['gridCenterMoleculeID'])
+    print("/>")
 
-    print """
+    print("""
                         </li>
                     </ul>
                     </blockquote></div>
-                    """
+                    """)
 
-    print "<ul><li><input type=\"radio\" name=\"gcent\" value=\"coord\" onClick=\"showHide(\'gcentcoord\',\'gcentmol\');\""
+    print("<ul><li><input type=\"radio\" name=\"gcent\" value=\"coord\" onClick=\"showHide(\'gcentcoord\',\'gcentmol\');\"")
 
     if initVars['gridCenterMethod'] == "coordinate":
-        print "checked"
+        print("checked")
 
-    print "/> Manually enter coordinates for center of grid:</li></ul>"
+    print("/> Manually enter coordinates for center of grid:</li></ul>")
 
-    print "<div id=\"gcentcoord\""
+    print("<div id=\"gcentcoord\"")
     if initVars['gridCenterMethod'] != "coordinate":
-        print "style=\"display: none;\""
-    print """><blockquote>
+        print("style=\"display: none;\"")
+    print("""><blockquote>
                     <ul>
-                        <li>"""
+                        <li>""")
 
-    print "x-coordinate: <input type=\"text\" name=\"gxcent\" size=\"10\" maxlength=\"20\""
+    print("x-coordinate: <input type=\"text\" name=\"gxcent\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('gridCenter'):
-        print "value=\"%d\"" % initVars['gridCenter'][0]
-    print "/>"
+        print("value=\"%d\"" % initVars['gridCenter'][0])
+    print("/>")
 
 
-    print """
+    print("""
                         </li>
-                        <li>"""
+                        <li>""")
 
-    print "y-coordinate: <input type=\"text\" name=\"gycent\" size=\"10\" maxlength=\"20\""
+    print("y-coordinate: <input type=\"text\" name=\"gycent\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('gridCenter'):
-        print "value=\"%d\"" % initVars['gridCenter'][1]
-    print "/>"
+        print("value=\"%d\"" % initVars['gridCenter'][1])
+    print("/>")
 
-    print """
+    print("""
                         </li>
-                        <li>"""
+                        <li>""")
 
-    print "z-coordinate: <input type=\"text\" name=\"gzcent\" size=\"10\" maxlength=\"20\""
+    print("z-coordinate: <input type=\"text\" name=\"gzcent\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('gridCenter'):
-        print "value=\"%d\"" % initVars['gridCenter'][2]
-    print "/>"
-    print "</li></ul></blockquote></div>"
-    print "</blockquote>"
-    print "</div>"
+        print("value=\"%d\"" % initVars['gridCenter'][2])
+    print("/>")
+    print("</li></ul></blockquote></div>")
+    print("</blockquote>")
+    print("</div>")
     
-    print """ 
+    print(""" 
         
        <div class=\"mg-auto mg-para\"><ul>
                 <li>Center of the coarse grid <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-cgcent\" target=\"_blank\"><font title=\"cgcent\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>
-                                <blockquote><ul><li>"""
+                                <blockquote><ul><li>""")
 
-    print "<input type=\"radio\" name=\"cgcent\" value=\"mol\" onClick=\"showHide(\'cgcentmol\',\'cgcentcoord\');\""
+    print("<input type=\"radio\" name=\"cgcent\" value=\"mol\" onClick=\"showHide(\'cgcentmol\',\'cgcentcoord\');\"")
 
     if initVars['coarseGridCenterMethod'] == "molecule":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
 
-    print "/> Center the grid on a molecule.</li></ul>"
+    print("/> Center the grid on a molecule.</li></ul>")
     
-    print "<div id=\"cgcentmol\""
+    print("<div id=\"cgcentmol\"")
     if initVars['coarseGridCenterMethod'] != "molecule":
-        print " style=\"display: none;\""
-    print"""><blockquote>
+        print(" style=\"display: none;\"")
+    print("""><blockquote>
                     <ul>
-                        <li>Enter molecule ID:"""
+                        <li>Enter molecule ID:""")
     
-    print "<input type=\"text\" name=\"cgcentid\" size=\"10\" maxlength=\"20\""
+    print("<input type=\"text\" name=\"cgcentid\" size=\"10\" maxlength=\"20\"")
     if initVars['coarseGridCenterMethod'] == "molecule" and initVars.has_key('coarseGridCenterMoleculeID'):
-        print "value=\"%d\"" % initVars['coarseGridCenterMoleculeID']
-    print "/>"
+        print("value=\"%d\"" % initVars['coarseGridCenterMoleculeID'])
+    print("/>")
 
-    print """
+    print("""
                         </li>
                     </ul>
                     </blockquote>
                     </div>
-                    """
+                    """)
 
-    print "<ul><li><input type=\"radio\" name=\"cgcent\" value=\"coord\" onClick=\"showHide(\'cgcentcoord\',\'cgcentmol\');\""
+    print("<ul><li><input type=\"radio\" name=\"cgcent\" value=\"coord\" onClick=\"showHide(\'cgcentcoord\',\'cgcentmol\');\"")
 
     if initVars['coarseGridCenterMethod'] == "coordinate":
-        print "checked"
+        print("checked")
 
-    print "/> Manually enter coordinates for center of grid:</li></ul>"
+    print("/> Manually enter coordinates for center of grid:</li></ul>")
 
-    print "<div id=\"cgcentcoord\""
+    print("<div id=\"cgcentcoord\"")
     if initVars['coarseGridCenterMethod'] != "coordinate":
-        print "style=\"display: none;\""
-    print """><blockquote>
+        print("style=\"display: none;\"")
+    print("""><blockquote>
                     <ul>
-                        <li>"""
+                        <li>""")
 
-    print "x-coordinate: <input type=\"text\" name=\"cgxcent\" size=\"10\" maxlength=\"20\""
+    print("x-coordinate: <input type=\"text\" name=\"cgxcent\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('coarseGridCenter'):
-        print "value=\"%d\"" % initVars['coarseGridCenter'][0]
-    print "/>"
+        print("value=\"%d\"" % initVars['coarseGridCenter'][0])
+    print("/>")
 
 
-    print """
+    print("""
                         </li>
-                        <li>"""
+                        <li>""")
 
-    print "y-coordinate: <input type=\"text\" name=\"cgycent\" size=\"10\" maxlength=\"20\""
+    print("y-coordinate: <input type=\"text\" name=\"cgycent\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('coarseGridCenter'):
-        print "value=\"%d\"" % initVars['coarseGridCenter'][1]
-    print "/>"
+        print("value=\"%d\"" % initVars['coarseGridCenter'][1])
+    print("/>")
 
-    print """
+    print("""
                         </li>
-                        <li>"""
+                        <li>""")
 
-    print "z-coordinate: <input type=\"text\" name=\"cgzcent\" size=\"10\" maxlength=\"20\""
+    print("z-coordinate: <input type=\"text\" name=\"cgzcent\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('coarseGridCenter'):
-        print "value=\"%d\"" % initVars['coarseGridCenter'][2]
-    print "/>"
-    print """</li></ul></blockquote>
-                    </blockquote>"""
+        print("value=\"%d\"" % initVars['coarseGridCenter'][2])
+    print("/>")
+    print("""</li></ul></blockquote>
+                    </blockquote>""")
             #"""</div>"""
 
-    print """
+    print("""
 
 
                 <ul>
                 <li>Center of the fine grid <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-fgcent\" target=\"_blank\"><font title=\"fgcent\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>
                 <blockquote>
-                <ul><li>"""
+                <ul><li>""")
 
-    print "<input type=\"radio\" name=\"fgcent\" value=\"mol\" onClick=\"showHide(\'fgcentmol\',\'fgcentcoord\');\""
+    print("<input type=\"radio\" name=\"fgcent\" value=\"mol\" onClick=\"showHide(\'fgcentmol\',\'fgcentcoord\');\"")
 
     if initVars['fineGridCenterMethod'] == "molecule":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
 
-    print "/> Center the grid on a molecule.</li></ul>"
-    print "<div id=\"fgcentmol\""
+    print("/> Center the grid on a molecule.</li></ul>")
+    print("<div id=\"fgcentmol\"")
     if initVars['fineGridCenterMethod'] != "molecule":
-        print "style=\"display: none\""
+        print("style=\"display: none\"")
 
-    print """
+    print("""
                     ><blockquote>
                     <ul>
-                        <li>Enter molecule ID:"""
+                        <li>Enter molecule ID:""")
     
-    print "<input type=\"text\" name=\"fgcentid\" size=\"10\" maxlength=\"20\""
+    print("<input type=\"text\" name=\"fgcentid\" size=\"10\" maxlength=\"20\"")
     if initVars['fineGridCenterMethod'] == "molecule" and initVars.has_key('fineGridCenterMoleculeID'):
-        print "value=\"%d\"" % initVars['fineGridCenterMoleculeID']
-    print "/>"
+        print("value=\"%d\"" % initVars['fineGridCenterMoleculeID'])
+    print("/>")
     
-    print """
+    print("""
                         </li>
                     </ul>
-                    </blockquote></div>"""
+                    </blockquote></div>""")
     
-    print "<ul><li><input type=\"radio\" name=\"fgcent\" value=\"coord\" onClick=\"showHide(\'fgcentcoord\',\'fgcentmol\');\""
+    print("<ul><li><input type=\"radio\" name=\"fgcent\" value=\"coord\" onClick=\"showHide(\'fgcentcoord\',\'fgcentmol\');\"")
     if initVars['fineGridCenterMethod'] == "coordinate":
-        print "checked"
-    print "/> Manually enter coordinates for the center of the grid.</li></ul>"
-    print "<div id=\"fgcentcoord\""
+        print("checked")
+    print("/> Manually enter coordinates for the center of the grid.</li></ul>")
+    print("<div id=\"fgcentcoord\"")
     if initVars['fineGridCenterMethod'] != "coordinate":
-        print "style=\"display: none;\""
+        print("style=\"display: none;\"")
 
-    print """
+    print("""
                     ><blockquote>
                     <ul>
-                        <li>"""
+                        <li>""")
 
-    print "x-coordinate: <input type=\"text\" name=\"fgxcent\" size=\"10\" maxlength=\"20\""
+    print("x-coordinate: <input type=\"text\" name=\"fgxcent\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('fineGridCenter'):
-        print "value=\"%d\"" % initVars['fineGridCenter'][0]
-    print "/>"
-    print """
+        print("value=\"%d\"" % initVars['fineGridCenter'][0])
+    print("/>")
+    print("""
                         </li>
-                        <li>"""
+                        <li>""")
 
-    print "y-coordinate: <input type=\"text\" name=\"fgycent\" size=\"10\" maxlength=\"20\""
+    print("y-coordinate: <input type=\"text\" name=\"fgycent\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('fineGridCenter'):
-        print "value=\"%d\"" % initVars['fineGridCenter'][1]
-    print "/>"
+        print("value=\"%d\"" % initVars['fineGridCenter'][1])
+    print("/>")
 
-    print """
+    print("""
                         </li>
-                        <li>"""
+                        <li>""")
 
-    print "z-coordinate: <input type=\"text\" name=\"fgzcent\" size=\"10\" maxlength=\"20\""
+    print("z-coordinate: <input type=\"text\" name=\"fgzcent\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('fineGridCenter'):
-        print "value=\"%d\"" % initVars['fineGridCenter'][2]
-    print "/>"
+        print("value=\"%d\"" % initVars['fineGridCenter'][2])
+    print("/>")
     
-    print """
+    print("""
                         </li>
                 </ul>
                     </blockquote>
                 </blockquote>
-                    </div>"""#</div>"""
+                    </div>""")#</div>"""
 
 
     #print       """<ul>
@@ -735,97 +736,97 @@ def generateForm(file, initVars, pdb2pqrID, type):
     #print """</ul>
 
 
-    print """   <ul>
-                <li>Type of PBE to be solved:</li></ul>"""
+    print("""   <ul>
+                <li>Type of PBE to be solved:</li></ul>""")
 
-    print """<blockquote>
-    <ul>"""
-    print "<li><input type=\"radio\" name=\"solvetype\" value=\"lpbe\""
+    print("""<blockquote>
+    <ul>""")
+    print("<li><input type=\"radio\" name=\"solvetype\" value=\"lpbe\"")
     if initVars['solveType'] == "linearized":
-        print "checked=\"checked\""
-    print "/> Linearized <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-lpbe\" target=\"_blank\"><font title=\"lpbe\">(<span class=\"tooltip\">?</span>)</font></a></li>"
+        print("checked=\"checked\"")
+    print("/> Linearized <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-lpbe\" target=\"_blank\"><font title=\"lpbe\">(<span class=\"tooltip\">?</span>)</font></a></li>")
 
 
-    print "<li><input type=\"radio\" name=\"solvetype\" value=\"npbe\""
+    print("<li><input type=\"radio\" name=\"solvetype\" value=\"npbe\"")
     if initVars['solveType'] == "nonlinearized":
-        print "checked=\"checked\""
-    print "/> Nonlinearized <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-npbe\" target=\"_blank\"><font title=\"npbe\">(<span class=\"tooltip\">?</span>)</font></a></li>"
+        print("checked=\"checked\"")
+    print("/> Nonlinearized <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-npbe\" target=\"_blank\"><font title=\"npbe\">(<span class=\"tooltip\">?</span>)</font></a></li>")
 
-    print "<div class=\"fe-manual\""
+    print("<div class=\"fe-manual\"")
     #if initVars.defaultCalcType != "fe-manual":
     #    print " style=\"display: none;\""
-    print "><li><input type=\"radio\" name=\"solvetype\" value=\"lrpbe\""
+    print("><li><input type=\"radio\" name=\"solvetype\" value=\"lrpbe\"")
     if initVars['solveType'] == "linearized regularized":
-        print "checked=\"checked\""
-    print "/> Linearized (regularized) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-lrpbe\" target=\"_blank\"><font title=\"lrpbe\">(<span class=\"tooltip\">?</span>)</font></a></li>"
+        print("checked=\"checked\"")
+    print("/> Linearized (regularized) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-lrpbe\" target=\"_blank\"><font title=\"lrpbe\">(<span class=\"tooltip\">?</span>)</font></a></li>")
 
     
-    print "<li><input type=\"radio\" name=\"solvetype\" value=\"nrpbe\""
+    print("<li><input type=\"radio\" name=\"solvetype\" value=\"nrpbe\"")
     if initVars['solveType'] == "nonlinearized regularized":
-        print "checked=\"checked\""
-    print "/> Nonlinearized (regularized) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-nrpbe\" target=\"_blank\"><font title=\"nrpbe\">(<span class=\"tooltip\">?</span>)</font></a></li></div>"
+        print("checked=\"checked\"")
+    print("/> Nonlinearized (regularized) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-nrpbe\" target=\"_blank\"><font title=\"nrpbe\">(<span class=\"tooltip\">?</span>)</font></a></li></div>")
 
-    print """</ul>
-    </blockquote>"""
+    print("""</ul>
+    </blockquote>""")
 
-    print "         <ul><li>Boundary condition definition <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"bcfl\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>"
+    print("         <ul><li>Boundary condition definition <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"bcfl\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>")
     
-    print "<blockquote> <ul>"
-    print "<li><input type=\"radio\" name=\"bcfl\" value=\"zero\""
+    print("<blockquote> <ul>")
+    print("<li><input type=\"radio\" name=\"bcfl\" value=\"zero\"")
     if initVars['boundaryConditions'] == "zero":
-        print "checked=\"checked\""
-    print "/> Zero <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"zero\">(<span class=\"tooltip\">?</span>)</font></a></li>"
+        print("checked=\"checked\"")
+    print("/> Zero <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"zero\">(<span class=\"tooltip\">?</span>)</font></a></li>")
 
 
-    print "<li><input type=\"radio\" name=\"bcfl\" value=\"sdh\""
+    print("<li><input type=\"radio\" name=\"bcfl\" value=\"sdh\"")
     if initVars['boundaryConditions'] == "sdh":
-        print "checked=\"checked\""
-    print "/> Single Debye-Huckel <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"sdh\">(<span class=\"tooltip\">?</span>)</font></a></li>"
+        print("checked=\"checked\"")
+    print("/> Single Debye-Huckel <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"sdh\">(<span class=\"tooltip\">?</span>)</font></a></li>")
 
 
-    print "<li><input type=\"radio\" name=\"bcfl\" value=\"mdh\""
+    print("<li><input type=\"radio\" name=\"bcfl\" value=\"mdh\"")
     if initVars['boundaryConditions'] == "mdh":
-        print "checked=\"checked\""
-    print "/> Multiple Debye-Huckel <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"mdh\">(<span class=\"tooltip\">?</span>)</font></a></li>"
+        print("checked=\"checked\"")
+    print("/> Multiple Debye-Huckel <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"mdh\">(<span class=\"tooltip\">?</span>)</font></a></li>")
 
 
-    print "<li><input type=\"radio\" name=\"bcfl\" value=\"focus\""
+    print("<li><input type=\"radio\" name=\"bcfl\" value=\"focus\"")
     if initVars['boundaryConditions'] == "focus":
-        print "checked=\"checked\""
-    print "/> Focusing <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"focus\">(<span class=\"tooltip\">?</span>)</font></a></li>"
-    print "</ul></blockquote>"
+        print("checked=\"checked\"")
+    print("/> Focusing <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-bcfl\" target=\"_blank\"><font title=\"focus\">(<span class=\"tooltip\">?</span>)</font></a></li>")
+    print("</ul></blockquote>")
 
 
-    print "<ul>"
-    print """       <li>Mobile ion species present in system (optional) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-ion\" target=\"_blank\"><font title=\"ion\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>"""
+    print("<ul>")
+    print("""       <li>Mobile ion species present in system (optional) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-ion\" target=\"_blank\"><font title=\"ion\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>""")
 
-    print """<ul>
+    print("""<ul>
                 <table class=\"apbs\" border=\"1\">
                     <tr>
                         <th></th>
                         <th>Mobile ion species<br />charge (in e<sub>c</sub>) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-ion\" target=\"_blank\"><font title=\"charge\">(<span class=\"tooltip\">?</span>)</font></a></th>
                         <th>Mobile ion species<br />concentration (in M) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-ion\" target=\"_blank\"><font title=\"conc\">(<span class=\"tooltip\">?</span>)</font></a></th>
                         <th>Mobile ion species<br />radius (in A) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-ion\" target=\"_blank\"><font title=\"radius\">(<span class=\"tooltip\">?</span>)</font></a></th>
-                    </tr>"""
+                    </tr>""")
     # new row
     for i in range(0,3):
-        print """<tr>
+        print("""<tr>
                             <td>Ion %d</td>
-                            <td><input type=\"text\" name=\"charge%d\" size=\"10\" maxlength=\"20\"""" % ((i+1),i)
+                            <td><input type=\"text\" name=\"charge%d\" size=\"10\" maxlength=\"20\"""" % ((i+1),i))
         if initVars.has_key('mobileIonSpeciesCharge'):
-            print "value=\"%d\"" % initVars['mobileIonSpeciesCharge']
-        print "/></td>"
-        print """
-                            <td><input type=\"text\" name=\"conc%d\" size=\"10\" maxlength=\"20\"""" % i
+            print("value=\"%d\"" % initVars['mobileIonSpeciesCharge'])
+        print("/></td>")
+        print("""
+                            <td><input type=\"text\" name=\"conc%d\" size=\"10\" maxlength=\"20\"""" % i)
         if initVars.has_key('mobileIonSpeciesConcentration'):
-            print "value=\"%d\"" % initVars['mobileIonSpeciesConcentration']
-        print "/></td>"
-        print """
-                            <td><input type=\"text\" name=\"radius%d\" size=\"10\" maxlength=\"20\"""" % i
+            print("value=\"%d\"" % initVars['mobileIonSpeciesConcentration'])
+        print("/></td>")
+        print("""
+                            <td><input type=\"text\" name=\"radius%d\" size=\"10\" maxlength=\"20\"""" % i)
         if initVars.has_key('mobileIonSpeciesRadius'):
-            print "value=\"%d\"" % initVars['mobileIonSpeciesRadius']
-        print "/></td>"
-    print "</tr></table></ul>"
+            print("value=\"%d\"" % initVars['mobileIonSpeciesRadius'])
+        print("/></td>")
+    print("</tr></table></ul>")
 
                         
 
@@ -855,286 +856,286 @@ def generateForm(file, initVars, pdb2pqrID, type):
     #print "</ul></blockquote>"
 
 
-    print "         <ul><li>Biomolecular dielectric constant <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-pdie\" target=\"_blank\"><font title=\"pdie\">(<span class=\"tooltip\">?</span>)</font></a>:"
+    print("         <ul><li>Biomolecular dielectric constant <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-pdie\" target=\"_blank\"><font title=\"pdie\">(<span class=\"tooltip\">?</span>)</font></a>:")
 
     
-    print "<input type=\"text\" name=\"pdie\" size=\"10\" maxlength=\"20\""
+    print("<input type=\"text\" name=\"pdie\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('biomolecularDielectricConstant'):
-        print "value=\"%g\"" % initVars['biomolecularDielectricConstant']
-    print "/>"
+        print("value=\"%g\"" % initVars['biomolecularDielectricConstant'])
+    print("/>")
     
-    print """       </li>
-                </ul>"""
+    print("""       </li>
+                </ul>""")
 
-    print "         <ul><li>Dielectric constant of solvent <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-sdie\" target=\"_blank\"><font title=\"sdie\">(<span class=\"tooltip\">?</span>)</font></a>:"
+    print("         <ul><li>Dielectric constant of solvent <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-sdie\" target=\"_blank\"><font title=\"sdie\">(<span class=\"tooltip\">?</span>)</font></a>:")
 
     
-    print "         <input type=\"text\" name=\"sdie\" size=\"10\" maxlength=\"20\""
+    print("         <input type=\"text\" name=\"sdie\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('dielectricSolventConstant'):
-        print "value=\"%g\"" % initVars['dielectricSolventConstant']
+        print("value=\"%g\"" % initVars['dielectricSolventConstant'])
     
-    print """/></li>
+    print("""/></li>
                 </ul>
     
                 <ul>
-                <li>Method by which the biomolecular point charges are mapped onto the grid <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-chgm\" target=\"_blank\"><font title=\"chgm\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>"""
+                <li>Method by which the biomolecular point charges are mapped onto the grid <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-chgm\" target=\"_blank\"><font title=\"chgm\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>""")
 
-    print "<blockquote><ul>"
-    print "<li><input type=\"radio\" name=\"chgm\" value=\"spl0\""
+    print("<blockquote><ul>")
+    print("<li><input type=\"radio\" name=\"chgm\" value=\"spl0\"")
     if initVars.has_key('biomolecularPointChargeMapMethod') and initVars['biomolecularPointChargeMapMethod'] == "spl0":
-        print "checked"
-    print "/> Traditional trilinear interpolation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-chgm\" target=\"_blank\"><font title=\"spl0\">(<span class=\"tooltip\">?</span>)</font></a></li>"
+        print("checked")
+    print("/> Traditional trilinear interpolation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-chgm\" target=\"_blank\"><font title=\"spl0\">(<span class=\"tooltip\">?</span>)</font></a></li>")
     
 
-    print "<li><input type=\"radio\" name=\"chgm\" value=\"spl2\""
+    print("<li><input type=\"radio\" name=\"chgm\" value=\"spl2\"")
     if initVars.has_key('biomolecularPointChargeMapMethod') and initVars['biomolecularPointChargeMapMethod'] == "spl2":
-        print "checked=\"checked\""
-    print "/> Cubic B-spline discretization <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-chgm\" target=\"_blank\"><font title=\"spl2\">(<span class=\"tooltip\">?</span>)</font></a></li>"
+        print("checked=\"checked\"")
+    print("/> Cubic B-spline discretization <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-chgm\" target=\"_blank\"><font title=\"spl2\">(<span class=\"tooltip\">?</span>)</font></a></li>")
 
     
-    print "<li><input type=\"radio\" name=\"chgm\" value=\"spl4\""
+    print("<li><input type=\"radio\" name=\"chgm\" value=\"spl4\"")
     if initVars.has_key('biomolecularPointChargeMapMethod') and initVars['biomolecularPointChargeMapMethod'] == "spl4":
-        print "checked"
-    print "/> Quintic B-spline discretization <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-chgm\" target=\"_blank\"><font title=\"spl4\">(<span class=\"tooltip\">?</span>)</a></font></li>"
-    print "</ul></blockquote>"
+        print("checked")
+    print("/> Quintic B-spline discretization <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-chgm\" target=\"_blank\"><font title=\"spl4\">(<span class=\"tooltip\">?</span>)</a></font></li>")
+    print("</ul></blockquote>")
 
 
-    print "         <ul><li>Number of grid points per square-angstrom to use in surface constructions <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-sdens\" target=\"_blank\"><font title=\"sdens\">(<span class=\"tooltip\">?</span>)</font></a>:"
+    print("         <ul><li>Number of grid points per square-angstrom to use in surface constructions <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-sdens\" target=\"_blank\"><font title=\"sdens\">(<span class=\"tooltip\">?</span>)</font></a>:")
     
-    print "<input type=\"text\" name=\"sdens\" size=\"10\" maxlength=\"20\""
+    print("<input type=\"text\" name=\"sdens\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('surfaceConstructionResolution'):
-        print "value=\"%g\"" % initVars['surfaceConstructionResolution']
+        print("value=\"%g\"" % initVars['surfaceConstructionResolution'])
 
-    print """   /></li></ul>
+    print("""   /></li></ul>
 
 
-            <ul><li>Model to use to construct the dielectric ion-accessibility coefficients <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"srfm\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>"""
+            <ul><li>Model to use to construct the dielectric ion-accessibility coefficients <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"srfm\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>""")
 
     
-    print "<blockquote> <ul>"
-    print "<li><input type=\"radio\" name=\"srfm\" value=\"mol\""
+    print("<blockquote> <ul>")
+    print("<li><input type=\"radio\" name=\"srfm\" value=\"mol\"")
     if initVars.has_key('dielectricIonAccessibilityModel') and initVars['dielectricIonAccessibilityModel'] == "mol":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print "/> Dielectric coefficient is defined based on a molecular surface definition; ion-accessibility coefficient is defined by an \"inflated\" van der Waals model <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"mol\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"
+    print("/> Dielectric coefficient is defined based on a molecular surface definition; ion-accessibility coefficient is defined by an \"inflated\" van der Waals model <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"mol\">(<span class=\"tooltip\">?</span>)</font></a>.</li>")
 
-    print "<li><input type=\"radio\" name=\"srfm\" value=\"smol\""
+    print("<li><input type=\"radio\" name=\"srfm\" value=\"smol\"")
     if initVars.has_key('dielectricIonAccessibilityModel') and initVars['dielectricIonAccessibilityModel'] == "smol":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print "/> Dielectric and ion-accessiblity coefficients are defined as above, but then are then \"smoothed\" by a 9-point harmonic averaging to somewhat reduce sensitivity to the grid setup <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"smol\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"
+    print("/> Dielectric and ion-accessiblity coefficients are defined as above, but then are then \"smoothed\" by a 9-point harmonic averaging to somewhat reduce sensitivity to the grid setup <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"smol\">(<span class=\"tooltip\">?</span>)</font></a>.</li>")
 
-    print "<li><input type=\"radio\" name=\"srfm\" value=\"spl2\""
+    print("<li><input type=\"radio\" name=\"srfm\" value=\"spl2\"")
     if initVars.has_key('dielectricIonAccessibilityModel') and initVars['dielectricIonAccessibilityModel'] == "spl2":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print "/> Dielectric and ion-accessibility coefficients are defined by a cubic-spline surface <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"spl2\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"
+    print("/> Dielectric and ion-accessibility coefficients are defined by a cubic-spline surface <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"spl2\">(<span class=\"tooltip\">?</span>)</font></a>.</li>")
 
-    print "<li><input type=\"radio\" name=\"srfm\" value=\"spl4\""
+    print("<li><input type=\"radio\" name=\"srfm\" value=\"spl4\"")
     if initVars.has_key('dielectricIonAccessibilityModel') and initVars['dielectricIonAccessibilityModel'] == "spl4":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
 
-    print "/> Dielectric and ion-accessibility coefficients are defined by a 7th order polynomial <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"spl4\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"
-    print "</ul></blockquote>"
+    print("/> Dielectric and ion-accessibility coefficients are defined by a 7th order polynomial <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srfm\" target=\"_blank\"><font title=\"spl4\">(<span class=\"tooltip\">?</span>)</font></a>.</li>")
+    print("</ul></blockquote>")
 
 
-    print "         <ul><li>Radius of the solvent molecules <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srad\" target=\"_blank\"><font title=\"srad\">(<span class=\"tooltip\">?</span>)</font></a>:"
+    print("         <ul><li>Radius of the solvent molecules <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-srad\" target=\"_blank\"><font title=\"srad\">(<span class=\"tooltip\">?</span>)</font></a>:")
 
     
-    print "<input type=\"text\" name=\"srad\" size=\"10\" maxlength=\"20\""
+    print("<input type=\"text\" name=\"srad\" size=\"10\" maxlength=\"20\"")
     if initVars['solventRadius'] != None:
-        print "value=\"%g\"" % initVars['solventRadius']
+        print("value=\"%g\"" % initVars['solventRadius'])
     
-    print """/></li></ul>
+    print("""/></li></ul>
 
 
-                <ul><li>Size of the support for spline-based surface definitions <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-swin\" target=\"_blank\"><font title=\"swin\">(<span class=\"tooltip\">?</span>)</font></a>:"""
+                <ul><li>Size of the support for spline-based surface definitions <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-swin\" target=\"_blank\"><font title=\"swin\">(<span class=\"tooltip\">?</span>)</font></a>:""")
     
     
-    print "<input type=\"text\" name=\"swin\" size=\"10\" maxlength=\"20\""
+    print("<input type=\"text\" name=\"swin\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('surfaceDefSupportSize'):
-        print "value=\"%g\"" % initVars['surfaceDefSupportSize']
+        print("value=\"%g\"" % initVars['surfaceDefSupportSize'])
     
-    print """/></li></ul>
+    print("""/></li></ul>
 
 
-                <ul><li>Temperature for PBE calculation (in K) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-temp\" target=\"_blank\"><font title=\"temp\">(<span class=\"tooltip\">?</span>)</font></a>:"""
+                <ul><li>Temperature for PBE calculation (in K) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-temp\" target=\"_blank\"><font title=\"temp\">(<span class=\"tooltip\">?</span>)</font></a>:""")
     
     
-    print "<input type=\"text\" name=\"temp\" size=\"10\" maxlength=\"20\""
+    print("<input type=\"text\" name=\"temp\" size=\"10\" maxlength=\"20\"")
     if initVars.has_key('temperature'):
-        print "value=\"%g\"" % initVars['temperature']
+        print("value=\"%g\"" % initVars['temperature'])
     
-    print """/></li></ul>
+    print("""/></li></ul>
 
 
-                <ul><li>Calculation of electrostatic energy from a PBE calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcenergy\" target=\"_blank\"><font title=\"calcenergy\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>"""
+                <ul><li>Calculation of electrostatic energy from a PBE calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcenergy\" target=\"_blank\"><font title=\"calcenergy\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>""")
     
     
-    print "<blockquote><ul>"
-    print "<li><input type=\"radio\" name=\"calcenergy\" value=\"no\""
+    print("<blockquote><ul>")
+    print("<li><input type=\"radio\" name=\"calcenergy\" value=\"no\"")
     if initVars['calculationEnergy'] == "no":
-        print "checked"
+        print("checked")
     
-    print """/> Don\'t calculate any energies <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcenergy\" target=\"_blank\"><font title=\"no\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Don\'t calculate any energies <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcenergy\" target=\"_blank\"><font title=\"no\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
-    print "<li><input type=\"radio\" name=\"calcenergy\" value=\"total\""
+    print("<li><input type=\"radio\" name=\"calcenergy\" value=\"total\"")
     if initVars['calculationEnergy'] == "total":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Calculate and return total electrostatic energy for the entire molecule <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcenergy\" target=\"_blank\"><font title=\"total\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Calculate and return total electrostatic energy for the entire molecule <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcenergy\" target=\"_blank\"><font title=\"total\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
-    print "<li><input type=\"radio\" name=\"calcenergy\" value=\"comps\""
+    print("<li><input type=\"radio\" name=\"calcenergy\" value=\"comps\"")
     if initVars['calculationEnergy'] == "comps":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Calculate and return total electrostatic energy for the entire molecule as well as electrostatic energy components for each atom <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcenergy\" target=\"_blank\"><font title=\"comps\">(<span class=\"tooltip\">?</span>)</font></a>.</li>
+    print("""/> Calculate and return total electrostatic energy for the entire molecule as well as electrostatic energy components for each atom <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcenergy\" target=\"_blank\"><font title=\"comps\">(<span class=\"tooltip\">?</span>)</font></a>.</li>
     
     </ul></blockquote>
 
 
-                <ul><li>Calculation of electrostatic and apolar force outputs from a PBE calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcforce\" target=\"_blank\"><font title=\"calcforce\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>"""
+                <ul><li>Calculation of electrostatic and apolar force outputs from a PBE calculation <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcforce\" target=\"_blank\"><font title=\"calcforce\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>""")
 
     
-    print "<blockquote><ul>"
-    print "<li><input type=\"radio\" name=\"calcforce\" value=\"no\""
+    print("<blockquote><ul>")
+    print("<li><input type=\"radio\" name=\"calcforce\" value=\"no\"")
     if initVars['calculationForce'] == "no":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Don\'t calculate any forces <a href=\"href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcforce\" target=\"_blank\"><font title=\"no\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Don\'t calculate any forces <a href=\"href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcforce\" target=\"_blank\"><font title=\"no\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
-    print "<li><input type=\"radio\" name=\"calcforce\" value=\"total\""
+    print("<li><input type=\"radio\" name=\"calcforce\" value=\"total\"")
     if initVars['calculationForce'] == "total":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Calculate and return total electrostatic and apolar forces for the entire molecule <a href=\"href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcforce\" target=\"_blank\"><font title=\"total\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Calculate and return total electrostatic and apolar forces for the entire molecule <a href=\"href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcforce\" target=\"_blank\"><font title=\"total\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
-    print "<li><input type=\"radio\" name=\"calcforce\" value=\"comps\""
+    print("<li><input type=\"radio\" name=\"calcforce\" value=\"comps\"")
     if initVars['calculationForce'] == "comps":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Calculate and return total electrostatic and apolar forces for the entire molecule as well as force components for each atom <a href=\"href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcforce\" target=\"_blank\"><font title=\"comps\">(<span class=\"tooltip\">?</span>)</font></a>.</li>
-    </ul> </blockquote>"""
+    print("""/> Calculate and return total electrostatic and apolar forces for the entire molecule as well as force components for each atom <a href=\"href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-calcforce\" target=\"_blank\"><font title=\"comps\">(<span class=\"tooltip\">?</span>)</font></a>.</li>
+    </ul> </blockquote>""")
 
-    print """       
+    print("""       
 
-                <ul><li>Output of scalar data calculated during the PB run <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"write\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>"""
+                <ul><li>Output of scalar data calculated during the PB run <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"write\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>""")
 
     
-    print "<blockquote><ul>"
-    print "<li><input type=\"checkbox\" name=\"writecharge\""
+    print("<blockquote><ul>")
+    print("<li><input type=\"checkbox\" name=\"writecharge\"")
     if initVars['writeBiomolecularChargeDistribution']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
 
-    print """/> Write out the biomolecular charge distribution in units of e<sub>c</sub> (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"charge\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the biomolecular charge distribution in units of e<sub>c</sub> (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"charge\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
                 
-    print "<li><input type=\"checkbox\" name=\"writepot\""
+    print("<li><input type=\"checkbox\" name=\"writepot\"")
     if initVars['writeElectrostaticPotential']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
 
-    print """/> Write out the electrostatic potential in units of k<sub>b</sub>T/e<sub>c</sub>  (multigrid and finite element) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"pot\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the electrostatic potential in units of k<sub>b</sub>T/e<sub>c</sub>  (multigrid and finite element) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"pot\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
                 
-    print "<li><input type=\"checkbox\" name=\"writesmol\""
+    print("<li><input type=\"checkbox\" name=\"writesmol\"")
     if initVars['writeMolecularSurfaceSolventAccessibility']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the solvent accessibility defined by the molecular surface definition <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"smol\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the solvent accessibility defined by the molecular surface definition <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"smol\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
     
-    print "<li><input type=\"checkbox\" name=\"writesspl\""
+    print("<li><input type=\"checkbox\" name=\"writesspl\"")
     if initVars['writeSplineBasedSolventAccessibility']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
 
-    print """/> Write out the spline-based solvent accessibility <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"sspl\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the spline-based solvent accessibility <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"sspl\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
     
-    print "<li><input type=\"checkbox\" name=\"writevdw\""
+    print("<li><input type=\"checkbox\" name=\"writevdw\"")
     if initVars['writeVanDerWaalsSolventAccessibility']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the van der Waals-based solvent accessibility <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"blank\"><font title=\"vdw\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the van der Waals-based solvent accessibility <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"blank\"><font title=\"vdw\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
                 
-    print "<li><input type=\"checkbox\" name=\"writeivdw\""
+    print("<li><input type=\"checkbox\" name=\"writeivdw\"")
     if initVars['writeInflatedVanDerWaalsIonAccessibility']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the inflated van der Waals-based ion accessibility <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"ivdw\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the inflated van der Waals-based ion accessibility <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"ivdw\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
                 
     
-    print "<li><input type=\"checkbox\" name=\"writelap\""
+    print("<li><input type=\"checkbox\" name=\"writelap\"")
     if initVars['writePotentialLaplacian']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the Laplacian of the potential in units of k<sub>B</sub>T/e<sub>c</sub>/A<sup>2</sup> (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"lap\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the Laplacian of the potential in units of k<sub>B</sub>T/e<sub>c</sub>/A<sup>2</sup> (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"lap\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
                 
-    print "<li><input type=\"checkbox\" name=\"writeedens\""
+    print("<li><input type=\"checkbox\" name=\"writeedens\"")
     if initVars['writeEnergyDensity']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the \"energy density\" in units of k<sub>B</sub>T/e<sub>c</sub>/A<sup>2</sup> (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"edens\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the \"energy density\" in units of k<sub>B</sub>T/e<sub>c</sub>/A<sup>2</sup> (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"edens\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
     
-    print "<li><input type=\"checkbox\" name=\"writendens\""
+    print("<li><input type=\"checkbox\" name=\"writendens\"")
     if initVars['writeMobileIonNumberDensity']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the mobile ion number density for <i>m</i> ion species in units of M (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"ndens\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the mobile ion number density for <i>m</i> ion species in units of M (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"ndens\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
                 
-    print "<li><input type=\"checkbox\" name=\"writeqdens\""
+    print("<li><input type=\"checkbox\" name=\"writeqdens\"")
     if initVars['writeMobileChargeDensity']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the mobile charge density for <i>m</i> ion species in units of e<sub>c</sub> M (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"qdens\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the mobile charge density for <i>m</i> ion species in units of e<sub>c</sub> M (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"qdens\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
                 
-    print "<li><input type=\"checkbox\" name=\"writedielx\""
+    print("<li><input type=\"checkbox\" name=\"writedielx\"")
     if initVars['writeDielectricMapShift'][0]:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the dielectric map shifted by <sup>1</sup>/<sub>2</sub> grid spacing in the x-direction <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"dielx\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the dielectric map shifted by <sup>1</sup>/<sub>2</sub> grid spacing in the x-direction <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"dielx\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
                 
-    print "<li><input type=\"checkbox\" name=\"writediely\""
+    print("<li><input type=\"checkbox\" name=\"writediely\"")
     if initVars['writeDielectricMapShift'][1]:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the dielectric map shifted by <sup>1</sup>/<sub>2</sub> grid spacing in the y-direction <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"diely\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the dielectric map shifted by <sup>1</sup>/<sub>2</sub> grid spacing in the y-direction <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"diely\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
                 
-    print "<li><input type=\"checkbox\" name=\"writedielz\""
+    print("<li><input type=\"checkbox\" name=\"writedielz\"")
     if initVars['writeDielectricMapShift'][2]:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the dielectric map shifted by <sup>1</sup>/<sub>2</sub> grid spacing in the z-direction <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"dielz\">(<span class=\"tooltip\">?</span>)</font></a>.</li>"""
+    print("""/> Write out the dielectric map shifted by <sup>1</sup>/<sub>2</sub> grid spacing in the z-direction <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"dielz\">(<span class=\"tooltip\">?</span>)</font></a>.</li>""")
 
                 
-    print "<li><input type=\"checkbox\" name=\"writekappa\""
+    print("<li><input type=\"checkbox\" name=\"writekappa\"")
     if initVars['writeIonAccessibilityKappaMap']:
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> Write out the ion-accessibility kappa map <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"kappa\">(<span class=\"tooltip\">?</span>)</font></a>.</li>
+    print("""/> Write out the ion-accessibility kappa map <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"kappa\">(<span class=\"tooltip\">?</span>)</font></a>.</li>
     </ul></blockquote>
 
 
-                <ul><li>Format for writing out the data <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"format\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>"""
+                <ul><li>Format for writing out the data <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"format\">(<span class=\"tooltip\">?</span>)</font></a>:</li></ul>""")
 
-    print "<blockquote><ul>"
-    print "<li><input type=\"radio\" name=\"writeformat\" value=\"dx\""
+    print("<blockquote><ul>")
+    print("<li><input type=\"radio\" name=\"writeformat\" value=\"dx\"")
     if initVars['format'] == "dx":
-        print "checked=\"checked\""
+        print("checked=\"checked\"")
     
-    print """/> OpenDX (multigrid and finite element) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"dx\">(<span class=\"tooltip\">?</span>)</font></a></li>"""
+    print("""/> OpenDX (multigrid and finite element) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"dx\">(<span class=\"tooltip\">?</span>)</font></a></li>""")
     
-    print """
+    print("""
                 <li><input type=\"radio\" name=\"writeformat\" value=\"avs\" disabled=\"disabled\"/> AVS UCD (finite element only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"avs\">(<span class=\"tooltip\">?</span>)</font></a></li>
                 <li><input type=\"radio\" name=\"writeformat\" value=\"uhbd\" disabled=\"disabled\"/> UBHD (multigrid only) <a href=\"http://www.poissonboltzmann.org/docs/apbs-overview/#elec-keyword-write\" target=\"_blank\"><font title=\"uhbd\">(<span class=\"tooltip\">?</span>)</font></a></li>
                 </ul></blockquote>
-            </div>"""
+            </div>""")
 
 
 
@@ -1149,19 +1150,19 @@ def generateForm(file, initVars, pdb2pqrID, type):
                 
                 #""" #ADD PYTHON CODE ABOVE WHEN OPTIONS ARE AVAILABLE
 
-    print "<br />"
+    print("<br />")
     if type=="local":
-        print "<input type=\"hidden\" name=\"hiddencheck\" value=\"local\"/>"
+        print("<input type=\"hidden\" name=\"hiddencheck\" value=\"local\"/>")
     else:
-        print "<input type=\"hidden\" name=\"hiddencheck\" value=\"opal\"/>"
+        print("<input type=\"hidden\" name=\"hiddencheck\" value=\"opal\"/>")
 
-    print "<input type=\"hidden\" name=\"pdb2pqrid\"",
-    print "value=\"%s\"" % pdb2pqrID,
-    print "/>"
+    print("<input type=\"hidden\" name=\"pdb2pqrid\"", end=' ')
+    print("value=\"%s\"" % pdb2pqrID, end=' ')
+    print("/>")
 
-    print "<input type=\"hidden\" name=\"mol\" value=\"1\"/>"
+    print("<input type=\"hidden\" name=\"mol\" value=\"1\"/>")
 
-    print """
+    print("""
         </form> 
     <p>
         <a href="http://validator.w3.org/check?uri=referer"><img
@@ -1180,7 +1181,7 @@ pageTracker._trackPageview();
     </body>
 </html>
 
-        """     
+        """)     
 
 def unpickleVars(pdb2pqrID):
     """ Converts instance pickle from PDB2PQR into a dictionary for APBS """
@@ -1364,7 +1365,7 @@ def fieldStorageToDict(form):
         apbsOptions['writeKappa'] = False
     
     if apbsOptions['writeCheck'] > 4:
-        print "Please select a maximum of four write statements."
+        print("Please select a maximum of four write statements.")
         os._exit(99)
 
     # READ section variables
@@ -1472,7 +1473,7 @@ def pqrFileCreator(apbsOptions):
                 # print "Error (tmp directory already exists) - please try again"
                 pass
             else:
-                print "Error (file exists where tmp dir should be) - please try again"
+                print("Error (file exists where tmp dir should be) - please try again")
                 raise
         else:
             raise
@@ -1696,14 +1697,14 @@ def mainInput() :
     #redirects to pdb2pqr input page
     if firstRun:
         pdb2pqrLocation = '../pdb2pqr/html/server.html'
-        print '<html>'
-        print '<head>'
-        print '<link rel="stylesheet" href="@website@pdb2pqr.css" type="text/css">'
-        print '<meta http-equiv=\"refresh\" content=\"0;url=%s\"/>' % pdb2pqrLocation
-        print '</head>'
-        print '<body>'
-        print '</body>'
-        print '</html>'
+        print('<html>')
+        print('<head>')
+        print('<link rel="stylesheet" href="@website@pdb2pqr.css" type="text/css">')
+        print('<meta http-equiv=\"refresh\" content=\"0;url=%s\"/>' % pdb2pqrLocation)
+        print('</head>')
+        print('<body>')
+        print('</body>')
+        print('</html>')
 
 
     #generates web interface and displays it
@@ -1740,13 +1741,13 @@ def mainInput() :
 
             # if the version number doesn't match, apbsOpalExec returns False
             if(str(apbsOpalJobID) == 'False'):
-                print redirector(False)
+                print(redirector(False))
 
             # Check if not enough memory
             elif(str(apbsOpalJobID) == 'notenoughmem'):
-                print redirector('notenoughmem')
+                print(redirector('notenoughmem'))
             else:
-                print redirector(logTime)
+                print(redirector(logTime))
 
             startLogFile(logTime, 'apbs_opal_job_id', apbsOpalJobID)
 #            apbsOpalJobIDFile = open('%s%s%s/apbs_opal_job_id' % (INSTALLDIR, TMPDIR, logTime),'w')

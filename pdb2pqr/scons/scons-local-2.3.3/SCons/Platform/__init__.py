@@ -42,6 +42,7 @@ their own platform definition.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Platform/__init__.py  2014/08/24 12:12:31 garyo"
 
 import SCons.compat
@@ -224,8 +225,8 @@ class TempFileMunge(object):
         # purity get in the way of just being helpful, so we'll
         # reach into SCons.Action directly.
         if SCons.Action.print_actions:
-            print("Using tempfile "+native_tmp+" for command line:\n"+
-                  str(cmd[0]) + " " + " ".join(args))
+            print(("Using tempfile "+native_tmp+" for command line:\n"+
+                  str(cmd[0]) + " " + " ".join(args)))
         return [ cmd[0], prefix + native_tmp + '\n' + rm, native_tmp ]
     
 def Platform(name = platform_default()):

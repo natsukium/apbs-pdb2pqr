@@ -44,6 +44,8 @@
 
 """
 
+from __future__ import print_function
+
 __date__  = "5 April 2010"
 __author__ = "Todd Dolinsky, Nathan Baker, Jens Nielsen, Paul Czodrowski, Jan Jensen, Samir Unni, Yong Huang"
 
@@ -94,16 +96,16 @@ def printHeader(pagetitle,have_opal=None,jobid=None):
     """
     if jobid:
         if have_opal:
-            print "Location: querystatus.cgi?jobid=%s&typeofjob=opal\n" % (jobid)
+            print("Location: querystatus.cgi?jobid=%s&typeofjob=opal\n" % (jobid))
         else:
-            print "Location: querystatus.cgi?jobid=%s&typeofjob=local\n" % (jobid)
+            print("Location: querystatus.cgi?jobid=%s&typeofjob=local\n" % (jobid))
 
     #print "Content-type: text/html\n"
-    print "<HTML>"
-    print "<HEAD>"
-    print "\t<TITLE>%s</TITLE>" % pagetitle
-    print "\t<link rel=\"stylesheet\" href=\"%s\" type=\"text/css\">\n" % STYLESHEET
-    print "</HEAD>"
+    print("<HTML>")
+    print("<HEAD>")
+    print("\t<TITLE>%s</TITLE>" % pagetitle)
+    print("\t<link rel=\"stylesheet\" href=\"%s\" type=\"text/css\">\n" % STYLESHEET)
+    print("</HEAD>")
     return
 
 def redirector(name, weboptions):
@@ -439,22 +441,22 @@ def handleOpal(weboptions):
         resp=appServicePort.launchJob(req)
     except Exception, e:
         printHeader("PDB2PQR Job Submission - Error")
-        print "<BODY>\n<P>"
-        print "There was an error with your job submission<br>"
-        print "</P>"
-        print "<script type=\"text/javascript\">"
-        print "var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");"
-        print "document.write(unescape(\"%3Cscript src=\'\" + gaJsHost + \"google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E\"));"
-        print "</script>"
-        print "<script type=\"text/javascript\">"
-        print "try {"
-        print "var pageTracker = _gat._getTracker(\"UA-11026338-3\");"
+        print("<BODY>\n<P>")
+        print("There was an error with your job submission<br>")
+        print("</P>")
+        print("<script type=\"text/javascript\">")
+        print("var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");")
+        print("document.write(unescape(\"%3Cscript src=\'\" + gaJsHost + \"google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E\"));")
+        print("</script>")
+        print("<script type=\"text/javascript\">")
+        print("try {")
+        print("var pageTracker = _gat._getTracker(\"UA-11026338-3\");")
         for key in weboptions:
-            print "pageTracker._trackPageview(\"/main_cgi/has_%s_%s.html\");" % (key, weboptions[key])
-        print "pageTracker._trackPageview();"
-        print "} catch(err) {}</script>"
-        print "</BODY>"
-        print "</HTML>"
+            print("pageTracker._trackPageview(\"/main_cgi/has_%s_%s.html\");" % (key, weboptions[key]))
+        print("pageTracker._trackPageview();")
+        print("} catch(err) {}</script>")
+        print("</BODY>")
+        print("</HTML>")
         sys.exit(2)
     
     try:
@@ -475,7 +477,7 @@ def handleOpal(weboptions):
         pdb2pqrOpalJobIDFile.write(resp._jobID)
         pdb2pqrOpalJobIDFile.close()
         
-        print redirector(name, weboptions)
+        print(redirector(name, weboptions))
         
         # Recording CGI run information for PDB2PQR Opal
         pdb2pqrOpalLogFile = open('%s%s%s/pdb2pqr_log' % (INSTALLDIR, TMPDIR, name), 'w')
@@ -484,7 +486,7 @@ def handleOpal(weboptions):
         pdb2pqrOpalLogFile.close()
 
     except StandardError, details:
-        print details
+        print(details)
         createError(name, details)
 
 def handleNonOpal(weboptions):
@@ -500,7 +502,7 @@ def handleNonOpal(weboptions):
         text = "Unable to find PDB file - Please make sure this is "
         text += "a valid PDB file ID!"
         #print "Content-type: text/html\n"
-        print text
+        print(text)
         sys.exit(2)
     elif dummyprot.numAtoms() > MAXATOMS and weboptions["opt"] == True:
         text = "<HTML><HEAD>"
@@ -527,7 +529,7 @@ def handleNonOpal(weboptions):
         text += "} catch(err) {}</script>"
         text += "</BODY></HTML>"
         #print "Content-type: text/html\n"
-        print text
+        print(text)
         sys.exit(2)
 
     try:
@@ -558,7 +560,7 @@ def handleNonOpal(weboptions):
 
         pid = os.fork()
         if pid:
-            print redirector(name, weboptions)
+            print(redirector(name, weboptions))
             sys.exit()
         else:
             currentdir = os.getcwd()
@@ -648,8 +650,8 @@ def handleNonOpal(weboptions):
     #Also, get forked job to properly write error status on failure.
     except StandardError, details:
     #except StandardError as details:
-        print traceback.format_exc()
-        print sys.exc_info()[0]
+        print(traceback.format_exc())
+        print(sys.exc_info()[0])
         #print details
         createError(name, details)
 
@@ -657,7 +659,7 @@ def mainCGI():
     """
         Main driver for running PDB2PQR from a web page
     """
-    print "Content-type: text/html\n"
+    print("Content-type: text/html\n")
     import cgi
     import cgitb
 

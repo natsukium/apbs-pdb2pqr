@@ -3,6 +3,7 @@
 # See Copyright for copyright notice!
 # $Id: __init__.py 1132 2006-02-17 01:55:41Z boverhof $
 ###########################################################################
+from __future__ import print_function
 import sys
 from EchoServer_client import *
 from ZSI.twisted.wsgi import SOAPApplication, soapmethod, SOAPHandlerChainFactory
@@ -39,5 +40,5 @@ if __name__ == '__main__':
         try:
             getattr(sys.modules[__name__], 'main_%s' %var)(*sys.argv[2:])
         except Exception, ex:
-            print>>sys.stderr, ex
+            print(ex, file=sys.stderr)
             sys.exit(1)

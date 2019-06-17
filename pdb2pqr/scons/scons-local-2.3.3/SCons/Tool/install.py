@@ -30,6 +30,7 @@ selection method.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+from __future__ import print_function
 __revision__ = "src/engine/SCons/Tool/install.py  2014/08/24 12:12:31 garyo"
 
 import os
@@ -174,7 +175,7 @@ def versionedLibVersion(dest, env):
             version_File = version_re.findall(versioned_re.findall(libname)[-1])[-1]
     
     if Verbose:
-        print "install: version_File ", version_File
+        print("install: version_File ", version_File)
     # result is False if we did not find a versioned shared library name, so return and empty list
     if not result:
         return (None, libname, install_dir)
@@ -188,7 +189,7 @@ def versionedLibVersion(dest, env):
     
     if version != version_File:
         #raise SCons.Errors.UserError("SHLIBVERSION '%s' does not match the version # '%s' in the filename" % (version, version_File) )
-        print "SHLIBVERSION '%s' does not match the version # '%s' in the filename, proceeding based on file name" % (version, version_File)
+        print("SHLIBVERSION '%s' does not match the version # '%s' in the filename, proceeding based on file name" % (version, version_File))
         version = version_File
     return (version, libname, install_dir)
 
@@ -202,7 +203,7 @@ def versionedLibLinks(dest, source, env):
         # libname includes the version number if one was given
         linknames = SCons.Tool.VersionShLibLinkNames(version,libname,env)
         if Verbose:
-            print "versionedLibLinks: linknames ",linknames
+            print("versionedLibLinks: linknames ",linknames)
         # Here we just need the file name w/o path as the target of the link
         lib_ver = libname
         # make symlink of adjacent names in linknames
@@ -210,7 +211,7 @@ def versionedLibLinks(dest, source, env):
             linkname = linknames[count]
             fulllinkname = os.path.join(install_dir, linkname)
             if Verbose:
-                print "full link name ",fulllinkname
+                print("full link name ",fulllinkname)
             if count > 0:
                 try:
                     os.remove(lastlinkname)
@@ -218,7 +219,7 @@ def versionedLibLinks(dest, source, env):
                     pass
                 os.symlink(os.path.basename(fulllinkname),lastlinkname)
                 if Verbose:
-                    print "versionedLibLinks: made sym link of %s -> %s" % (lastlinkname,os.path.basename(fulllinkname))
+                    print("versionedLibLinks: made sym link of %s -> %s" % (lastlinkname,os.path.basename(fulllinkname)))
             lastlinkname = fulllinkname
         # finish chain of sym links with link to the actual library
         if len(linknames)>0:
@@ -228,7 +229,7 @@ def versionedLibLinks(dest, source, env):
                 pass
             os.symlink(lib_ver,lastlinkname)
             if Verbose:
-                print "versionedLibLinks: made sym link of %s -> %s" % (lib_ver,lastlinkname)
+                print("versionedLibLinks: made sym link of %s -> %s" % (lib_ver,lastlinkname))
     return
 
 def installFunc(target, source, env):
@@ -298,7 +299,7 @@ def add_versioned_targets_to_INSTALLED_FILES(target, source, env):
     Verbose = False
     _INSTALLED_FILES.extend(target)
     if Verbose:
-        print "ver lib emitter ",repr(target)
+        print("ver lib emitter ",repr(target))
 
     # see if we have a versioned shared library, if so generate side effects
     version, libname, install_dir = versionedLibVersion(target[0].path, env)
@@ -307,13 +308,13 @@ def add_versioned_targets_to_INSTALLED_FILES(target, source, env):
         linknames = SCons.Tool.VersionShLibLinkNames(version,libname,env)
         for linkname in linknames:
             if Verbose:
-                print "make side effect of %s" % os.path.join(install_dir, linkname)
+                print("make side effect of %s" % os.path.join(install_dir, linkname))
             fulllinkname = os.path.join(install_dir, linkname)
             env.SideEffect(fulllinkname,target[0])
             env.Clean(target[0],fulllinkname)
             _INSTALLED_FILES.append(fulllinkname)
             if Verbose:
-                print "installed list ", _INSTALLED_FILES
+                print("installed list ", _INSTALLED_FILES)
         
     _UNIQUE_INSTALLED_FILES = None
     return (target, source)

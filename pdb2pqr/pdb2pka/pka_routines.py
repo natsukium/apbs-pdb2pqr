@@ -4,6 +4,7 @@
 # Copyright University College Dublin & Washington University St. Louis 2004-2007
 # All rights reserved
 #
+from __future__ import print_function
 __date__="22 April, 2009"
 __author__="Jens Erik Nielsen, Todd Dolinsky, Yong Huang, Tommy Carstensen"
 
@@ -728,8 +729,8 @@ class pKaRoutines:
         create_output(self.titcurves_dir, curves)
 
         pka_values, pH_values = self.find_pka_and_pH(curves)
-        print pka_values
-        print pH_values
+        print(pka_values)
+        print(pH_values)
         self.ph_at_0_5 = pH_values
 
         ln10=math.log(10)
@@ -854,7 +855,7 @@ class pKaRoutines:
             #Check to see if we never cross 0.5 or -0.5 at all
             if all(charge_side) or not any(charge_side):
                 warning = "WARNING: UNABLE TO CACLCULATE PKA FOR {name}\n".format(name=name)
-                print warning,
+                print(warning, end=' ')
                 self.warnings.append(warning)
                 pKa_results[name] = pKa_value
                 continue
@@ -865,11 +866,11 @@ class pKaRoutines:
 
             if (True,False) not in side_pairs:
                 warning =  "WARNING: {name} DOES NOT EXHIBIT Henderson-Hasselbalch BEHAVIOR\n".format(name=name)
-                print warning,
+                print(warning, end=' ')
                 self.warnings.append(warning)
 
                 warning = "WARNING: {name} TITRATION CURVE IS BACKWARDS\n".format(name=name, calc=curve_calc_point)
-                print warning,
+                print(warning, end=' ')
                 self.warnings.append(warning)
                 cross_index = charge_side.index(True)
                 bad_curve = True
@@ -880,10 +881,10 @@ class pKaRoutines:
             #(False, True) means we've crossed back over the line and therefore our PKA value is in question.
             if (True,False) in side_pairs and (False,True) in side_pairs:
                 warning =  "WARNING: {name} DOES NOT EXHIBIT Henderson-Hasselbalch BEHAVIOR\n".format(name=name)
-                print warning,
+                print(warning, end=' ')
                 self.warnings.append(warning)
                 warning = "WARNING: {name} TITRATION CURVE CROSSES {calc} AT LEAST TWICE\n".format(name=name, calc=curve_calc_point)
-                print warning,
+                print(warning, end=' ')
                 self.warnings.append(warning)
 
                 bad_curve = True
@@ -899,11 +900,11 @@ class pKaRoutines:
                 pH_results[name] = ph_at_0_5
             except ZeroDivisionError:
                 warning = "WARNING: UNABLE TO CACLCULATE pH FOR {name}, Divide by zero.\n".format(name=name)
-                print warning,
+                print(warning, end=' ')
                 self.warnings.append(warning)
 
             if not bad_curve:
-                print "{name} exhibits Henderson-Hasselbalch behavior.".format(name=name)
+                print("{name} exhibits Henderson-Hasselbalch behavior.".format(name=name))
 
             #Calc pKa value
             start = max(0, prevous_cross_index-adjacent_data_points)
@@ -915,7 +916,7 @@ class pKaRoutines:
                 pKa_value = sum(pkas)/float(len(pkas))
             except ZeroDivisionError:
                 warning = "WARNING: UNABLE TO CACLCULATE PKA FOR {name}, Divide by zero.\n".format(name=name)
-                print warning,
+                print(warning, end=' ')
                 self.warnings.append(warning)
 
 
@@ -1852,9 +1853,9 @@ class pKaRoutines:
             if found==len(atomlist):
                 break
         if abs(totphi)<0.01 or abs(totcrg)<0.01:
-            print 'total abs phi',totphi
-            print 'total abs crg',totcrg
-            print 'net charge   ',netcrg
+            print('total abs phi',totphi)
+            print('total abs crg',totcrg)
+            print('net charge   ',netcrg)
             PDB2PKAError( 'Something is rotten')
 
         return energy
@@ -2038,8 +2039,8 @@ class pKaRoutines:
             charge, radius = self.forcefield.getParams1(residue, atomname)
             initialmap[atomname] = charge
             if charge is None:
-                print atomname,charge
-                print residue.isCterm
+                print(atomname,charge)
+                print(residue.isCterm)
                 raise PDB2PKAError('Charge on atom is None')
             sum+=charge
         if abs(sum)<0.001:
@@ -2148,8 +2149,8 @@ class pKaRoutines:
             # Did we add anything?
             #
             if added is None and sum>0.001:
-                print sum
-                print atomnames
+                print(sum)
+                print(atomnames)
                 PDB2PKAError('Could not find integer charge state')
         #
         # Did we just want a neutral state identification?
@@ -2162,7 +2163,7 @@ class pKaRoutines:
         # No, we wanted the atomnames
         #
         if atomnames==[]:
-            print 'Did not find any atoms for ',residue.resSeq
+            print('Did not find any atoms for ',residue.resSeq)
             PDB2PKAError('Something wrong with charges')
 
         for atomname in atomnames:
@@ -2401,7 +2402,7 @@ class pKaRoutines:
 #
 
 def smooth(xdiel,ydiel,zdiel):
-    print '\nSmooting dielectric constant using Gaussian filter:\n'
+    print('\nSmooting dielectric constant using Gaussian filter:\n')
 
     diel=[xdiel,ydiel,zdiel]
     for d in diel:
@@ -2441,18 +2442,18 @@ if __name__ == "__main__":
 
 
 
-    print "These should pass without issue"
-    print "Run acid curve"
+    print("These should pass without issue")
+    print("Run acid curve")
     routines = pKaRoutines(None, None, None, None, '', maps = None, sd =None,
                  restart=False, pairene=1.0, test_mode=True)
     routines.find_pH_at_0_5('zero_to_neg_one curve base', zero_to_neg_one, False)
 
-    print "Run base curve"
+    print("Run base curve")
     routines.find_pH_at_0_5('one_to_zero curve acid', one_to_zero, True)
 
-    print "These should print warnings"
+    print("These should print warnings")
     all_zero_curve = dict((ph,0.0) for ph in ph_list)
-    print "Run all zero curves"
+    print("Run all zero curves")
     routines.find_pH_at_0_5('All zero curve acid', all_zero_curve, False)
     routines.find_pH_at_0_5('All zero curve base', all_zero_curve, True)
 
@@ -2492,9 +2493,9 @@ if __name__ == "__main__":
 
     routines.find_pH_at_0_5('negative_interpolation_curve acid', negative_interpolation_curve, False)
 
-    print 'Accumulated warnings:'
+    print('Accumulated warnings:')
     pprint(routines.warnings)
-    print 'ph values:'
+    print('ph values:')
     pprint(routines.ph_at_0_5)
 
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import sys
 
 from Registration_services import *
@@ -12,9 +13,9 @@ def main():
     request._UserId = "john_doe"
 
     response = service.GetUser(request)
-    print '   Age: %d' % response._User._Age
-    print '  Name: %s' % response._User._Name
-    print 'UserId: %s' % response._User._UserId
+    print('   Age: %d' % response._User._Age)
+    print('  Name: %s' % response._User._Name)
+    print('UserId: %s' % response._User._UserId)
     
 
 if __name__ == '__main__':

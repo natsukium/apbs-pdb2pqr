@@ -3,6 +3,7 @@
 '''Simple CGI dispatching.
 '''
 
+from __future__ import print_function
 import types, os, sys
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from ZSI import *
@@ -174,11 +175,11 @@ def _JonPySendXML(text, code=200, **kw):
     req.write(text)
 
 def _CGISendXML(text, code=200, **kw):
-    print 'Status: %d' % code
-    print 'Content-Type: text/xml; charset="%s"' %UNICODE_ENCODING
-    print 'Content-Length: %d' % len(text)
-    print ''
-    print text
+    print('Status: %d' % code)
+    print('Content-Type: text/xml; charset="%s"' %UNICODE_ENCODING)
+    print('Content-Length: %d' % len(text))
+    print('')
+    print(text)
 
 def _CGISendFault(f, **kw):
     _CGISendXML(f.AsSOAP(), 500, **kw)
@@ -295,4 +296,4 @@ def AsJonPy(request=None, modules=None, **kw):
     _Dispatch(ps, modules, _JonPySendXML, _JonPySendFault, **kw)
 
 
-if __name__ == '__main__': print _copyright
+if __name__ == '__main__': print(_copyright)

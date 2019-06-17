@@ -2,6 +2,7 @@
 # Joshua R. Boverhof, LBNL
 # See LBNLCopyright for copyright notice!
 ###########################################################################
+from __future__ import print_function
 import time
 
 # twisted & related imports
@@ -265,8 +266,8 @@ class Binding:
                                         soapaction=soapaction, **kw)
             
         if self.trace:
-            print >>self.trace, "_" * 33, time.ctime(time.time()), "REQUEST:"
-            print >>self.trace, soapdata
+            print("_" * 33, time.ctime(time.time()), "REQUEST:", file=self.trace)
+            print(soapdata, file=self.trace)
 
         f = getPage(str(url), contextFactory=self.contextFactory, 
                     postdata=soapdata, agent=self.agent, 
@@ -300,8 +301,8 @@ class Binding:
         d = chain.flow.deferred
         if self.trace:
             def trace(soapdata):
-                print >>self.trace, "_" * 33, time.ctime(time.time()), "RESPONSE:"
-                print >>self.trace, soapdata
+                print("_" * 33, time.ctime(time.time()), "RESPONSE:", file=self.trace)
+                print(soapdata, file=self.trace)
                 return soapdata
             
             d.addCallback(trace)
@@ -336,9 +337,9 @@ class Binding:
 
 def trace():
         if trace:
-            print >>trace, "_" * 33, time.ctime(time.time()), "RESPONSE:"
+            print("_" * 33, time.ctime(time.time()), "RESPONSE:", file=trace)
             for i in (self.reply_code, self.reply_msg,):
-                print >>trace, str(i)
-            print >>trace, "-------"
-            print >>trace, str(self.reply_headers)
-            print >>trace, self.data
+                print(str(i), file=trace)
+            print("-------", file=trace)
+            print(str(self.reply_headers), file=trace)
+            print(self.data, file=trace)

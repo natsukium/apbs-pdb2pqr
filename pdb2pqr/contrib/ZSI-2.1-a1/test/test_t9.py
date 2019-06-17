@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import unittest, sys, sha, base64
 from ZSI import _get_element_nsuri_name
 from ZSI.parse import ParsedSoap
@@ -67,7 +68,7 @@ class CanonicalizeFromTestCase(unittest.TestCase):
         s = StringIO()
         Canonicalize(self.el, s, unsuppressedPrefixes=[])
         cxml = s.getvalue()
-        print cxml
+        print(cxml)
         d1 = base64.encodestring(sha.sha(C14N_EXCL3).digest()).strip()
         d2 = base64.encodestring(sha.sha(cxml).digest()).strip()
         self.assertEqual(d1, C14N_EXCL3_DIGEST)
@@ -87,9 +88,9 @@ class CanonicalizeFromTestCase(unittest.TestCase):
         s = StringIO()
         Canonicalize(el, s, unsuppressedPrefixes=[])
         cxml = s.getvalue()
-        print "-- "*20
-        print cxml
-        print "-- "*20
+        print("-- "*20)
+        print(cxml)
+        print("-- "*20)
         d3 = base64.encodestring(sha.sha(cxml).digest()).strip()
 
         self.assertEqual(d1, RCVDIGEST)
