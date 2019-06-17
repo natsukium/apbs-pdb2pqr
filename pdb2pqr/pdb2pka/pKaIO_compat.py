@@ -10,6 +10,7 @@
 #
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
 import sys
 #try:
 import os
@@ -339,7 +340,7 @@ class pKaIO:
             #
             charge={'pKa':pKa}
             for pH in range(int(100*phstart),int(100*phend+100*phstep),int(100*phstep)):
-                rpH=float(pH)/100.0
+                rpH=float(pH)//100.0
                 line=string.split(lines[linenumber])
                 if string.atof(line[0])==rpH:
                     charge[rpH]=string.atof(line[1])

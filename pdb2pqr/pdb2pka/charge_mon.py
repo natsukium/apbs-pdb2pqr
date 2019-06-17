@@ -1,5 +1,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
 from six.moves.tkinter import *
 
 class charge_mon(Frame):
@@ -42,7 +43,7 @@ class charge_mon(Frame):
                     fill='black'
                 self.cv.create_text(x_count,self.calc,text='%3d' %residue.resSeq,anchor='nw',fill=fill)
                 self.res_pos[residue.resSeq]=x_count
-                x_count=x_count+int((self.width-100)/self.numres)
+                x_count=x_count+int((self.width-100)//self.numres)
         self.calc=self.calc+15
         self.master.update()
         return
@@ -92,7 +93,7 @@ class charge_mon(Frame):
             else:
                 fill='yellow'
 
-            self.cv.create_rectangle(x_count,self.calc,x_count+int((self.width-100)/self.numres),self.calc+10,fill=fill)
+            self.cv.create_rectangle(x_count,self.calc,x_count+int((self.width-100)//self.numres),self.calc+10,fill=fill)
             if fill=='yellow':
                 later.append([x_count,'%4.2f' %charges[resid],resid])
         #

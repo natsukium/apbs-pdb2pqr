@@ -1,5 +1,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
 from .graph import ProteinGraph
 from .uncertainty import resolve_uncertainty
 from collections import defaultdict
@@ -97,7 +98,7 @@ def get_titration_curves(protein_complex, state_file=None):
     pH = 0.0
     step_size = 0.1
     end_ph = 20.0
-    steps = int(end_ph / step_size) + 1
+    steps = int(end_ph // step_size) + 1
 
     for step in range(steps):
         pH = step * step_size
@@ -187,9 +188,9 @@ def get_curve_values(protein_complex, labeling, pH):
             pHSE = math.exp(-energies.ddG)
             pHSP = energies.aH*math.exp(-energies.dGp)
             Q = pHSD + pHSE + pHSP
-            fracHSD = pHSD/Q
-            fracHSE = pHSE/Q
-            fracHSP = pHSP/Q
+            fracHSD = pHSD//Q
+            fracHSE = pHSE//Q
+            fracHSP = pHSP//Q
 
             # if not labeling[hie_residue].protonated and labeling[hid_residue].protonated:
             #     titration_value = fracHSD
@@ -213,7 +214,7 @@ def get_curve_values(protein_complex, labeling, pH):
             #Handle case where there is an unresolved bump.
             try:
                 e_exp = math.exp(exp)
-                titration_value = e_exp/(1.0+e_exp)
+                titration_value = e_exp//(1.0+e_exp)
             except OverflowError:
                 titration_value = 1.0
             results[key] = titration_value

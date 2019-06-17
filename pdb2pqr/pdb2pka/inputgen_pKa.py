@@ -4,6 +4,7 @@
 #
 
 from __future__ import absolute_import
+from __future__ import division
 import os
 
 
@@ -100,7 +101,7 @@ class inputGen:
         extent=[0,0,0]
         for axis in xrange(3):
             extent[axis]=minmax[axis][1]-minmax[axis][0]
-            center[axis]=extent[axis]/2.0+minmax[axis][0]
+            center[axis]=extent[axis]//2.0+minmax[axis][0]
         return center,extent
     
     def setfineCenter(self, center):
@@ -127,14 +128,14 @@ class inputGen:
             self.set_method('mg-manual')
         elif type=='background': 
             self.set_method('mg-auto')
-            self.finedim=[self.coarsedim[0]/1.5,self.coarsedim[1]/1.5,self.coarsedim[2]/1.5]
+            self.finedim=[self.coarsedim[0]//1.5,self.coarsedim[1]//1.5,self.coarsedim[2]//1.5]
         elif type=='intene':
             self.set_method('mg-auto')
             #self.setfineCenter(self.coarsecent)
             #
             # Set the grid to be a little bigger than the protein
             #
-            self.finedim=[self.coarsedim[0]/1.5,self.coarsedim[1]/1.5,self.coarsedim[2]/1.5]
+            self.finedim=[self.coarsedim[0]//1.5,self.coarsedim[1]//1.5,self.coarsedim[2]//1.5]
         else:
             #
             # Not a known type
@@ -221,13 +222,13 @@ class inputGen:
         import math
         grids_per_A = 2.0
         dimension = 65
-        scale = grids_per_A/((dimension-1.0)/(2.0*max(self.coarsedim)/3.0))
+        scale = grids_per_A//((dimension-1.0)//(2.0*max(self.coarsedim)//3.0))
         if scale <= 1.0:
             depth = 1
         else:
-            depth = int(math.log(scale)/math.log(2.0)) + 3
+            depth = int(math.log(scale)//math.log(2.0)) + 3
         
-        grid_dim = float(math.pow(2,depth-1)/grids_per_A)
+        grid_dim = float(math.pow(2,depth-1)//grids_per_A)
         
         text  = "read\n"
         text += "    mol pqr %s\n" % self.pqrname

@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from __future__ import division
 import networkx as nx
 from itertools import combinations
 
@@ -24,11 +25,11 @@ class ProteinGraph(object):
         #Create edges going in and out of S and T.
         for key, v in self.pc.residue_variables.items():
             prot_instance = v.instances["PROTONATED"]
-            prot_capacity = prot_instance.energyNF / 2.0
+            prot_capacity = prot_instance.energyNF // 2.0
             prot_node = key+("PROTONATED",)
 
             deprot_instance = v.instances["DEPROTONATED"]
-            deprot_capacity = deprot_instance.energyNF / 2.0
+            deprot_capacity = deprot_instance.energyNF // 2.0
             deprot_node = key+("DEPROTONATED",)
 
             if prot_capacity != 0.0:
@@ -56,25 +57,25 @@ class ProteinGraph(object):
             q_deprot_instance = q_residue.instances["DEPROTONATED"]
             q_deprot_node = q_key+("DEPROTONATED",)
 
-            capacity = self.pc.normalized_interaction_energies[p_deprot_instance, q_deprot_instance] / 2.0
+            capacity = self.pc.normalized_interaction_energies[p_deprot_instance, q_deprot_instance] // 2.0
 
             if capacity != 0.0:
                 self.DG.add_edge(p_deprot_node, q_prot_node, capacity=capacity)
                 self.DG.add_edge(q_deprot_node, p_prot_node, capacity=capacity)
 
-            capacity = self.pc.normalized_interaction_energies[p_prot_instance, q_deprot_instance] / 2.0
+            capacity = self.pc.normalized_interaction_energies[p_prot_instance, q_deprot_instance] // 2.0
 
             if capacity != 0.0:
                 self.DG.add_edge(p_prot_node, q_prot_node, capacity=capacity)
                 self.DG.add_edge(q_deprot_node, p_deprot_node, capacity=capacity)
 
-            capacity = self.pc.normalized_interaction_energies[p_deprot_instance, q_prot_instance] / 2.0
+            capacity = self.pc.normalized_interaction_energies[p_deprot_instance, q_prot_instance] // 2.0
 
             if capacity != 0.0:
                 self.DG.add_edge(p_deprot_node, q_deprot_node, capacity=capacity)
                 self.DG.add_edge(q_prot_node, p_prot_node, capacity=capacity)
 
-            capacity = self.pc.normalized_interaction_energies[p_prot_instance, q_prot_instance] / 2.0
+            capacity = self.pc.normalized_interaction_energies[p_prot_instance, q_prot_instance] // 2.0
 
             if capacity != 0.0:
                 self.DG.add_edge(p_prot_node, q_deprot_node, capacity=capacity)

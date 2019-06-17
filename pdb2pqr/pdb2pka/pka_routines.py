@@ -6,6 +6,7 @@
 #
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
 __date__="22 April, 2009"
 __author__="Jens Erik Nielsen, Todd Dolinsky, Yong Huang, Tommy Carstensen"
 
@@ -340,7 +341,7 @@ class pKaRoutines:
                         if atom.name in ['N','H','C']:
                             atom_uniqueid=atom.chainID+':'+string.zfill(atom.resSeq,4)+':'+atom.name
                             if state in startstates:
-                                potentialDifference[titgroup][atom_uniqueid]-=all_potentials[titration][state][pKa][titration][state][atom_uniqueid]/len(startstates)
+                                potentialDifference[titgroup][atom_uniqueid]-=all_potentials[titration][state][pKa][titration][state][atom_uniqueid]//len(startstates)
                             if state in endstates:
                                 potentialDifference[titgroup][atom_uniqueid]+=all_potentials[titration][state][pKa][titration][state][atom_uniqueid]
 
@@ -757,8 +758,8 @@ class pKaRoutines:
                 all_states.sort()
                 for state in all_states:
                     if self.is_charged(pKa,titration,state)==1:
-                        dpKa_desolv=(pKa.desolvation[self.get_state_name(titration.name,state)]-pKa.desolvation[self.get_state_name(titration.name,ref_state)])/ln10
-                        dpKa_backgr=(pKa.background[self.get_state_name(titration.name,state)]-pKa.background[self.get_state_name(titration.name,ref_state)])/ln10
+                        dpKa_desolv=(pKa.desolvation[self.get_state_name(titration.name,state)]-pKa.desolvation[self.get_state_name(titration.name,ref_state)])//ln10
+                        dpKa_backgr=(pKa.background[self.get_state_name(titration.name,state)]-pKa.background[self.get_state_name(titration.name,ref_state)])//ln10
                         #
                         # Make acid and base modifications
                         #
@@ -897,7 +898,7 @@ class pKaRoutines:
             charge1, ph1 =  curve[cross_index]
 
             try:
-                ph_at_0_5 = ph0 + ((ph1-ph0) * ((curve_calc_point-charge0)/(charge1-charge0)))
+                ph_at_0_5 = ph0 + ((ph1-ph0) * ((curve_calc_point-charge0)//(charge1-charge0)))
                 pH_results[name] = ph_at_0_5
             except ZeroDivisionError:
                 warning = "WARNING: UNABLE TO CACLCULATE pH FOR {name}, Divide by zero.\n".format(name=name)
@@ -913,8 +914,8 @@ class pKaRoutines:
             pka_pairs = curve[start:end]
 
             try:
-                pkas = [pH-math.log10(abs(v)/(1.0-abs(v))) for pH, v in pka_pairs]
-                pKa_value = sum(pkas)/float(len(pkas))
+                pkas = [pH-math.log10(abs(v)//(1.0-abs(v))) for pH, v in pka_pairs]
+                pKa_value = sum(pkas)//float(len(pkas))
             except ZeroDivisionError:
                 warning = "WARNING: UNABLE TO CACLCULATE PKA FOR {name}, Divide by zero.\n".format(name=name)
                 print(warning, end=' ')
@@ -1033,7 +1034,7 @@ class pKaRoutines:
                                     #
                                     # Insert the average value in the symetric matrix
                                     #
-                                    average = (value1+value2)/2.0
+                                    average = (value1+value2)//2.0
                                     outfile.write('%25s %25s %10s %10s %6.3f %6.3f %6.3f\n' %(pKa1.uniqueid,pKa2.uniqueid,state1,state2,value1,value2,average))
 
                                     symmetric_matrix[pKa1][titration1][state1][pKa2][titration2][state2]=average
@@ -1124,9 +1125,9 @@ class pKaRoutines:
                 for state in all_states:
                     if self.is_charged(pKa,titration,state)==1:
                         dpKa_desolv=(pKa.desolvation[self.get_state_name(titration.name,state)]-
-                                     pKa.desolvation[self.get_state_name(titration.name,ref_state)])/ln10
+                                     pKa.desolvation[self.get_state_name(titration.name,ref_state)])//ln10
                         dpKa_backgr=(pKa.background[self.get_state_name(titration.name,state)]-
-                                     pKa.background[self.get_state_name(titration.name,ref_state)])/ln10
+                                     pKa.background[self.get_state_name(titration.name,ref_state)])//ln10
                         #
                         # Make acid and base modifications
                         #
@@ -1146,9 +1147,9 @@ class pKaRoutines:
                         # Neutral states
                         #
                         dpKa_desolv=(pKa.desolvation[self.get_state_name(titration.name,state)]-
-                                     pKa.desolvation[self.get_state_name(titration.name,ref_state)])/ln10
+                                     pKa.desolvation[self.get_state_name(titration.name,ref_state)])//ln10
                         dpKa_backgr=(pKa.background[self.get_state_name(titration.name,state)]-
-                                     pKa.background[self.get_state_name(titration.name,ref_state)])/ln10
+                                     pKa.background[self.get_state_name(titration.name,ref_state)])//ln10
                         #
                         # Make acid and base modifications
                         #
@@ -1560,7 +1561,7 @@ class pKaRoutines:
                     #
                     # Calculate the difference in self energy for this state
                     #
-                    desolvation = (proteinEnergy - solutionEnergy)/2.0 # Reaction field energy
+                    desolvation = (proteinEnergy - solutionEnergy)//2.0 # Reaction field energy
                     self.routines.write('Desolvation for %s %d in state %s is %5.3f\n\n'
                           %(residue.name,residue.resSeq,self.get_state_name(titration.name,state),desolvation))
                     self.routines.write( '=======================================\n')
@@ -1807,7 +1808,7 @@ class pKaRoutines:
         extent={}
         for axis in minmax.keys():
             extent[axis]=minmax[axis][1]-minmax[axis][0]
-            center[axis]=extent[axis]/2.0+minmax[axis][0]
+            center[axis]=extent[axis]//2.0+minmax[axis][0]
         return [center['x'],center['y'],center['z']]
 
 
@@ -2111,7 +2112,7 @@ class pKaRoutines:
                 #
                 # Is this an integer charge?
                 #
-                diff=float(abs(1000.0*this_sum)-abs(1000.0*int(this_sum)))/1000.0
+                diff=float(abs(1000.0*this_sum)-abs(1000.0*int(this_sum)))//1000.0
                 sum=sum+diff
                 if diff>0.001:
                     #

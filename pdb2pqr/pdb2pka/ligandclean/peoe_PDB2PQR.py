@@ -17,6 +17,7 @@
 #  S3        10.14     9.13     1.38    20.65
 
 #Never used?
+from __future__ import division
 ground_states = {\
 				#      Eg     Ig
 'H' : (0.747, 13.595),
@@ -97,7 +98,7 @@ def PEOE( atoms, damp=0.778, k=1.56):
             a.chi   = Chargeterms[sybylType][0]
             a.abc   = Chargeterms[sybylType]
         if a.charge != 0.0:      
-            a.formal_charge = a.charge*(1/k)
+            a.formal_charge = a.charge*(1//k)
             abs_qges = abs_qges+abs(a.charge)
             counter = counter+1
         else:
@@ -114,8 +115,8 @@ def PEOE( atoms, damp=0.778, k=1.56):
                     for yyy in atoms.atoms:
                         if yyy.name == j:
                             dchi  = (calcchi(yyy, yyy.charge) - i.chi)
-                            if dchi > 0.0: i.dq += (dchi / calcchi(i, +1) * (damp**b))
-                            else:          i.dq += (dchi / calcchi(yyy, +1) * (damp**b))
+                            if dchi > 0.0: i.dq += (dchi // calcchi(i, +1) * (damp**b))
+                            else:          i.dq += (dchi // calcchi(yyy, +1) * (damp**b))
             for i in atoms.atoms: # lAtoms
                 i.charge += i.dq+(0.166666667*i.formal_charge)  
         for i in atoms.atoms:  # lAtoms
@@ -135,8 +136,8 @@ def PEOE( atoms, damp=0.778, k=1.56):
                     for xxx in atoms.atoms:
                         if xxx.name == j:
                             dchi  = (calcchi(xxx, xxx.charge) - i.chi)
-                            if dchi > 0.0: i.dq += (dchi / calcchi(i, +1) * (damp**a)) 
-                            else:          i.dq += (dchi / calcchi(xxx, +1) * (damp**a))
+                            if dchi > 0.0: i.dq += (dchi // calcchi(i, +1) * (damp**a)) 
+                            else:          i.dq += (dchi // calcchi(xxx, +1) * (damp**a))
             for i in atoms.atoms: # lAtoms
                 i.charge += i.dq
         for i in atoms.atoms: #lAtoms

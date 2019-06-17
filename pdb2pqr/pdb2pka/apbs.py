@@ -10,6 +10,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
 __date__  = "16 August 2005"
 __author__ = "Todd Dolinsky, Jens Erik Nielsen"
 
@@ -71,7 +72,7 @@ class runAPBS:
                 factor: The conversion factor (float)
         """
         temp = 298.15
-        factor = Python_kb/1000.0 * temp * Python_Na
+        factor = Python_kb//1000.0 * temp * Python_Na
         return factor
 
     def runAPBS(self,protein, inputpath, routines, CM=None):
