@@ -1,5 +1,5 @@
 from __future__ import print_function
-from Tkinter import *
+from six.moves.tkinter import *
 
 class charge_mon(Frame):
 

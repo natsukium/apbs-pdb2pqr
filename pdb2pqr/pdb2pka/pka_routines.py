@@ -13,7 +13,7 @@ import os
 import sys
 import pKaIO_compat
 from pKa_base import *
-import cPickle
+import six.moves.cPickle
 import pMC_mult
 import math
 import copy
@@ -24,7 +24,7 @@ from graph_cut.titration_curve import get_titration_curves
 from graph_cut.create_titration_output import create_output
 
 if debug:
-    from Tkinter import *
+    from six.moves.tkinter import *
     from charge_mon import *
 
     CM=charge_mon()
@@ -473,7 +473,7 @@ class pKaRoutines:
         #
         if os.path.isfile(intene_file_name):
             with open(intene_file_name) as fd:
-                savedict=cPickle.load(fd)
+                savedict=six.moves.cPickle.load(fd)
             #
             # pKD?
             #
@@ -481,7 +481,7 @@ class pKaRoutines:
                 try:
                     sys.stdout.flush()
                     with open(allpots_file_name) as fd:
-                        allsavedict=cPickle.load(fd)
+                        allsavedict=six.moves.cPickle.load(fd)
                     read_allpots=1
                 except EOFError:
                     self.routines.write('\n')
@@ -676,10 +676,10 @@ class pKaRoutines:
         #
         if calculated_energy:
             with open(intene_file_name,'w') as fd:
-                cPickle.dump(savedict,fd)
+                six.moves.cPickle.dump(savedict,fd)
             if mode=='pKD' and not read_allpots:
                 with open(allpots_file_name,'w') as fd:
-                    cPickle.dump(allsavedict,fd)
+                    six.moves.cPickle.dump(allsavedict,fd)
         return energies,all_potentials
 
     #
@@ -1242,7 +1242,7 @@ class pKaRoutines:
         backgroundname = os.path.join(self.state_files,'background_interaction_energies.pickle')
         if os.path.isfile(backgroundname):
             with open(backgroundname) as fd:
-                savedict=cPickle.load(fd)
+                savedict=six.moves.cPickle.load(fd)
         else:
             savedict={}
 
@@ -1417,7 +1417,7 @@ class pKaRoutines:
                     # Dump the pickle file
                     #
                     with open(backgroundname,'w') as fd:
-                        cPickle.dump(savedict,fd)
+                        six.moves.cPickle.dump(savedict,fd)
 
         with open(self.output_files['background_interaction_energies_file_path'] , 'w') as f:
             keys = savedict.keys()
@@ -1443,7 +1443,7 @@ class pKaRoutines:
         desolvname=os.path.join(self.state_files, 'desolvation_energies.pickle')
         if os.path.isfile(desolvname):
             with open(desolvname) as fd:
-                savedict=cPickle.load(fd)
+                savedict=six.moves.cPickle.load(fd)
         else:
             savedict={}
         #
@@ -1571,7 +1571,7 @@ class pKaRoutines:
                     # Dump a pickle file
                     #
                     with open(desolvname,'w') as fd:
-                        cPickle.dump(savedict,fd)
+                        six.moves.cPickle.dump(savedict,fd)
 
         with open(self.output_files['desolvation_energies_file_path'], 'w') as f:
             keys = savedict.keys()
@@ -1882,7 +1882,7 @@ class pKaRoutines:
                 # Yes!
                 #
                 with open(result_file,'rb') as fd:
-                    potentials=cPickle.load(fd)
+                    potentials=six.moves.cPickle.load(fd)
                     loaded=True
         #
         # Run calc again if needed
@@ -1896,7 +1896,7 @@ class pKaRoutines:
                 self.APBS=None
             if save_results:
                 with open(result_file,'wb') as fd:
-                    cPickle.dump(potentials,fd)
+                    six.moves.cPickle.dump(potentials,fd)
 
         return potentials
 
